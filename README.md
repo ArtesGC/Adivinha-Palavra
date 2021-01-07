@@ -27,7 +27,7 @@ HI I INRODUCE TO YOU THE VERSION 0.3 OF MY NEW GAME GUESSING WORD
 
 CONTACTOS - CONTACTS:
 
-FACEBOOK: https://facebook.com/artesgc.home.blog
-WHATSAPP: +27735550878
-EMAIL: nuruldecarvalho@gmail.com
+FACEBOOK: https://facebook.com/artesgc.home.blog <br>
+WHATSAPP: +27735550878 <br>
+EMAIL: nuruldecarvalho@gmail.com <br>
 WEBSITE: https://artesgc.home.blog
