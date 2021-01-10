@@ -20,7 +20,7 @@ from tkinter.scrolledlist import ScrolledList
 class J3A7P6:
     """
     Type: PythonSource
-    Name: Jogo Adivinha o Nome
+    Name: Jogo Adivinha a Palavra
     Modified: 18/04/2020 10:00pm
     Created: 31/03/2020 07:00am
     Version: 0.1-042020 - 0.2-042020 - 0.3-042020 - 0.4-012021
