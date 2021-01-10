@@ -7,8 +7,6 @@
 #  Foco Fé Força Paciência
 #  Allah no Comando.
 
-#
-from os import curdir
 from random import *
 from tkinter import *
 import tkinter.ttk as ttk
@@ -32,13 +30,13 @@ class J3A7P6:
         self.gc_ = None
         self.janela = None
         self.gc = Tk()
-        # self.gc.iconbitmap(default=f'{curdir}/img/adivinhapalavra_gc.ico')
+        # self.gc.iconbitmap(default='./img/adivinhapalavra_gc.ico')
         self.gc.title('  🙋')
         self.gc.resizable(0, 0)
 
         #
-        self.ft = PhotoImage(file=f'{curdir}/img/02.png')
-        self.foto5 = PhotoImage(file=f'{curdir}/img/03.png')
+        self.ft = PhotoImage(file="./img/02.png")
+        self.foto5 = PhotoImage(file="./img/03.png")
         self.nome = StringVar()
         self.nivel = IntVar()
         self.n_tentativas = IntVar()
@@ -55,7 +53,8 @@ class J3A7P6:
     def jogo(self):
 
         def pt():
-            palavra_ = ['ATENCIOSO', 'AGRADAVEL', 'ADORAVAEL', 'AMAVEL', 'AFAVEL', 'AMIGAVEL', 'AMOROSO', 'AUTENTICO', 'APIXONADO', 'ANIMADO', 'ALEGRE', 'AMISTOSO', 'AMIGO',
+            showinfo("Atenção", "Para uma melhor experiência de jogo leia as instruções que se encontram no menu de opções..\nObrigado pelo apoio! - ArtesGC")
+            palavra_ = ['ATENCIOSO', 'AGRADAVEL', 'ADORAVEL', 'AMAVEL', 'AFAVEL', 'AMIGAVEL', 'AMOROSO', 'AUTENTICO', 'APIXONADO', 'ANIMADO', 'ALEGRE', 'AMISTOSO', 'AMIGO',
                         'AFETIVO', 'AFETUOSO', 'ACOLHEDOR', 'APRAZIVEL', 'ATRAENTE', 'ATRATIVO', 'AUDAZ', 'AVENTUREIRO', 'ARROJADO', 'AUSPICIOSO', 'APLICADO', 'ALTRUISTA', 'ASSERTIVO', 'ATENTO',
                         'AGIL', 'APTO', 'ATILADO', 'ASTUTO', 'ARGUTO', 'AJUIZADO', 'ASSOMBROSO', 'ADMIRAVEL', 'AIROSO', 'ADONISAFORTUNADO', 'ACAUTELADO', 'ANGELICAL', 'ABERTO', 'ACESSIVEL',
                         'BOM', 'BONDOSO', 'BONITO', 'BELO', 'BACANA', 'BENDITO', 'BATALHADOR', 'BASEADO', 'BENEMERITO', 'BENFEITOR', 'BENEVOLO', 'BENEVOLENTE', 'BRILHANTE', 'BRIOSO', 'BRINCALHAO',
@@ -65,9 +64,8 @@ class J3A7P6:
                         'COMPREENSIVO', 'CONFIANTE', 'CONFIAVEL', 'CONFIDENTE, CONHECEDOR', 'CONSCIENCIOSO', 'CONSCIENTE', 'CONTENTE', 'CONVICTO', 'COOPERADOR', 'CORAJOSO', 'CORDIAL',
                         'CORRECTO', 'CORTES', 'CRANIO', 'CREDIVEL', 'CRESCIDO', 'CRIATIVO', 'CRITERIOSO', 'CRIVEL', 'CUIDADOSO', 'CULTO', 'DIVERTIDO', 'DEDICADO', 'DECENTE', 'DIGNO', 'DECOROSO',
                         'DECIDIDO', 'DEFERENTE', 'DELICADO', 'DESTEMIDO', 'DENODADO', 'DADO', 'DOCE', 'DOCIL', 'DISTINTO', 'DIREITO', 'DADIVOSO', 'DOTADO', 'DISPONIVEL', 'DINAMICO', 'DILIGENTE',
-                        'DONAIROSO',
-                        'DISPOSTO',
-                        'DISCRETO', 'DIPLOMATICO', 'DISCIPLINADO', 'DIRETO', 'DILETO', 'DEVOTO', 'DEVANEADOR', 'DEVOTO', 'DEVANEADOR', 'DEUS', 'DESLUMBRANTE', 'DESEJAVEL', 'DESENVOLVIDO',
+                        'DONAIROSO', 'DISPOSTO',
+                        'DISCRETO', 'DIPLOMATICO', 'DISCIPLINADO', 'DIRETO', 'DILETO', 'DEVOTO', 'DEVANEADOR', 'DEUS', 'DESLUMBRANTE', 'DESEJAVEL', 'DESENVOLVIDO',
                         'DESENRASCADO', 'DESENROLADO',
                         'EDUCADO', 'EFICIENTE', 'EFUSIVO', 'ELEGANTE', 'ELOQUENTE', 'EMANCIPADO', 'EMINENTE', 'EMPATICO', 'EMPENHADO', 'EMPOLGADO', 'EMPREENDEDOR', 'ENCANTADOR', 'ENCORAJADOR',
                         'ENGENHOSO', 'ENGRACADO',
@@ -150,7 +148,7 @@ Para uma melhor experiência de jogo:
     conte quantas letras tem a suposta palavra
     identificada pelos simbolos '_' (referem-se as letras da palavra)
     e use a lista de palavras que estão escondidas no menu de opções
-    (Palavras Secretas).. E use as como referência para as suas tentativas!
+    (Palavras Secretas).. Use as como referência para as suas tentativas!
 
 Que Deus Te Ilumine Nessa Aventura!
 
@@ -251,8 +249,7 @@ Pontos: {self.pontos.get()}""", fg='green')
                         b2.grid(row=5, column=2, sticky=W)
 
                     elif self.rodada.get() == self.n_tentativas.get():
-                        lr.configure(text=f"""(T.T) Ownn
-LAMENTO {self.nome.get()}
+                        lr.configure(text=f"""(T.T) LAMENTO {self.nome.get()}
 VOCÊ ESGOTOU TODAS AS TENTATIVAS..
 Palavra Secreta: {palavra}
 
