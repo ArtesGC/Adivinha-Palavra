@@ -31,7 +31,7 @@ class J3A7P6:
         self.janela = None
         self.gc = Tk()
         # self.gc.iconbitmap(default='./img/adivinhapalavra_gc.ico')
-        self.gc.title('  🙋')
+        self.gc.title('Adivinha Palavra')
         self.gc.resizable(0, 0)
 
         #
@@ -323,7 +323,7 @@ Pontos: {self.pontos.get()}""", fg='red')
         self.tab.select(self.tab1)
         self.tab1.configure(padx=30, pady=10, bg='MistyRose1')
         #
-        Label(self.tab1, text="💻 ADIVINHE A PALAVRA 💻", font='Consolas 12 bold', fg='#d513bc', bg='MistyRose1').grid(row=0, column=0)
+        Label(self.tab1, text="JOGO ADIVINHE A PALAVRA", font='Consolas 12 bold', fg='#d513bc', bg='MistyRose1').grid(row=0, column=0)
         Label(self.tab1, image=self.ft, bg='#d513bc').grid(row=1, column=0, pady=10)
         f = LabelFrame(self.tab1, bg='MistyRose1')
         f.grid(row=2, column=0)
