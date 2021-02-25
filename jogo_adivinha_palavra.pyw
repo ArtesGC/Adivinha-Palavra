@@ -35,8 +35,8 @@ class J3A7P6:
         self.gc.resizable(0, 0)
 
         #
-        self.ft = PhotoImage(file="./img/02.png")
-        self.foto5 = PhotoImage(file="./img/03.png")
+        self.ft = PhotoImage(file="img/02.png")
+        self.foto5 = PhotoImage(file="img/03.png")
         self.nome = StringVar()
         self.nivel = IntVar()
         self.n_tentativas = IntVar()

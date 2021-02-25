@@ -1,6 +1,4 @@
 git init
-git add ./en/*
-git add ./pt/*
 git add ./*
 git commit -m "updating commit"
 git remote add origin https://github.com/Nurul-GC/Adivinha-Palavra.git
