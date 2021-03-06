@@ -1,20 +1,14 @@
-# OLÁ APRESENTO TE A 0.4 VERSÃO DO MEU NOVO JOGO ADIVINHE A PALAVRA
+# JOGO ADIVINHE A PALAVRA
 
-- NESTA VERSÃO PUDE RESOLVER ALGUMAS FALHAS DAS VERSÕES PASSADAS
 
-    VANTAGENS:
-    - DOIS IDIOMAS (INGLÊS - PORTUGUÊS);
-    - MAIS DE 500 PALAVRAS
+    - MAIS DE 500 PALAVRAS;
     - OBJECTIVO, ADIVINHAR UMA PALAVRA ESCOLHIDA ALEATORIAMENTE;
     - COM DIREITO A ESCOLHA DE NÍVEIS E NÚMERO DE TENTATIVAS;
-    - UMA APARÊNCIA SIMPLES;
+    - UMA APARÊNCIA SIMPLES E BASTANTE PRÁTICA;
 
-<hr>
+![adivinha-palavra-icon](img/adivinhapalavra-ico1.png)
 
-CONTACTOS:
+---
 
-FACEBOOK: [Artesgc](https://facebook.com/artesgc.home.blog) <br>
-WHATSAPP: +27735550878 <br>
-TELEGRAM: +27735550878 <br>
-EMAIL: [Nurul Carvalho](mailto:nuruldecarvalho@gmail.com) <br>
-WEBSITE: [ArtesGC](https://artesgc.home.blog)
+&COPY; 2019-2021 [Nurul Carvalho](mailto:nuruldecarvalho@gmail.com) \
+&TRADE; [ArtesGC](https://artesgc.home.blog)
