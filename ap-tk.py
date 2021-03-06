@@ -35,7 +35,6 @@ class J3A7P6:
         self.gc.title('Adivinha Palavra')
         self.gc.resizable(0, 0)
 
-        #
         self.ft = PhotoImage(file="img/02.png")
         self.foto5 = PhotoImage(file="img/03.png")
         self.nome = StringVar()
@@ -318,12 +317,11 @@ Pontos: {self.pontos.get()}""", fg='red')
             Button(f1, text='Jogar', command=jogo_nivel, bg='cyan').grid(row=2, column=1, sticky=E)
             enm.focus()
 
-        #
         self.tab1 = LabelFrame(self.tab)
         self.tab.add(self.tab1, text='Bem Vindo')
         self.tab.select(self.tab1)
         self.tab1.configure(padx=30, pady=10, bg='MistyRose1')
-        #
+
         Label(self.tab1, text="JOGO ADIVINHE A PALAVRA", font='Consolas 12 bold', fg='#d513bc', bg='MistyRose1').grid(row=0, column=0)
         Label(self.tab1, image=self.ft, bg='#d513bc').grid(row=1, column=0, pady=10)
         f = LabelFrame(self.tab1, bg='MistyRose1')
