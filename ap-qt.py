@@ -8,3 +8,9 @@
 #  Allah no Comando.                                                           *
 # ******************************************************************************
 
+from PyQt5.Qt import *
+from sys import argv
+
+
+class J3A7P6:
+
