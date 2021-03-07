@@ -199,7 +199,7 @@ Empresa: ArtesGC Inc.
 
                 #
                 self.rodada.set(0)
-                palavra_l = len(palavra_)
+                palavra_l = len(palavra_)  # 536 palavras
                 palavra = palavra_[randrange(palavra_l)]
                 letra = ['_' for ltra in palavra]
 
@@ -225,7 +225,6 @@ VOCÊ ACERTOU {self.nome.get()}!
 {letra}
 Pontos {self.pontos.get()}''', fg='blue')
                             posicao += 1
-
                     else:
                         self.pontos.set(abs(self.pontos.get() - 50))
                         lr.configure(text=f'''Nível: {self.nivel.get()} Rodada: {self.rodada.get()} de {self.n_tentativas.get()}
@@ -233,7 +232,6 @@ Pontos {self.pontos.get()}''', fg='blue')
 (O_O) Upss..
 VOCÊ ERROU {self.nome.get()}!
 Pontos {self.pontos.get()}''', fg='red')
-
                     #
                     acertou = '_' not in letra
                     if acertou:
@@ -247,7 +245,6 @@ Rodada: {self.rodada.get()} de {self.n_tentativas.get()}
 Pontos: {self.pontos.get()}""", fg='green')
                         b.configure(text='Jogar de Novo', command=novo, bg='blue', fg='white')
                         b2.grid(row=5, column=2, sticky=W)
-
                     elif self.rodada.get() == self.n_tentativas.get():
                         lr.configure(text=f"""(T.T) LAMENTO {self.nome.get()}
 VOCÊ ESGOTOU TODAS AS TENTATIVAS..
