@@ -2,10 +2,10 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Adivinha a Palavra"
-#define MyAppVersion "0.4.012021"
+#define MyAppVersion "0.5.032021"
 #define MyAppPublisher "ArtesGC Inc."
 #define MyAppURL "http://artesgc.home.blog"
-#define MyAppExeName "jogo_adivinha_palavra.exe"
+#define MyAppExeName "adivinhapalavra.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -20,7 +20,7 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\{#MyAppName}
 VersionInfoCompany={#MyAppPublisher}
-VersionInfoCopyright="Nurul GC"
+VersionInfoCopyright="(c) 2019-2021 Nurul GC"
 VersionInfoDescription="Jogo com objectivo de Adivinhar a Palavra selecionada (letra por letra)"
 VersionInfoOriginalFileName={#MyAppName}
 VersionInfoProductName="Jogo {#MyAppName}"
@@ -32,14 +32,14 @@ DisableDirPage=yes
 DisableProgramGroupPage=yes
 ; The [Icons] "quicklaunchicon" entry uses {userappdata} but its [Tasks] entry has a proper IsAdminInstallMode Check.
 UsedUserAreasWarning=no
-LicenseFile=D:\Projectos\GC-Jogos\Jogo_Adivinha_Palavra\pt\license_AFL(pt).txt
+LicenseFile=D:\Projectos\GC-Jogos\Jogo_Adivinha_Palavra\license_AFL(pt).txt
 InfoAfterFile=D:\Projectos\GC-Jogos\Jogo_Adivinha_Palavra\LEIA.txt
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputDir=D:\Projectos\GC-Jogos\Jogo_Adivinha_Palavra\pt\dist
-OutputBaseFilename=Adivinha a Palavra (JOGO)
-SetupIconFile=D:\Projectos\GC-Jogos\Jogo_Adivinha_Palavra\pt\img\adivinhapalavra_gc.ico
+OutputDir=D:\Projectos\GC-Jogos\Jogo_Adivinha_Palavra\dist
+OutputBaseFilename=adivinha-palavra-{#MyAppVersion}
+SetupIconFile=D:\Projectos\GC-Jogos\Jogo_Adivinha_Palavra\img\ico\imagc-256x256.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -52,9 +52,9 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 6.1; Check: not IsAdminInstallMode
 
 [Files]
-Source: "D:\Projectos\GC-Jogos\Jogo_Adivinha_Palavra\pt\dist\jogo_adivinha_palavra.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Projectos\GC-Jogos\Jogo_Adivinha_Palavra\pt\img\*"; DestDir: "{app}\img"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "D:\Projectos\GC-Jogos\Jogo_Adivinha_Palavra\pt\license_AFL(pt).txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Projectos\GC-Jogos\Jogo_Adivinha_Palavra\dist\adivinhapalavra.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Projectos\GC-Jogos\Jogo_Adivinha_Palavra\img\*"; DestDir: "{app}\img"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "D:\Projectos\GC-Jogos\Jogo_Adivinha_Palavra\license_AFL(pt).txt"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
