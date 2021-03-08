@@ -110,41 +110,41 @@ class J3A7P6:
         self.jogada = 0
 
         # ******* menu *******
-        menu = QToolBar(self.ferramentas)
-        self.reiniciarJogo = menu.addAction("Reiniciar")
+        menuFerramentas = QToolBar(self.ferramentas)
+        self.reiniciarJogo = menuFerramentas.addAction("Reiniciar")
         self.reiniciarJogo.setEnabled(False)
         self.reiniciarJogo.triggered.connect(self._reiniciarJogo)
-        menu.addSeparator()
+        menuFerramentas.addSeparator()
 
-        instr = menu.addAction("Instruções")
+        instr = menuFerramentas.addAction("Instruções")
         instr.triggered.connect(self._instr)
-        menu.addSeparator()
+        menuFerramentas.addSeparator()
 
-        palavraSecretas = menu.addAction("Palavras Secretas")
+        palavraSecretas = menuFerramentas.addAction("Palavras Secretas")
         palavraSecretas.triggered.connect(self._palavrasSecretas)
-        menu.addSeparator()
+        menuFerramentas.addSeparator()
 
-        sobre = menu.addAction("Sobre")
+        sobre = menuFerramentas.addAction("Sobre")
         sobre.triggered.connect(self._sobre)
-        menu.addSeparator()
+        menuFerramentas.addSeparator()
 
-        sair = menu.addAction("Sair")
+        sair = menuFerramentas.addAction("Sair")
         sair.triggered.connect(self._sair)
-        menu.addSeparator()
+        menuFerramentas.addSeparator()
 
         self.janelaPrincipal()
 
     def _reiniciarJogo(self):
         if self.janela02 is None:
-            return self.iniciarJogo()
+            return self.dadosJogador()
         try:
             self.tab.setCurrentWidget(self.janela02)
         except Exception as e:
             self.tab.removeTab(0)
-            return self.iniciarJogo()
+            return self.dadosJogador()
         else:
             self.tab.removeTab(0)
-            return self.iniciarJogo()
+            return self.dadosJogador()
 
     def _palavrasSecretas(self):
         if self.janela04 is None:
@@ -218,7 +218,7 @@ Empresa: ArtesGC Inc.
                     sleep(0.5)
                     barraProgresso.setValue(i)
                 self.tab.removeTab(0)
-                self.iniciarJogo()
+                self.dadosJogador()
 
         botaoIniciar = QPushButton("Iniciar Jogo")
         botaoIniciar.setChecked(True)
@@ -229,8 +229,10 @@ Empresa: ArtesGC Inc.
         self.tab.addTab(janela01, "Bem-Vindo")
         self.tab.setCurrentWidget(janela01)
 
-    def iniciarJogo(self):
+    def dadosJogador(self):
+        # ativar a opção de reiniciar jogo
         self.reiniciarJogo.setEnabled(True)
+        
         QMessageBox.information(self.ferramentas, "Atenção", "Para uma melhor experiência de jogo leia as instruções que se encontram na barra de menu..\nObrigado pelo apoio! - ArtesGC")
         self.janela02 = QWidget()
         layout = QFormLayout()
@@ -274,7 +276,7 @@ Empresa: ArtesGC Inc.
         self.nivel = QComboBox()
         self.nivel.addItems(niveis)
         self.nivel.setToolTip('Nível 1 - 25 tentativas\nNível 2 - 20 tentativas\nNível 3 - 15 tentativas')
-        layout.addRow("<b>Selecione o &Nível: *</b>", self.nivel)
+        layout.addRow("<b>Selecione o &Nível:</b>", self.nivel)
 
         botaoJogar = QPushButton("Jogar")
         botaoJogar.setDefault(True)
@@ -283,11 +285,11 @@ Empresa: ArtesGC Inc.
         layout.addWidget(botaoJogar)
 
         browser = lambda p: webbrowser.open('https://artesgc.home.blog')
-        labeCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
-        labeCopyright.setAlignment(Qt.AlignRight)
-        labeCopyright.setToolTip('Acesso a pagina oficial da ArtesGC!')
-        labeCopyright.linkActivated.connect(browser)
-        layout.addWidget(labeCopyright)
+        labelCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
+        labelCopyright.setAlignment(Qt.AlignRight)
+        labelCopyright.setToolTip('Acesso a pagina oficial da ArtesGC!')
+        labelCopyright.linkActivated.connect(browser)
+        layout.addWidget(labelCopyright)
 
         self.janela02.setLayout(layout)
         self.tab.addTab(self.janela02, "Jogador")
@@ -316,7 +318,7 @@ Empresa: ArtesGC Inc.
                         if self.letraJogador.text().upper() == letra:
                             self.pontos += 100
                             agrupaLetrasPalavra[posicao] = self.letraJogador.text().upper()
-                            labelJogo.setText(f"""{'-' * 50}
+                            labelJogo.setText(f"""{'-' * 60}
     Nível: {self.nivel.currentText()} Rodada: {self.jogada} de {self.tentativas}
     
     (^.^) Obaa..
@@ -325,45 +327,48 @@ Empresa: ArtesGC Inc.
     {agrupaLetrasPalavra}
     
     Pontos {self.pontos}
-    {'-' * 50}""")
+    {'-' * 60}""")
                             labelJogo.setStyleSheet("QLabel{background-color:white;color:blue;}")
                         posicao += 1
                 else:
                     self.pontos -= 50
-                    labelJogo.setText(f"""{'-' * 50}
+                    labelJogo.setText(f"""{'-' * 60}
     Nível: {self.nivel.currentText()} Rodada: {self.jogada} de {self.tentativas}
     
     (O_O) Upss..
     VOCÊ ERROU {self.nomeJogador.text()}!
+    
     Pontos {self.pontos}
-    {'-' * 50}""")
+    {'-' * 60}""")
                     labelJogo.setStyleSheet("QLabel{background-color:white;color:red;}")
                 if acertou:
-                    labelJogo.setText(f"""{'-' * 50}
+                    labelJogo.setText(f"""{'-' * 60}
     (^3^) Parabéns {self.nomeJogador.text()}
     VOCÊ GANHOU..
+    
     {agrupaLetrasPalavra}
     
     • Pontuação
     Nível: {self.nivel.currentText()}
     Rodada: {self.jogada} de {self.tentativas}
     Pontos: {self.pontos}
-    {'-' * 50}""")
+    {'-' * 60}""")
                     labelJogo.setStyleSheet("QLabel{background-color:white;color:green;}")
                     botaoValida.setText('Novo Jogo')
                     botaoValida.clicked.connect(novoJogo)
                     botaoFimJogo.setEnabled(True)
                 elif self.jogada == self.tentativas:
-                    labelJogo.setText(f"""{'-' * 50}
+                    labelJogo.setText(f"""{'-' * 60}
     (T.T) Lamento {self.nomeJogador.text()}
     VOCÊ ESGOTOU TODAS AS TENTATIVAS..
+    
     Palavra Secreta: {selecionaPalavraAleatoria}
     
     • Pontuação
     Nível: {self.nivel.currentText()}
     Rodada: {self.jogada} de {self.tentativas}
     Pontos: {self.pontos}
-    {'-' * 50}""")
+    {'-' * 60}""")
                     labelJogo.setStyleSheet("QLabel{background-color:white;color:red;}")
                     botaoValida.setText('Novo Jogo')
                     botaoValida.clicked.connect(novoJogo)
@@ -373,13 +378,13 @@ Empresa: ArtesGC Inc.
         layout = QVBoxLayout()
         layout.setSpacing(20)
 
-        labelInfo = QLabel(f"""Bem-Vindo <b>{self.nomeJogador.text()}</b><br>
+        labelInfo = QLabel(f"""<h3>Bem-Vindo <i>{self.nomeJogador.text()}</i><br>
 tente adivinhar qual é a palavra secreta.. <br>
-<b>{agrupaLetrasPalavra}</b>""")
+{agrupaLetrasPalavra}</h3>""")
         labelInfo.setAlignment(Qt.AlignHCenter)
         layout.addWidget(labelInfo)
 
-        labelJogo = QLabel('.  .  .  .  .')
+        labelJogo = QLabel('\n\n.  .  .  .  .')
         labelJogo.setStyleSheet("QLabel{background-color: white;}")
         labelJogo.setAlignment(Qt.AlignHCenter)
         layout.addWidget(labelJogo)
@@ -392,7 +397,7 @@ tente adivinhar qual é a palavra secreta.. <br>
         self.letraJogador = QLineEdit()
         self.letraJogador.setMaxLength(1)
         self.letraJogador.returnPressed.connect(validaJogada)
-        layoutLetraJogador.addRow('Digite a &letra:', self.letraJogador)
+        layoutLetraJogador.addRow('<b>Digite a &letra:</b>', self.letraJogador)
         layout.addLayout(layoutLetraJogador)
 
         botoesJogoLayout = QHBoxLayout()
