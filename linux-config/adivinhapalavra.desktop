@@ -1,0 +1,17 @@
+# Copyright (C) 2019-2021 Nurul GC
+# Trademark (TM) ArtesGC
+# .desktop for linux version
+
+[Desktop Entry]
+Type=Application
+Name=Adivinha Palavra
+GenericName=jogo de adivinha
+Comment=jogo com objectivo de adivinhar que palavra foi definida letra por letra!
+Categories=Game;
+Exec="./adivinhapalavra"
+Icon="./img/adivinhapalavra-ico2.png"
+StartupWMClass=Adivinha Palavra
+Terminal=false
+Name[pt]=adivinhapalavra.desktop
+Path="./"
+StartupNotify=true

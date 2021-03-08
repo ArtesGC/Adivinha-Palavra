@@ -8,3 +8,5 @@
 # Allah no Comando.                                                            *
 #*******************************************************************************
 
+ln -f "./adivinhapalavra.desktop" "$HOME/Área\ de\ Trabalho/"
+exec ./adivinhapalavra
