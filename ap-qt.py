@@ -9,7 +9,7 @@
 # ******************************************************************************
 
 from PyQt5.Qt import *
-from sys import argv
+from sys import argv, exit
 from time import sleep
 from random import randint
 import webbrowser
@@ -25,15 +25,13 @@ class J3A7P6:
         self.gc = QApplication(argv)
         self.ferramentas = QWidget()
         self.ferramentas.setWindowTitle("Adivinha Palavra")
-        self.ferramentas.setFont(QFont('times'))
-        self.ferramentas.setPalette(QPalette(QColor('cadetblue')))
-        self.ferramentas.setWindowIcon(QIcon("img/adivinhapalavra-ico2.png"))
-        self.ferramentas.setFixedSize(600, 500)
+        self.ferramentas.setStyleSheet('background-color:cadetblue; font-family:consolas; font-size:10pt;')
+        self.ferramentas.setWindowIcon(QIcon("img/adivinhapalavra-icon.png"))
+        self.ferramentas.setFixedSize(600, 550)
 
         # ******* criando abas para melhor organização *******
         self.tab = QTabWidget(self.ferramentas)
-        self.tab.setFixedSize(600, 480)
-        self.tab.move(0, 28)
+        self.tab.setGeometry(0, 30, 600, 520)
 
         # ******* lista de palavras *******
         self.palavras = ['ATENCIOSO', 'AGRADAVEL', 'ADORAVEL', 'AMAVEL', 'AFAVEL', 'AMIGAVEL', 'AMOROSO', 'AUTENTICO', 'APIXONADO', 'ANIMADO', 'ALEGRE', 'AMISTOSO', 'AMIGO',
@@ -98,7 +96,7 @@ class J3A7P6:
                          'VIVO', 'VIVAZ', 'VITAL', 'VIGILANTE',
                          'VULTOSO', 'ZELOSO', 'ZELADOR', 'ZELANTE']
 
-        # ******* variaveis *******
+        # ******* variáveis *******
         self.janela02 = None
         self.janela03 = None
         self.janela04 = None
@@ -110,27 +108,26 @@ class J3A7P6:
         self.jogada = 0
 
         # ******* menu *******
-        menuFerramentas = QToolBar(self.ferramentas)
+        menuFerramentas = QMenuBar(self.ferramentas)
         self.reiniciarJogo = menuFerramentas.addAction("Reiniciar")
         self.reiniciarJogo.setEnabled(False)
         self.reiniciarJogo.triggered.connect(self._reiniciarJogo)
-        menuFerramentas.addSeparator()
 
-        instr = menuFerramentas.addAction("Instruções")
+        opcoes = menuFerramentas.addMenu("Opções")
+
+        instr = opcoes.addAction("Instruções")
         instr.triggered.connect(self._instr)
-        menuFerramentas.addSeparator()
+        opcoes.addSeparator()
 
-        palavraSecretas = menuFerramentas.addAction("Palavras Secretas")
+        palavraSecretas = opcoes.addAction("Palavras Secretas")
         palavraSecretas.triggered.connect(self._palavrasSecretas)
-        menuFerramentas.addSeparator()
+        opcoes.addSeparator()
+
+        sair = opcoes.addAction("Sair")
+        sair.triggered.connect(self._sair)
 
         sobre = menuFerramentas.addAction("Sobre")
         sobre.triggered.connect(self._sobre)
-        menuFerramentas.addSeparator()
-
-        sair = menuFerramentas.addAction("Sair")
-        sair.triggered.connect(self._sair)
-        menuFerramentas.addSeparator()
 
         self.janelaPrincipal()
 
@@ -165,10 +162,10 @@ Este Jogo Consiste em Ganhar o Máximo de Pontos Possiveis em Poucas Tentativas,
 acertando Que Palavra Foi Definida (LETRA POR LETRA)..
 
 Para uma melhor experiência de jogo:
-    conte quantas letras tem a suposta palavra
-    identificada pelos simbolos '_' (referem-se as letras da palavra)
-    e use a lista de palavras que estão escondidas no menu de opções
-    (Palavras Secretas).. Use as como referência para as suas tentativas!
+- Conte quantas letras tem a suposta palavra
+- identificada pelos simbolos '_' (referem-se as letras da palavra)
+- e use a lista de palavras que estão escondidas no menu de opções (Palavras Secretas)
+- Use as como referência para as suas tentativas!
 
 Que Deus Te Ilumine Nessa Aventura!
 
@@ -183,69 +180,56 @@ Muito Obrigado pelo apoio!
     def _sobre(self):
         QMessageBox.information(self.ferramentas, 'Sobre', '''
 Nome: Jogo Adivinha Palavra
-Versão: 0.5-032021
+Versão: 0.6-052021
 Designer e Programador: Nurul GC
 Empresa: ArtesGC Inc.
 ''')
 
     def _sair(self):
-        self.gc.exit(0)
+        sair = QMessageBox.question(self.ferramentas, "Sair", "Tem mesmo a certeza que deseja sair?")
+        if sair == QMessageBox.Yes:
+            exit(0)
+        else:
+            pass
 
     def janelaPrincipal(self):
         janela01 = QWidget()
         layout = QVBoxLayout()
 
         labelImagem = QLabel()
-        labelImagem.setPixmap(QPixmap("img/adivinhapalavra-ico1.png").scaled(QSize(373, 376)))
+        labelImagem.setPixmap(QPixmap("img/adivinhapalavra-logo.png").scaled(QSize(570, 400)))
         labelImagem.setAlignment(Qt.AlignHCenter)
         layout.addWidget(labelImagem)
 
         barraProgresso = QProgressBar()
         barraProgresso.setGeometry(200, 100, 200, 30)
         barraProgresso.setAlignment(Qt.AlignHCenter)
-        barraProgresso.setStyleSheet("""
-        QProgressBar{
-        border: 1px solid green
-        }""")
+        barraProgresso.setStyleSheet("border: 1px solid; border-radius: 3px;")
         layout.addWidget(barraProgresso)
 
         def processar():
-            if botaoIniciar.isChecked():
-                pass
-            else:
-                n = randint(3, 5)
-                for i in range(0, 101, n):
-                    sleep(0.5)
-                    barraProgresso.setValue(i)
-                self.tab.removeTab(0)
-                self.dadosJogador()
+            n = randint(1, 5)
+            sec = 0.5
+            if n < 3:
+                sec = 0.1
+            for i in range(0, 101, n):
+                sleep(sec)
+                barraProgresso.setValue(i)
+            self.tab.removeTab(0)
+            self.dadosJogador()
 
         botaoIniciar = QPushButton("Iniciar Jogo")
-        botaoIniciar.setChecked(True)
-        botaoIniciar.setDefault(True)
+        botaoIniciar.setStyleSheet("background-color:#D1C399;")
         botaoIniciar.clicked.connect(processar)
         layout.addWidget(botaoIniciar)
+
         janela01.setLayout(layout)
         self.tab.addTab(janela01, "Bem-Vindo")
         self.tab.setCurrentWidget(janela01)
 
     def dadosJogador(self):
-        # ativar a opção de reiniciar jogo
+        # activar a opção de reiniciar jogo
         self.reiniciarJogo.setEnabled(True)
-        
-        QMessageBox.information(self.ferramentas, "Atenção", "Para uma melhor experiência de jogo leia as instruções que se encontram na barra de menu..\nObrigado pelo apoio! - ArtesGC")
-        self.janela02 = QWidget()
-        layout = QFormLayout()
-        layout.setVerticalSpacing(20)
-
-        labelImagem = QLabel()
-        labelImagem.setPixmap(QPixmap("img/03.png"))
-        labelImagem.setAlignment(Qt.AlignHCenter)
-        layout.addRow(labelImagem)
-
-        labelExtra = QLabel("<b>" + " .  .  . " * 5 + "DADOS DO JOGADOR" + " .  .  . " * 5 + "</b>")
-        labelExtra.setAlignment(Qt.AlignCenter)
-        layout.addRow(labelExtra)
 
         def jogo():
             if self.nomeJogador.text() == "" or self.nomeJogador.text().isspace() or None:
@@ -269,8 +253,24 @@ Empresa: ArtesGC Inc.
                 else:
                     QMessageBox.warning(self.ferramentas, 'Aviso', 'Nível não definido..')
 
+        QMessageBox.information(self.ferramentas, "Atenção", "Para uma melhor experiência de jogo leia as instruções que se encontram na barra de menu.."
+                                                             "\nObrigado pelo apoio! - ArtesGC")
+        self.janela02 = QWidget()
+        layout = QFormLayout()
+        layout.setVerticalSpacing(30)
+
+        labelImagem = QLabel()
+        labelImagem.setPixmap(QPixmap("img/03.png"))
+        labelImagem.setAlignment(Qt.AlignHCenter)
+        layout.addRow(labelImagem)
+
+        labelExtra = QLabel("<b>" + ".  . " * 5 + "DADOS DO JOGADOR" + " .  ." * 5 + "</b>")
+        labelExtra.setAlignment(Qt.AlignCenter)
+        layout.addRow(labelExtra)
+
         self.nomeJogador = QLineEdit()
-        layout.addRow("<b>&Nome do Jogador: *</b>", self.nomeJogador)
+        self.nomeJogador.setPlaceholderText("Digite o seu nome..")
+        layout.addRow(self.nomeJogador)
 
         niveis = ['1', '2', '3']
         self.nivel = QComboBox()
@@ -280,9 +280,9 @@ Empresa: ArtesGC Inc.
 
         botaoJogar = QPushButton("Jogar")
         botaoJogar.setDefault(True)
-        botaoJogar.setPalette(QPalette(QColor("green")))
+        botaoJogar.setStyleSheet("background-color:green;")
         botaoJogar.clicked.connect(jogo)
-        layout.addWidget(botaoJogar)
+        layout.addRow(botaoJogar)
 
         browser = lambda p: webbrowser.open('https://artesgc.home.blog')
         labelCopyright = QLabel("<a href='#' style='text-decoration:none;'>ArtesGC Inc.</a>")
@@ -303,6 +303,8 @@ Empresa: ArtesGC Inc.
         def validaJogada():
             if self.letraJogador.text() == "" or self.letraJogador.text().isspace() or None:
                 QMessageBox.warning(self.ferramentas, 'Aviso', 'Letra para tentativa não atribuida..')
+            elif not self.letraJogador.text().isalpha():
+                QMessageBox.warning(self.ferramentas, 'Aviso', 'Letra para tentativa não atribuida..')
             else:
                 def novoJogo():
                     self.jogada = 0
@@ -318,103 +320,94 @@ Empresa: ArtesGC Inc.
                         if self.letraJogador.text().upper() == letra:
                             self.pontos += 100
                             agrupaLetrasPalavra[posicao] = self.letraJogador.text().upper()
-                            labelJogo.setText(f"""{'-' * 60}
-    Nível: {self.nivel.currentText()} Rodada: {self.jogada} de {self.tentativas}
-    
-    (^.^) Obaa..
-    VOCÊ ACERTOU {self.nomeJogador.text()}!
-    
-    {agrupaLetrasPalavra}
-    
-    Pontos {self.pontos}
-    {'-' * 60}""")
-                            labelJogo.setStyleSheet("QLabel{background-color:white;color:blue;}")
+                            labelJogo.setText(f"""
+Nível: {self.nivel.currentText()} - Rodada: {self.jogada} de {self.tentativas}
+
+(^.^) Obaa..
+VOCÊ ACERTOU {self.nomeJogador.text()}!
+
+{agrupaLetrasPalavra}
+
+Pontos {self.pontos}
+""")
+                            labelJogo.setStyleSheet("background-color:white; color:blue; border-radius: 3px; border: 2px solid; padding:50px;")
                         posicao += 1
                 else:
                     self.pontos -= 50
-                    labelJogo.setText(f"""{'-' * 60}
-    Nível: {self.nivel.currentText()} Rodada: {self.jogada} de {self.tentativas}
-    
-    (O_O) Upss..
-    VOCÊ ERROU {self.nomeJogador.text()}!
-    
-    Pontos {self.pontos}
-    {'-' * 60}""")
-                    labelJogo.setStyleSheet("QLabel{background-color:white;color:red;}")
+                    labelJogo.setText(f"""
+Nível: {self.nivel.currentText()} - Rodada: {self.jogada} de {self.tentativas}
+
+(O_O) Upss..
+VOCÊ ERROU {self.nomeJogador.text()}!
+
+Pontos {self.pontos}
+""")
+                    labelJogo.setStyleSheet("background-color:white; color:red; border-radius: 3px; border: 2px solid; padding:50px;")
                 if acertou:
-                    labelJogo.setText(f"""{'-' * 60}
-    (^3^) Parabéns {self.nomeJogador.text()}
-    VOCÊ GANHOU..
-    
-    {agrupaLetrasPalavra}
-    
-    • Pontuação
-    Nível: {self.nivel.currentText()}
-    Rodada: {self.jogada} de {self.tentativas}
-    Pontos: {self.pontos}
-    {'-' * 60}""")
-                    labelJogo.setStyleSheet("QLabel{background-color:white;color:green;}")
+                    labelJogo.setText(f"""
+(^3^) Parabéns {self.nomeJogador.text()}
+VOCÊ GANHOU..
+
+{agrupaLetrasPalavra}
+
+• Pontuação
+Nível: {self.nivel.currentText()}
+Rodada: {self.jogada} de {self.tentativas}
+Pontos: {self.pontos}
+""")
+                    labelJogo.setStyleSheet("background-color:white; color:green; border-radius: 3px; border: 2px solid; padding:50px;")
                     botaoValida.setText('Novo Jogo')
                     botaoValida.clicked.connect(novoJogo)
-                    botaoFimJogo.setEnabled(True)
                 elif self.jogada == self.tentativas:
-                    labelJogo.setText(f"""{'-' * 60}
-    (T.T) Lamento {self.nomeJogador.text()}
-    VOCÊ ESGOTOU TODAS AS TENTATIVAS..
-    
-    Palavra Secreta: {selecionaPalavraAleatoria}
-    
-    • Pontuação
-    Nível: {self.nivel.currentText()}
-    Rodada: {self.jogada} de {self.tentativas}
-    Pontos: {self.pontos}
-    {'-' * 60}""")
-                    labelJogo.setStyleSheet("QLabel{background-color:white;color:red;}")
+                    labelJogo.setText(f"""
+(T.T) Lamento {self.nomeJogador.text()}
+VOCÊ ESGOTOU TODAS AS SUAS TENTATIVAS..
+
+Palavra Secreta: {selecionaPalavraAleatoria}
+
+• Pontuação
+Nível: {self.nivel.currentText()}
+Rodada: {self.jogada} de {self.tentativas}
+Pontos: {self.pontos}
+""")
+                    labelJogo.setStyleSheet("background-color:white; color:red; border-radius: 3px; border: 2px solid; padding:50px;")
                     botaoValida.setText('Novo Jogo')
                     botaoValida.clicked.connect(novoJogo)
-                    botaoFimJogo.setEnabled(True)
 
         janela03 = QWidget()
-        layout = QVBoxLayout()
+        layout = QFormLayout()
         layout.setSpacing(20)
 
-        labelInfo = QLabel(f"""<h3>Bem-Vindo <i>{self.nomeJogador.text()}</i><br>
-tente adivinhar qual é a palavra secreta.. <br>
-{agrupaLetrasPalavra}</h3>""")
+        labelInfo = QLabel(f"<h3>Bem-Vindo <i>{self.nomeJogador.text()}</i><br>"
+                           f"Tente Adivinhar Qual é a Palavra Secreta..<br>"
+                           f"{agrupaLetrasPalavra}</h3>")
         labelInfo.setAlignment(Qt.AlignHCenter)
-        layout.addWidget(labelInfo)
+        layout.addRow(labelInfo)
 
-        labelJogo = QLabel('\n\n.  .  .  .  .')
-        labelJogo.setStyleSheet("QLabel{background-color: white;}")
+        labelJogo = QLabel('\n.  .  .  .  .')
+        labelJogo.setStyleSheet("background-color: white; border-radius: 3px; border: 2px solid; padding:100px;")
         labelJogo.setAlignment(Qt.AlignHCenter)
-        layout.addWidget(labelJogo)
+        layout.addRow(labelJogo)
 
-        labelExtra = QLabel("<b>" + " .  .  . " * 5 + "JOGANDO" + " .  .  . " * 5 + "</b>")
+        labelExtra = QLabel("<b>" + ".  . " * 5 + "JOGANDO" + " .  ." * 5 + "</b>")
         labelExtra.setAlignment(Qt.AlignCenter)
-        layout.addWidget(labelExtra)
+        layout.addRow(labelExtra)
 
-        layoutLetraJogador = QFormLayout()
         self.letraJogador = QLineEdit()
         self.letraJogador.setMaxLength(1)
+        self.letraJogador.setPlaceholderText("Digite a letra e pressione ENTER..")
         self.letraJogador.returnPressed.connect(validaJogada)
-        layoutLetraJogador.addRow('<b>Digite a &letra:</b>', self.letraJogador)
-        layout.addLayout(layoutLetraJogador)
+        layout.addRow(self.letraJogador)
 
-        botoesJogoLayout = QHBoxLayout()
         botaoValida = QPushButton('Validar Jogada')
         botaoValida.setDefault(True)
         botaoValida.clicked.connect(validaJogada)
-        botaoValida.setPalette(QPalette(QColor('cyan')))
+        botaoValida.setStyleSheet('background-color:cyan;')
 
         botaoFimJogo = QPushButton('Terminar o Jogo')
-        botaoFimJogo.setDefault(True)
         botaoFimJogo.clicked.connect(self._sair)
-        botaoFimJogo.setEnabled(False)
-        botaoFimJogo.setPalette(QPalette(QColor('red')))
-
-        botoesJogoLayout.addWidget(botaoValida)
-        botoesJogoLayout.addWidget(botaoFimJogo)
-        layout.addLayout(botoesJogoLayout)
+        botaoFimJogo.setStyleSheet('background-color:red;')
+        layout.addRow(botaoValida, botaoFimJogo)
 
         janela03.setLayout(layout)
         self.tab.addTab(janela03, 'Jogando')
@@ -424,7 +417,7 @@ tente adivinhar qual é a palavra secreta.. <br>
         self.janela04 = QWidget()
         layout = QVBoxLayout()
 
-        labelIntro = QLabel("<b>" + " .  .  . " * 5 + "PALAVRAS SECRETAS" + 5 * " .  .  . " + "</b>")
+        labelIntro = QLabel("<b>" + ".  . " * 5 + "PALAVRAS SECRETAS" + 5 * " .  ." + "</b>")
         labelIntro.setAlignment(Qt.AlignHCenter)
         layout.addWidget(labelIntro)
 
@@ -436,13 +429,12 @@ tente adivinhar qual é a palavra secreta.. <br>
 
         labelExtra = QLabel(f"<i>* {len(self.palavras)} palavras..</i>")
         labelExtra.setAlignment(Qt.AlignRight)
-        labelExtra.setStyleSheet("QLabel{color:lightgreen;}")
+        labelExtra.setStyleSheet("color:#D1C399;")
         layout.addWidget(labelExtra)
 
         fechar = lambda: self.tab.removeTab(self.tab.currentIndex())
         botaoFechar = QPushButton("Fechar")
-        botaoFechar.setDefault(True)
-        botaoFechar.setPalette(QPalette(QColor('red')))
+        botaoFechar.setStyleSheet('background-color:red;')
         botaoFechar.clicked.connect(fechar)
         layout.addWidget(botaoFechar)
 

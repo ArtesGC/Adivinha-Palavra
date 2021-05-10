@@ -1,0 +1,107 @@
+[DEBREATE-0.7.13]
+<<CTRL>>
+Package: adivinhapalavra
+Version: 0.6
+Maintainer: ArtesGC <nuruldecarvalho@gmail.com>
+Section: games
+Architecture: amd64
+Priority: standard
+Description: Jogo Adivinha a Palavra
+ jogo com objectivo de adivinhar que palavra foi definida pelo programa, letra por letra!
+
+<</CTRL>>
+<<FILES>>
+1
+/home/nurul-gc/PycharmProjects/Adivinha-Palavra/dist/adivinhapalavra* -> adivinhapalavra -> /usr/share/adivinha palavra/
+/home/nurul-gc/PycharmProjects/Adivinha-Palavra/dist/img -> img -> /usr/share/adivinha palavra/
+<</FILES>>
+<<SCRIPTS>>
+<<PREINST>>
+0
+<</PREINST>>
+<<POSTINST>>
+1
+#! /bin/bash -e
+
+ln -fs "/usr/share/adivinha palavra/adivinhapalavra" "/usr/bin/adivinhapalavra"
+<</POSTINST>>
+<<PRERM>>
+1
+#! /bin/bash -e
+
+rm -f "/usr/bin/adivinhapalavra"
+<</PRERM>>
+<<POSTRM>>
+0
+<</POSTRM>>
+<</SCRIPTS>>
+<<CHANGELOG>>
+<<DEST>>DEFAULT<</DEST>>
+adivinhapalavra (0.6) ; urgency=low
+
+  * v0.1
+  	* lançamento oficial pela [&trade; ArtesGC](https://artesgc.home.blog).
+  * v0.2 ... v0.4
+  	* organização da disposição gráfica.
+  	* incremento das palavras secretas.
+  	* reparo de erros no código fonte.
+  * v0.5 - 03.2021
+  	* mudança de framework (**Tkinter** para **PyQt5**).
+  * v0.6 - 05.2021
+  	* disposição gráfica: mais robusto e dinamico.
+  	* ortografia: mais compreensiva.
+  	* letra jogador: validação de letras (apenas).
+
+ -- ArtesGC <nuruldecarvalho@gmail.com>  Mon, 10 May 2021 14:44:36 +0200
+
+<</CHANGELOG>>
+<<COPYRIGHT>>
+Copyright © 2021 ArtesGC [nuruldecarvalho@gmail.com]
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+3. Neither the name of the University nor the names of its contributors
+   may be used to endorse or promote products derived from this software
+   without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+SUCH DAMAGE.
+<</COPYRIGHT>>
+<<MENU>>
+1
+Name=Adivinha Palavra
+Version=0.6
+Exec="/usr/share/adivinha palavra/adivinhapalavra"
+Comment=jogo com objectivo de adivinhar que palavra foi definida letra por letra!
+Icon="/usr/share/adivinha palavra/img/adivinhapalavra-icon.png"
+Type=Application
+Terminal=false
+StartupNotify=true
+Encoding=UTF-8
+Categories=Game;
+GenericName=jogo de adivinha
+Path="/usr/share/adivinha palavra/"
+StartupWMClass=Adivinha Palavra
+<</MENU>>
+<<BUILD>>
+1
+1
+1
+strip
+<</BUILD>>

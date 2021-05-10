@@ -5,13 +5,14 @@
 [Desktop Entry]
 Type=Application
 Name=Adivinha Palavra
+Version=0.6
 GenericName=jogo de adivinha
 Comment=jogo com objectivo de adivinhar que palavra foi definida letra por letra!
 Categories=Game;
-Exec="./adivinhapalavra"
-Icon="./img/adivinhapalavra-ico2.png"
+Exec="/usr/share/adivinha palavra/adivinhapalavra"
+Icon="/usr/share/adivinha palavra/img/adivinhapalavra-icon.png"
 StartupWMClass=Adivinha Palavra
 Terminal=false
-Name[pt]=adivinhapalavra.desktop
-Path="./"
+Name[pt]=Adivinha Palavra
+Path="/usr/share/adivinha palavra/"
 StartupNotify=true

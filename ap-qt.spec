@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['ap-qt.py'],
-             pathex=['/home/nurul-gc/PycharmProjects/Jogo_Adivinha_Palavra'],
+             pathex=['./'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -31,4 +31,4 @@ exe = EXE(pyz,
           upx_exclude=[],
           runtime_tmpdir=None,
           console=False,
-          ico="img/adivinhapalavra-ico2.png")
+          ico="img/adivinhapalavra-icon.png")
