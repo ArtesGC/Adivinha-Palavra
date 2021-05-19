@@ -1,3 +1,9 @@
+<div align="center">
+
+<img alt="adivinha-palavra-icon" src="img/adivinhapalavra-icon.png" width=600 height=600>
+
+</div>
+
 # ADIVINHE PALAVRA (AP)
 
     - MAIS DE 500 PALAVRAS;
@@ -5,7 +11,6 @@
     - COM DIREITO A ESCOLHA DE NÍVEIS E NÚMERO DE TENTATIVAS;
     - UMA APARÊNCIA SIMPLES E BASTANTE PRÁTICA;
 
-![adivinha-palavra-icon](img/adivinhapalavra-icon.png)
 
 ## Demos
 
