@@ -21,6 +21,13 @@ __trademark__ = "™ ArtesGC"
 
 
 class J3A7P6:
+
+    NUMERO_TENTATIVA = 0
+    PONTOS = 0
+    JOGADA = 0
+
+
+
     def __init__(self):
         self.gc = QApplication(argv)
         self.ferramentas = QWidget()
@@ -103,9 +110,6 @@ class J3A7P6:
         self.nomeJogador = None
         self.nivel = None
         self.letraJogador = None
-        self.tentativas = 0
-        self.pontos = 0
-        self.jogada = 0
 
         # ******* menu *******
         menuFerramentas = QMenuBar(self.ferramentas)
@@ -236,18 +240,18 @@ Empresa: ArtesGC Inc.
                 QMessageBox.warning(self.ferramentas, 'Aviso', 'Nome do jogador não definido..')
             else:
                 if self.nivel.currentText() == '3':
-                    self.tentativas = 15
-                    self.pontos = 0
+                    self.NUMERO_TENTATIVA = 15
+                    self.PONTOS = 0
                     self.tab.removeTab(0)
                     self.jogo()
                 elif self.nivel.currentText() == '2':
-                    self.tentativas = 20
-                    self.pontos = 0
+                    self.NUMERO_TENTATIVA = 20
+                    self.PONTOS = 0
                     self.tab.removeTab(0)
                     self.jogo()
                 elif self.nivel.currentText() == '1':
-                    self.tentativas = 25
-                    self.pontos = 0
+                    self.NUMERO_TENTATIVA = 25
+                    self.PONTOS = 0
                     self.tab.removeTab(0)
                     self.jogo()
                 else:
@@ -307,40 +311,40 @@ Empresa: ArtesGC Inc.
                 QMessageBox.warning(self.ferramentas, 'Aviso', 'Letra para tentativa não atribuida..')
             else:
                 def novoJogo():
-                    self.jogada = 0
+                    self.JOGADA = 0
                     self.tab.removeTab(0)
                     self.jogo()
 
-                self.jogada += 1
+                self.JOGADA += 1
                 posicao = 0
                 acertou = '_' not in agrupaLetrasPalavra
 
                 if self.letraJogador.text().upper() in selecionaPalavraAleatoria:
                     for letra in selecionaPalavraAleatoria:
                         if self.letraJogador.text().upper() == letra:
-                            self.pontos += 100
+                            self.PONTOS += 100
                             agrupaLetrasPalavra[posicao] = self.letraJogador.text().upper()
                             labelJogo.setText(f"""
-Nível: {self.nivel.currentText()} - Rodada: {self.jogada} de {self.tentativas}
+Nível: {self.nivel.currentText()} - Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
 
 (^.^) Obaa..
 VOCÊ ACERTOU {self.nomeJogador.text()}!
 
 {agrupaLetrasPalavra}
 
-Pontos {self.pontos}
+Pontos {self.PONTOS}
 """)
                             labelJogo.setStyleSheet("background-color:white; color:blue; border-radius: 3px; border: 2px solid; padding:50px;")
                         posicao += 1
                 else:
-                    self.pontos -= 50
+                    self.PONTOS -= 50
                     labelJogo.setText(f"""
-Nível: {self.nivel.currentText()} - Rodada: {self.jogada} de {self.tentativas}
+Nível: {self.nivel.currentText()} - Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
 
 (O_O) Upss..
 VOCÊ ERROU {self.nomeJogador.text()}!
 
-Pontos {self.pontos}
+Pontos {self.PONTOS}
 """)
                     labelJogo.setStyleSheet("background-color:white; color:red; border-radius: 3px; border: 2px solid; padding:50px;")
                 if acertou:
@@ -352,13 +356,13 @@ VOCÊ GANHOU..
 
 • Pontuação
 Nível: {self.nivel.currentText()}
-Rodada: {self.jogada} de {self.tentativas}
-Pontos: {self.pontos}
+Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
+Pontos: {self.PONTOS}
 """)
                     labelJogo.setStyleSheet("background-color:white; color:green; border-radius: 3px; border: 2px solid; padding:50px;")
                     botaoValida.setText('Novo Jogo')
                     botaoValida.clicked.connect(novoJogo)
-                elif self.jogada == self.tentativas:
+                elif self.JOGADA == self.NUMERO_TENTATIVA:
                     labelJogo.setText(f"""
 (T.T) Lamento {self.nomeJogador.text()}
 VOCÊ ESGOTOU TODAS AS SUAS TENTATIVAS..
@@ -367,8 +371,8 @@ Palavra Secreta: {selecionaPalavraAleatoria}
 
 • Pontuação
 Nível: {self.nivel.currentText()}
-Rodada: {self.jogada} de {self.tentativas}
-Pontos: {self.pontos}
+Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
+Pontos: {self.PONTOS}
 """)
                     labelJogo.setStyleSheet("background-color:white; color:red; border-radius: 3px; border: 2px solid; padding:50px;")
                     botaoValida.setText('Novo Jogo')
