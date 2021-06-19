@@ -219,7 +219,7 @@ Empresa: ArtesGC Inc.
             self.dadosJogador()
 
         botaoIniciar = QPushButton("Iniciar Jogo")
-        botaoIniciar.setStyleSheet("background-color:#D1C399;")
+        botaoIniciar.setStyleSheet("background-color:#D1C399;padding:50px;")
         botaoIniciar.clicked.connect(processar)
         layout.addWidget(botaoIniciar)
 
@@ -280,7 +280,7 @@ Empresa: ArtesGC Inc.
 
         botaoJogar = QPushButton("Jogar")
         botaoJogar.setDefault(True)
-        botaoJogar.setStyleSheet("background-color:green;")
+        botaoJogar.setStyleSheet("background-color:green;padding:10px;")
         botaoJogar.clicked.connect(jogo)
         layout.addRow(botaoJogar)
 
