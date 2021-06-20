@@ -71,10 +71,21 @@ class J3A7P6:
         sair = opcoes.addAction("Sair")
         sair.triggered.connect(self._sair)
 
+        sobre = menuFerramentas.addAction("Historico")
+        sobre.triggered.connect(self._historico)
+
         sobre = menuFerramentas.addAction("Sobre")
         sobre.triggered.connect(self._sobre)
 
         self.janelaPrincipal()
+
+    
+    
+    def _historico(self):
+        pass
+
+
+
 
     def _reiniciarJogo(self):
         if self.janela02 is None:
