@@ -246,7 +246,7 @@ historico.txt
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
-
+*.db
 # Local History for Visual Studio Code
 .history/
 
