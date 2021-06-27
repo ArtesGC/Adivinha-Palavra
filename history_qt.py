@@ -1,5 +1,6 @@
 import sqlite3
 from sqlite3 import Error
+from sqlite3.dbapi2 import IntegrityError
 
 def connection():
     """
@@ -16,23 +17,36 @@ def tabela_jogo():
     CREATE TABLE IF NOT EXISTS tb_jogo(
      id integer primary key autoincrement,
      nome varchar(50) unique not null,
-     pontos varchar(9) not null
+     pontos varchar(9) not null,
+     jogada varchar(10) not null,
+     nivel varchar(5) not null
     );
      """
     try:
         sql=db.cursor()
         result = sql.execute(query)
+        db.commit()
         return result
     except Error as er:
+        db.rollback()
         raise er
     
 
 def add_pontos(*args):
+    """
+    criando historico de jogada
+    : ** campos obrigatórios! **
+    - nome
+    - pontos
+    - jogada
+    - nivel 
+    
 
+    """
     db = connection()
     #return f""" "{args[0]}","{args[1]}" """
     query =f"""
-        INSERT INTO tb_jogo(nome,pontos)VALUES("{args[0]}","{args[1]}");
+        INSERT INTO tb_jogo(nome,pontos,jogada,nivel)VALUES("{args[0]}","{args[1]}","{args[2]}","{args[3]}");
         """
 
     try:
@@ -41,8 +55,9 @@ def add_pontos(*args):
         db.commit()
         return result
     except Error as er:
-        db.rollback
+        db.rollback()
         raise er
+        
 
 
 def view_pontos():

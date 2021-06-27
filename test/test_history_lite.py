@@ -16,7 +16,7 @@ class jogo(TestCase):
         self.assertTrue(criar_tabela_historico)
 
     def test_criando_dados(self):
-        criar_historico = add_pontos("Paulo",100)
+        criar_historico = add_pontos("Paulo",100,10,1)
         print(criar_historico)
         self.assertTrue(criar_historico)
 
