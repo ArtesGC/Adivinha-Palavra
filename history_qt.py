@@ -16,7 +16,7 @@ def tabela_jogo():
     query = """
     CREATE TABLE IF NOT EXISTS tb_jogo(
      id integer primary key autoincrement,
-     nome varchar(50) unique not null,
+     nome varchar(50) not null,
      pontos varchar(9) not null,
      jogada varchar(10) not null,
      nivel varchar(5) not null
@@ -63,7 +63,7 @@ def add_pontos(*args):
 def view_pontos():
     db = connection()
     query =f"""
-        SELECT *FROM tb_jogo;
+        SELECT nome,pontos,jogada,nivel FROM tb_jogo;
         """
     try:
         sql=db.cursor()
