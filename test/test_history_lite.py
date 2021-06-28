@@ -16,13 +16,14 @@ class jogo(TestCase):
         self.assertTrue(criar_tabela_historico)
 
     def test_criando_dados(self):
-        criar_historico = add_pontos("Paulo",100,10,1)
+        criar_historico = add_pontos("Lopes",100,10,1)
         print(criar_historico)
         self.assertTrue(criar_historico)
 
     def test_ver_dados_in_player(self):
         ver_historico = view_pontos()
-        print(ver_historico)
+        for vl in ver_historico:
+            print(vl)
         self.assertTrue(ver_historico)
         
 
