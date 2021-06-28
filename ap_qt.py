@@ -14,6 +14,7 @@ from sys import argv, exit
 from time import sleep
 from random import randint
 import webbrowser
+from history_qt import connection,tabela_jogo,add_pontos,view_pontos,apagar_historico
 
 __nome__ = "Jogo Adivinha Palavra"
 __version__ = "0.5-032021"
@@ -29,6 +30,9 @@ class J3A7P6:
     PALAVRAS = palavras()
 
     def __init__(self):
+        
+        db=connection()
+
         self.gc = QApplication(argv)
         self.ferramentas = QWidget()
         self.ferramentas.setWindowTitle("Adivinha Palavra")
@@ -45,6 +49,7 @@ class J3A7P6:
         self.janela02 = None
         self.janela03 = None
         self.janela04 = None
+        self.janela05 = None
         self.nomeJogador = None
         self.nivel = None
         self.letraJogador = None
@@ -77,7 +82,95 @@ class J3A7P6:
         self.janelaPrincipal()
 
     def _historico(self):
-        pass
+        if self.janela05 is None:
+            return self.hhistory()
+        try:
+            self.tab.setCurrentWidget(self.janela05)
+        except Exception as e:
+            self.tab.removeTab(1)
+            return self.hhistory()
+        else:
+            self.tab.removeTab(1)
+            return self.hhistory()
+
+
+    def hhistory(self):
+        self.janela05 = QWidget()
+
+        layout = QVBoxLayout()
+        
+        labelIntro = QLabel("<b>" + ".  . " * 5 +
+                            "Historico" + 5 * " .  ." + "</b>")
+
+        labelIntro.setAlignment(Qt.AlignHCenter)
+        
+        layout.addWidget(labelIntro)
+        
+        
+        listaPalavras = QListWidget()
+        layout = QFormLayout()
+
+
+        #labelname = QLabel("<table><thead><tr><th>#</th><th>Nome</th><th>Pontos</th><th>Jogada</th><th>Nivel</th></tr></thead><tbody> "for vl in lo[]: " <tr><td><span>{}</span></td></tr></tbody></table>")
+        
+
+        
+
+        for dados in view_pontos():
+            tr= f"""<tr>
+                        <td>
+                            <span> </span>
+                        </td>
+                        
+                        <td>
+                            <span>{dados[0]}</span>
+                        </td>
+                        
+                        <td>
+                            <span>{str(dados[1])}</span>
+                        </td>
+
+                        <td>
+                            <span>{str(dados[2])}</span>
+                        </td>
+
+                        <td>
+                            <span>{str(dados[3])}</span>
+                        </td>
+                </tr>"""
+            labelname = QLabel(f"""
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Pontos</th>
+                    <th>Jogada</th>
+                    <th>Nivel</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+                {tr}
+                
+            </tbody>
+        </table>
+        """)
+            labelname.setStyleSheet(""" 
+            padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;
+            """)
+            layout.addWidget(labelname)
+
+        def fechar(): return self.tab.removeTab(self.tab.currentIndex())
+        botaoFechar = QPushButton("Fechar")
+        botaoFechar.setStyleSheet('background-color:red;margin-top: 350px;')
+        botaoFechar.clicked.connect(fechar)
+        layout.addWidget(botaoFechar)
+        self.janela05.setLayout(layout)
+        self.tab.addTab(self.janela05, 'Historico')
+        self.tab.setCurrentWidget(self.janela05)
+
+
 
     def _reiniciarJogo(self):
         if self.janela02 is None:
@@ -281,47 +374,49 @@ Empresa: ArtesGC Inc.
                             ).upper()
 
                             labelJogo.setText(f"""
-Nível: {self.nivel.currentText()} - Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
+        Nível: {self.nivel.currentText()} - Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
 
-(^.^) Obaa..
-VOCÊ ACERTOU {self.nomeJogador.text()}!
+        (^.^) Obaa..
+        VOCÊ ACERTOU {self.nomeJogador.text()}!
 
-{agrupaLetrasPalavra}
+        {agrupaLetrasPalavra}
 
-Pontos {self.PONTOS}
-""")
+        Pontos {self.PONTOS}
+        """)
                             labelJogo.setStyleSheet(
                                 "background-color:white; color:blue; border-radius: 3px; border: 2px solid; padding:50px;")
                         posicao += 1
                 else:
                     self.PONTOS -= 50
                     labelJogo.setText(f"""
-Nível: {self.nivel.currentText()} - Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
+        Nível: {self.nivel.currentText()} - Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
 
-(O_O) Upss..
-VOCÊ ERROU {self.nomeJogador.text()}!
+        (O_O) Upss..
+        VOCÊ ERROU {self.nomeJogador.text()}!
 
-Pontos {self.PONTOS}
-""")
+        Pontos {self.PONTOS}
+        """)
                     labelJogo.setStyleSheet(
                         "background-color:white; color:red; border-radius: 3px; border: 2px solid; padding:50px;")
                 if acertou:
+                    criar_historico = add_pontos(self.nomeJogador.text(),self.PONTOS,self.JOGADA,self.nivel.currentText())
                     labelJogo.setText(f"""
-(^3^) Parabéns {self.nomeJogador.text()}
-VOCÊ GANHOU..
+        (^3^) Parabéns {self.nomeJogador.text()}
+        VOCÊ GANHOU..
 
-{agrupaLetrasPalavra}
+        {agrupaLetrasPalavra}
 
-• Pontuação
-Nível: {self.nivel.currentText()}
-Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
-Pontos: {self.PONTOS}
-""")
+        • Pontuação
+        Nível: {self.nivel.currentText()}
+        Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
+        Pontos: {self.PONTOS}
+        """)
                     labelJogo.setStyleSheet(
                         "background-color:white; color:green; border-radius: 3px; border: 2px solid; padding:50px;")
                     botaoValida.setText('Novo Jogo')
                     botaoValida.clicked.connect(novoJogo)
                 elif self.JOGADA == self.NUMERO_TENTATIVA:
+                    criar_historico = add_pontos(self.nomeJogador.text(),self.PONTOS,self.JOGADA,self.nivel.currentText())
                     labelJogo.setText(f"""
 (T.T) Lamento {self.nomeJogador.text()}
 VOCÊ ESGOTOU TODAS AS SUAS TENTATIVAS..
@@ -333,6 +428,12 @@ Nível: {self.nivel.currentText()}
 Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
 Pontos: {self.PONTOS}
 """)
+
+
+            
+
+
+ 
                     labelJogo.setStyleSheet(
                         "background-color:white; color:red; border-radius: 3px; border: 2px solid; padding:50px;")
                     botaoValida.setText('Novo Jogo')
