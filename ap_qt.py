@@ -32,7 +32,7 @@ class J3A7P6:
     def __init__(self):
         
         db=connection()
-
+        tabela_jogo()
         self.gc = QApplication(argv)
         self.ferramentas = QWidget()
         self.ferramentas.setWindowTitle("Adivinha Palavra")
