@@ -25,11 +25,11 @@
 ![erro-nome-jogador-nao-definido](img/nome_jogador_nao_definido.png)
 ![jogando](img/jogando.png)
 ![erro-letra-tentativa-nao-atribuida](img/tentativa_nao_atribuida.png)
-![acertou](img/acertou.png)
-![errou](img/errou.png)
+![acertou](img/demo/acertou.png)
+![errou](img/demo/errou.png)
 ![fimjogo-tentativas-esgotadas](img/tentativas_esgotadas.png)
-![fimjogo-ganhou](img/ganhou.png)
-![informacoes-programa](img/sobre.png)
+![fimjogo-ganhou](img/demo/ganhou.png)
+![informacoes-programa](img/demo/sobre.png)
 
 ---
 
