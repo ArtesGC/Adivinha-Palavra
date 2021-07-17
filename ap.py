@@ -34,12 +34,12 @@ class J3A7P6:
         self.ferramentas = QWidget()
         self.ferramentas.setWindowTitle("Adivinha Palavra")
         self.ferramentas.setStyleSheet(theme)
-        self.ferramentas.setWindowIcon(QIcon("img/adivinhapalavra-icon.png"))
-        self.ferramentas.setFixedSize(600, 550)
+        self.ferramentas.setWindowIcon(QIcon("img/logo.png"))
+        self.ferramentas.setFixedSize(700, 550)
 
         # ******* criando abas para melhor organização *******
         self.tab = QTabWidget(self.ferramentas)
-        self.tab.setGeometry(0, 30, 600, 520)
+        self.tab.setGeometry(0, 30, 700, 520)
         self.tab.setDocumentMode(True)
 
         # ******* variáveis *******
@@ -82,11 +82,6 @@ class J3A7P6:
     def _historico(self):
         if self.janela05 is None:
             return self.historicoJogadores()
-        try:
-            self.tab.setCurrentWidget(self.janela05)
-        except Exception as e:
-            self.tab.removeTab(1)
-            return self.historicoJogadores()
         else:
             self.tab.removeTab(1)
             return self.historicoJogadores()
@@ -99,9 +94,6 @@ class J3A7P6:
         except Exception as e:
             self.tab.removeTab(0)
             return self.dadosJogador()
-        else:
-            self.tab.removeTab(0)
-            return self.dadosJogador()
 
     def _palavrasSecretas(self):
         if self.janela04 is None:
@@ -109,9 +101,6 @@ class J3A7P6:
         try:
             self.tab.setCurrentWidget(self.janela04)
         except Exception as e:
-            self.tab.removeTab(1)
-            return self.palavrasSecretas()
-        else:
             self.tab.removeTab(1)
             return self.palavrasSecretas()
 
@@ -139,7 +128,13 @@ Dica:<br>
 Qualidades e Códigos de Honra;
 <br><br>
 Muito Obrigado pelo apoio!<br>
-<a href="https://artesgc.home.blog">&trade; ArtesGC Inc</a>""")
+<a href="https://artesgc.home.blog" style="text-decoration:none;">&trade; ArtesGC Inc</a>""")
+        infoProg.setStyleSheet("border-style:solid;"
+                               "border-color:black;"
+                               "border-width:1px;"
+                               "border-radius:3px;"
+                               "background-color:white;"
+                               "padding:5px;")
         layout.addWidget(infoProg)
 
         def fechar():
@@ -164,10 +159,15 @@ Muito Obrigado pelo apoio!<br>
 Nome: <b>Jogo Adivinha Palavra</b><br>
 Versão: <b>0.7-072021</b><br>
 Designers e Programadores: 
-<a href="https://github.com/Nurul-GC">Nurul GC</a>, 
-<a href="https://github.com/Paulo-Lopes-Estevao">Paulo Lopes Estevao</a><br>
-Empresa: <a href="https://artesgc.home.blog">&trade; ArtesGC Inc</a>""")
-        infoProg.setAlignment(Qt.AlignCenter)
+<a href="https://github.com/Nurul-GC" style="text-decoration:none;">Nurul GC</a>, 
+<a href="https://github.com/Paulo-Lopes-Estevao" style="text-decoration:none;">Paulo Lopes Estevao</a><br>
+Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trade; ArtesGC Inc</a>""")
+        infoProg.setStyleSheet("border-style:solid;"
+                               "border-color:black;"
+                               "border-width:1px;"
+                               "border-radius:3px;"
+                               "background-color:white;"
+                               "padding:5px;")
         layout.addWidget(infoProg)
 
         def fechar():
@@ -194,7 +194,7 @@ Empresa: <a href="https://artesgc.home.blog">&trade; ArtesGC Inc</a>""")
         layout = QVBoxLayout()
 
         labelImagem = QLabel()
-        labelImagem.setPixmap(QPixmap("img/adivinhapalavra-logo.png").scaled(QSize(570, 400)))
+        labelImagem.setPixmap(QPixmap("img/icon.png").scaled(QSize(570, 400)))
         labelImagem.setAlignment(Qt.AlignHCenter)
         layout.addWidget(labelImagem)
 
@@ -231,6 +231,10 @@ Empresa: <a href="https://artesgc.home.blog">&trade; ArtesGC Inc</a>""")
             _model.setHeaderData(3, Qt.Horizontal, "jogada")
             _model.setHeaderData(4, Qt.Horizontal, "nivel")
 
+        def zerar():
+            apagar_historico()
+            view.update()
+
         self.janela05 = QWidget()
         layout = QVBoxLayout()
 
@@ -241,20 +245,16 @@ Empresa: <a href="https://artesgc.home.blog">&trade; ArtesGC Inc</a>""")
         model = QSqlTableModel()
         inciarModel(model)
 
-        labelIntro = QLabel("<b>" + ".  . " * 5 + "Historico" + 5 * " .  ." + "</b>")
+        labelIntro = QLabel("<b>" + ".  . " * 5 + "HISTORICO" + 5 * " .  ." + "</b>")
         labelIntro.setAlignment(Qt.AlignCenter)
         layout.addWidget(labelIntro)
 
         view = QTableView()
         view.setFixedWidth(515)
+        view.setUpdatesEnabled(True)
         view.setAlternatingRowColors(True)
         view.setModel(model)
         layout.addWidget(view, alignment=Qt.AlignHCenter)
-
-        def zerar():
-            apagar_historico()
-            db.close()
-            return view.update()
 
         botaoZerar = QPushButton("Zerar Historico")
         botaoZerar.setStyleSheet('background-color:cyan;')
@@ -263,7 +263,6 @@ Empresa: <a href="https://artesgc.home.blog">&trade; ArtesGC Inc</a>""")
 
         def fechar():
             self.tab.removeTab(self.tab.currentIndex())
-            return db.close()
 
         botaoFechar = QPushButton("Fechar")
         botaoFechar.setStyleSheet('background-color:red;')
@@ -304,7 +303,7 @@ Empresa: <a href="https://artesgc.home.blog">&trade; ArtesGC Inc</a>""")
                                                              "\nObrigado pelo apoio! - ArtesGC")
         self.janela02 = QWidget()
         layout = QFormLayout()
-        # layout.setVerticalSpacing(10)
+        layout.setVerticalSpacing(20)
 
         labelImagem = QLabel()
         labelImagem.setPixmap(QPixmap("img/01.png"))
@@ -446,7 +445,7 @@ Pontos {self.PONTOS}""")
 
         janela03 = QWidget()
         layout = QFormLayout()
-        layout.setSpacing(20)
+        layout.setVerticalSpacing(20)
 
         labelInfo = QLabel(f"<h3>Bem-Vindo <i>{self.nomeJogador.text()}</i><br>"
                            f"Tente Adivinhar Qual é a Palavra Secreta..</h3><br>"
