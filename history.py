@@ -6,6 +6,9 @@ def connection():
     criando conexão com db sqlite
     """
     try:
+        if not os.path.exists('historico'):
+            os.mkdir('historico')
+
         return sqlite3.connect("historico/ap.db")
     except sqlite3.Error as erro:
         raise erro
