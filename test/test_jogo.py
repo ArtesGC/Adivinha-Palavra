@@ -1,5 +1,5 @@
 from unittest import TestCase
-from ap_qt import J3A7P6
+from ap import J3A7P6
 import string
 
 class jogo(TestCase):

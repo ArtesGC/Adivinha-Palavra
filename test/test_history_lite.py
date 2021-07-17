@@ -1,5 +1,5 @@
 from unittest import TestCase
-from history_qt import connection,tabela_jogo,add_pontos,view_pontos,apagar_historico
+from history import connection,tabela_jogo,add_pontos,view_pontos,apagar_historico
 
 class jogo(TestCase):
 
