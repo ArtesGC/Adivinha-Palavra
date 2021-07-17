@@ -15,7 +15,7 @@ from time import sleep
 
 from PyQt5.Qt import *
 
-from history import add_pontos, view_pontos, tabela_jogo, connection
+from history import add_dados, ver_dados, criar_tabela_jogo
 from words import Palavras
 
 __nome__ = "Jogo Adivinha Palavra"
@@ -314,7 +314,7 @@ Empresa: ArtesGC Inc.
                 acertou = '_' not in agrupaLetrasPalavra
 
                 if acertou:
-                    add_pontos(self.nomeJogador.text(), self.PONTOS, self.JOGADA, self.nivel.currentText())
+                    add_dados(self.nomeJogador.text(), self.PONTOS, self.JOGADA, self.nivel.currentText())
                     labelJogo.setText(f"""
 (^3^) Parabéns {self.nomeJogador.text()}
 VOCÊ GANHOU..
@@ -330,7 +330,7 @@ Pontos: {self.PONTOS}
                     botaoValida.setText('Novo Jogo')
                     botaoValida.clicked.connect(novoJogo)
                 elif self.JOGADA == self.NUMERO_TENTATIVA:
-                    add_pontos(self.nomeJogador.text(), self.PONTOS, self.JOGADA, self.nivel.currentText())
+                    add_dados(self.nomeJogador.text(), self.PONTOS, self.JOGADA, self.nivel.currentText())
                     labelJogo.setText(f"""
 (T.T) Lamento {self.nomeJogador.text()}
 VOCÊ ESGOTOU TODAS AS SUAS TENTATIVAS..
@@ -447,7 +447,7 @@ Pontos {self.PONTOS}
 
 
 if __name__ == '__main__':
-    tabela_jogo()
+    criar_tabela_jogo()
     app = J3A7P6()
     app.ferramentas.show()
     app.gc.exec_()
