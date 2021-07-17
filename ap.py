@@ -15,7 +15,7 @@ from time import sleep
 
 from PyQt5.Qt import *
 
-from history import add_dados, ver_dados, criar_tabela_jogo
+from history import add_dados, ver_dados, criar_tabela_jogo, apagar_historico
 from words import Palavras
 
 __nome__ = "Jogo Adivinha Palavra"
@@ -80,15 +80,15 @@ class J3A7P6:
 
     def _historico(self):
         if self.janela05 is None:
-            return self.historico()
+            return self.historicoJogadores()
         try:
             self.tab.setCurrentWidget(self.janela05)
         except Exception as e:
             self.tab.removeTab(1)
-            return self.historico()
+            return self.historicoJogadores()
         else:
             self.tab.removeTab(1)
-            return self.historico()
+            return self.historicoJogadores()
 
     def _reiniciarJogo(self):
         if self.janela02 is None:
@@ -152,26 +152,49 @@ Empresa: ArtesGC Inc.
         else:
             pass
 
-    def historico(self):
+    def historicoJogadores(self):
+        def inciarModel(_model):
+            _model.setTable('tb_jogo')
+            _model.select()
+            _model.setHeaderData(0, Qt.Horizontal, "id")
+            _model.setHeaderData(1, Qt.Horizontal, "nome")
+            _model.setHeaderData(2, Qt.Horizontal, "pontos")
+            _model.setHeaderData(3, Qt.Horizontal, "jogada")
+            _model.setHeaderData(4, Qt.Horizontal, "nivel")
+
         self.janela05 = QWidget()
         layout = QVBoxLayout()
+
+        db = QSqlDatabase.addDatabase('QSQLITE')
+        db.setDatabaseName('historico/ap.db')
+        db.open()
+
+        model = QSqlTableModel()
+        inciarModel(model)
 
         labelIntro = QLabel("<b>" + ".  . " * 5 + "Historico" + 5 * " .  ." + "</b>")
         labelIntro.setAlignment(Qt.AlignCenter)
         layout.addWidget(labelIntro)
 
-        db = QSqlDatabase('QSQLITE')
-        db.setDatabaseName('historico/ap.db')
-        model = QSqlTableModel(db=self.tabela_historico)
-        model.setTable(tb_jogo)
-
         view = QTableView()
+        view.setFixedWidth(515)
         view.setAlternatingRowColors(True)
         view.setModel(model)
-        layout.addWidget(view)
+        layout.addWidget(view, alignment=Qt.AlignHCenter)
+
+        def zerar():
+            apagar_historico()
+            db.close()
+            return view.update()
+
+        botaoZerar = QPushButton("Zerar Histórico")
+        botaoZerar.setStyleSheet('background-color:cyan;')
+        botaoZerar.clicked.connect(zerar)
+        layout.addWidget(botaoZerar)
 
         def fechar():
-            return self.tab.removeTab(self.tab.currentIndex())
+            self.tab.removeTab(self.tab.currentIndex())
+            return db.close()
 
         botaoFechar = QPushButton("Fechar")
         botaoFechar.setStyleSheet('background-color:red;')
@@ -181,10 +204,6 @@ Empresa: ArtesGC Inc.
         self.janela05.setLayout(layout)
         self.tab.addTab(self.janela05, 'Historico')
         self.tab.setCurrentWidget(self.janela05)
-
-    def tabela_historico(self):
-        if not os.path.exists('historico'):
-            os.mkdir('historico')
 
     def janelaPrincipal(self):
         janela01 = QWidget()
@@ -205,8 +224,6 @@ Empresa: ArtesGC Inc.
         def processar():
             n = randint(1, 5)
             sec = 0.5
-            if n < 3:
-                sec = 0.1
             for i in range(0, 101, n):
                 sleep(sec)
                 barraProgresso.setValue(i)
@@ -214,7 +231,7 @@ Empresa: ArtesGC Inc.
             self.dadosJogador()
 
         botaoIniciar = QPushButton("Iniciar Jogo")
-        botaoIniciar.setStyleSheet("background-color:#D1C399; padding:50px;")
+        botaoIniciar.setStyleSheet("background-color:#D1C399;")
         botaoIniciar.clicked.connect(processar)
         layout.addWidget(botaoIniciar)
 
@@ -234,17 +251,17 @@ Empresa: ArtesGC Inc.
                     self.NUMERO_TENTATIVA = 15
                     self.PONTOS = 0
                     self.tab.removeTab(0)
-                    self.jogo()
+                    self.janelaJogo()
                 elif self.nivel.currentText() == '2':
                     self.NUMERO_TENTATIVA = 20
                     self.PONTOS = 0
                     self.tab.removeTab(0)
-                    self.jogo()
+                    self.janelaJogo()
                 elif self.nivel.currentText() == '1':
                     self.NUMERO_TENTATIVA = 25
                     self.PONTOS = 0
                     self.tab.removeTab(0)
-                    self.jogo()
+                    self.janelaJogo()
                 else:
                     QMessageBox.warning(self.ferramentas, 'Aviso', 'Nível não definido..')
 
@@ -293,7 +310,7 @@ Empresa: ArtesGC Inc.
         self.tab.addTab(self.janela02, "Jogador")
         self.tab.setCurrentWidget(self.janela02)
 
-    def jogo(self):
+    def janelaJogo(self):
         tamanhoListaPalavras = len(self.PALAVRAS)
         selecionaPalavraAleatoria = self.PALAVRAS[randint(0, tamanhoListaPalavras - 1)]
         agrupaLetrasPalavra = ['_' for letra in selecionaPalavraAleatoria]
@@ -307,7 +324,7 @@ Empresa: ArtesGC Inc.
                 def novoJogo():
                     self.JOGADA = 0
                     self.tab.removeTab(0)
-                    self.jogo()
+                    self.janelaJogo()
 
                 self.JOGADA += 1
                 posicao = 0
