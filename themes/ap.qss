@@ -1,0 +1,5 @@
+QWidget{
+  background-color: cadetblue;
+  font-family: consolas;
+  font-size: 10pt;
+}
