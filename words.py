@@ -2,9 +2,6 @@
 
 
 class Palavras:
-    def __init__(self):
-        self.listadas()
-
     def listadas(self):
         return ['ATENCIOSO',
                 'AGRADAVEL',
