@@ -1,19 +1,19 @@
 [DEBREATE-0.7.13]
 <<CTRL>>
 Package: adivinhapalavra
-Version: 0.6
+Version: 0.6-052021
 Maintainer: ArtesGC <nuruldecarvalho@gmail.com>
 Section: games
 Architecture: amd64
 Priority: standard
-Description: Jogo Adivinha a Palavra
- jogo com objectivo de adivinhar que palavra foi definida pelo programa, letra por letra!
+Description: jogo com objectivo de adivinhar que palavra foi definida pelo programa, letra por letra!
 
 <</CTRL>>
 <<FILES>>
 1
-/home/nurul-gc/PycharmProjects/Adivinha-Palavra/dist/adivinhapalavra* -> adivinhapalavra -> /usr/share/adivinha palavra/
-/home/nurul-gc/PycharmProjects/Adivinha-Palavra/dist/img -> img -> /usr/share/adivinha palavra/
+/home/nurul-gc/PycharmProjects/Adivinha-Palavra/LICENSE.txt -> LICENSE.txt -> /usr/share/adivinhapalavra
+/home/nurul-gc/PycharmProjects/Adivinha-Palavra/dist/adivinhapalavra* -> adivinhapalavra -> /usr/share/adivinhapalavra
+/home/nurul-gc/PycharmProjects/Adivinha-Palavra/dist/img -> img -> /usr/share/adivinhapalavra
 <</FILES>>
 <<SCRIPTS>>
 <<PREINST>>
@@ -23,7 +23,7 @@ Description: Jogo Adivinha a Palavra
 1
 #! /bin/bash -e
 
-ln -fs "/usr/share/adivinha palavra/adivinhapalavra" "/usr/bin/adivinhapalavra"
+ln -fs "/usr/share/adivinhapalavra/adivinhapalavra" "/usr/bin/adivinhapalavra"
 <</POSTINST>>
 <<PRERM>>
 1
@@ -40,7 +40,7 @@ rm -f "/usr/bin/adivinhapalavra"
 adivinhapalavra (0.6) ; urgency=low
 
   * v0.1
-  	* lançamento oficial pela [&trade; ArtesGC](https://artesgc.home.blog).
+  	* lançamento oficial pela ArtesGC (https://artesgc.home.blog).
   * v0.2 ... v0.4
   	* organização da disposição gráfica.
   	* incremento das palavras secretas.
@@ -86,17 +86,17 @@ SUCH DAMAGE.
 <<MENU>>
 1
 Name=Adivinha Palavra
-Version=0.6
-Exec="/usr/share/adivinha palavra/adivinhapalavra"
+Version=1.0
+Exec=/usr/share/adivinhapalavra/adivinhapalavra
 Comment=jogo com objectivo de adivinhar que palavra foi definida letra por letra!
-Icon="/usr/share/adivinha palavra/img/adivinhapalavra-icon.png"
+Icon=/usr/share/adivinhapalavra/img/adivinhapalavra-icon.png
 Type=Application
 Terminal=false
 StartupNotify=true
 Encoding=UTF-8
 Categories=Game;
 GenericName=jogo de adivinha
-Path="/usr/share/adivinha palavra/"
+Path=/usr/share/adivinhapalavra/
 StartupWMClass=Adivinha Palavra
 <</MENU>>
 <<BUILD>>
