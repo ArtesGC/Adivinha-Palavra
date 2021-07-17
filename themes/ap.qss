@@ -3,3 +3,70 @@ QWidget{
   font-family: consolas;
   font-size: 10pt;
 }
+QLineEdit{
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 3px;
+  padding: 3px;
+  color: black;
+  background-color: white;
+}
+QListWidget{
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 3px;
+  color: black;
+  background-color: cadetblue;
+}
+QPushButton{
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 5px;
+  padding: 5px;
+}
+QPushButton:hover{
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  background-color: white;
+  color: black;
+}
+QComboBox{
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 3px;
+  color: black;
+  width: auto;
+  background-color: cadetblue;
+}
+QComboBox:hover{
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  background-color: white;
+  color: black;
+}
+QProgressBar{
+  text-align: center;
+  background-color: white;
+  color: black;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 5px;
+  padding: 2px;
+}
+QProgressBar::chunk {
+  background-color: cadetblue;
+  border-radius: 5px;
+}
+QPixmap{
+  border-radius: 3px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: white;
+}
