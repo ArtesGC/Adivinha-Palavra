@@ -85,7 +85,7 @@ def apagar_historico():
     :return: resultado da conexao
     """
     db = connect_db()
-    query = "DELETE * FROM tb_jogo;"
+    query = "DELETE FROM tb_jogo;"
     try:
         sql = db.cursor()
         result = sql.execute(query)
