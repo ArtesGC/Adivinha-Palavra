@@ -259,7 +259,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
             _model.setHeaderData(0, Qt.Horizontal, "id")
             _model.setHeaderData(1, Qt.Horizontal, "nome")
             _model.setHeaderData(2, Qt.Horizontal, "pontos")
-            _model.setHeaderData(3, Qt.Horizontal, "jogada")
+            _model.setHeaderData(3, Qt.Horizontal, "tentativas")
             _model.setHeaderData(4, Qt.Horizontal, "nivel")
 
         def zerar():
