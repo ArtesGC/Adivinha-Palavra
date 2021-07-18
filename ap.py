@@ -41,12 +41,13 @@ class J3A7P6:
         self.tab = QTabWidget(self.ferramentas)
         self.tab.setGeometry(0, 30, 700, 520)
         self.tab.setDocumentMode(True)
+        self.tab.setTabBarAutoHide(True)
+        self.tab.tabBarDoubleClicked.connect(self._remTab)
 
         # ******* variáveis *******
-        self.janela02 = None
-        self.janela03 = None
-        self.janela04 = None
-        self.janela05 = None
+        self.janelaDadosJogador = None
+        self.janelaPalavraSecretas = None
+        self.janelaHistoricoJogadores = None
         self.nomeJogador = None
         self.nivel = None
         self.letraJogador = None
@@ -79,30 +80,60 @@ class J3A7P6:
 
         self.janelaPrincipal()
 
+    def _remTab(self):
+        """
+        remove a aba dando dois cliques na barra contendo o nome
+        ***EGG***
+        """
+        if self.tab.currentIndex() == 0:
+            pass
+        else:
+            self.tab.removeTab(self.tab.currentIndex())
+
     def _historico(self):
-        if self.janela05 is None:
+        """
+        abrir a janela do historico de jogadores sem duplicacoes
+        ou retorno de valores nulos
+        """
+        if self.janelaHistoricoJogadores is None:
             return self.historicoJogadores()
         else:
-            self.tab.removeTab(1)
-            return self.historicoJogadores()
+            try:
+                self.tab.addTab(self.janelaHistoricoJogadores, 'Historico')
+                self.tab.setCurrentWidget(self.janelaHistoricoJogadores)
+            except Exception:
+                self.tab.removeTab(1)
+                return self.historicoJogadores()
 
     def _reiniciarJogo(self):
-        if self.janela02 is None:
+        """
+        reiniciar o jogo, ie, apartir da janela de introducao de dados
+        """
+        if self.janelaDadosJogador is None:
             return self.dadosJogador()
-        try:
-            self.tab.setCurrentWidget(self.janela02)
-        except Exception as e:
-            self.tab.removeTab(0)
-            return self.dadosJogador()
+        else:
+            try:
+                self.tab.removeTab(0)
+                self.tab.addTab(self.janelaDadosJogador, 'Jogador')
+                self.tab.setCurrentWidget(self.janelaDadosJogador)
+            except Exception as e:
+                self.tab.removeTab(0)
+                return self.dadosJogador()
 
     def _palavrasSecretas(self):
-        if self.janela04 is None:
+        """
+        abrir a janela com as possiveis palavras secretas sem duplicacoes
+        ou retorno de valores nulos
+        """
+        if self.janelaPalavraSecretas is None:
             return self.palavrasSecretas()
-        try:
-            self.tab.setCurrentWidget(self.janela04)
-        except Exception as e:
-            self.tab.removeTab(1)
-            return self.palavrasSecretas()
+        else:
+            try:
+                self.tab.addTab(self.janelaPalavraSecretas, 'Palavras Secretas')
+                self.tab.setCurrentWidget(self.janelaPalavraSecretas)
+            except Exception as e:
+                self.tab.removeTab(1)
+                return self.palavrasSecretas()
 
     def _instr(self):
         janelainfo = QDialog(self.ferramentas)
@@ -233,9 +264,9 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
 
         def zerar():
             apagar_historico()
-            view.update()
+            self._historico()
 
-        self.janela05 = QWidget()
+        self.janelaHistoricoJogadores = QWidget()
         layout = QVBoxLayout()
 
         db = QSqlDatabase.addDatabase('QSQLITE')
@@ -268,10 +299,10 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
         botaoFechar.setStyleSheet('background-color:red;')
         botaoFechar.clicked.connect(fechar)
         layout.addWidget(botaoFechar)
-        
-        self.janela05.setLayout(layout)
-        self.tab.addTab(self.janela05, 'Historico')
-        self.tab.setCurrentWidget(self.janela05)
+
+        self.janelaHistoricoJogadores.setLayout(layout)
+        self.tab.addTab(self.janelaHistoricoJogadores, 'Historico')
+        self.tab.setCurrentWidget(self.janelaHistoricoJogadores)
 
     def dadosJogador(self):
         # activar a opção de reiniciar jogo
@@ -301,7 +332,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
 
         QMessageBox.information(self.ferramentas, "Atenção", "Para uma melhor experiência de jogo leia as instruções que se encontram na barra de menu.."
                                                              "\nObrigado pelo apoio! - ArtesGC")
-        self.janela02 = QWidget()
+        self.janelaDadosJogador = QWidget()
         layout = QFormLayout()
         layout.setVerticalSpacing(20)
 
@@ -340,9 +371,9 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
         labelCopyright.linkActivated.connect(browser)
         layout.addWidget(labelCopyright)
 
-        self.janela02.setLayout(layout)
-        self.tab.addTab(self.janela02, "Jogador")
-        self.tab.setCurrentWidget(self.janela02)
+        self.janelaDadosJogador.setLayout(layout)
+        self.tab.addTab(self.janelaDadosJogador, 'Jogador')
+        self.tab.setCurrentWidget(self.janelaDadosJogador)
 
     def janelaJogo(self):
         tamanhoListaPalavras = len(self.PALAVRAS)
@@ -486,7 +517,7 @@ Pontos {self.PONTOS}""")
         self.tab.setCurrentWidget(janela03)
 
     def palavrasSecretas(self):
-        self.janela04 = QWidget()
+        self.janelaPalavraSecretas = QWidget()
         layout = QVBoxLayout()
 
         labelIntro = QLabel("<b>" + ".  . " * 5 + "PALAVRAS SECRETAS" + 5 * " .  ." + "</b>")
@@ -499,7 +530,7 @@ Pontos {self.PONTOS}""")
         listaPalavras.setAlternatingRowColors(True)
         layout.addWidget(listaPalavras)
 
-        labelExtra = QLabel(f"<i>* {len(self.PALAVRAS)} palavras..</i>")
+        labelExtra = QLabel(f"<i>*{len(self.PALAVRAS)} palavras..</i>")
         labelExtra.setAlignment(Qt.AlignRight)
         labelExtra.setStyleSheet("color:#D1C399;")
         layout.addWidget(labelExtra)
@@ -511,9 +542,9 @@ Pontos {self.PONTOS}""")
         botaoFechar.clicked.connect(fechar)
         layout.addWidget(botaoFechar)
 
-        self.janela04.setLayout(layout)
-        self.tab.addTab(self.janela04, 'Palavras Secretas')
-        self.tab.setCurrentWidget(self.janela04)
+        self.janelaPalavraSecretas.setLayout(layout)
+        self.tab.addTab(self.janelaPalavraSecretas, 'Palavras Secretas')
+        self.tab.setCurrentWidget(self.janelaPalavraSecretas)
 
 
 if __name__ == '__main__':
