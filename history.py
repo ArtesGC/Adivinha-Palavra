@@ -26,7 +26,8 @@ def criar_tabela_jogo():
             " nome varchar(50) not null," \
             " pontos varchar(20) not null," \
             " tentativas varchar(10) not null," \
-            " nivel varchar(5) not null);"
+            " nivel varchar(5) not null," \
+            " estado varchar(10) not null);"
     try:
         sql = db.cursor()
         result = sql.execute(query)
@@ -35,30 +36,35 @@ def criar_tabela_jogo():
     except sqlite3.Error as erro:
         db.rollback()
         raise erro
+    finally:
+        db.close()
 
 
-def add_dados(_nome, _pontos, _tentativas, _nivel):
+def add_dados(_nome, _pontos, _tentativas, _nivel, _estado):
     """criando historico de jogada
 
     :param _nome: nome do jogador
     :param _pontos: pontos obtidos
     :param _tentativas: numero de tentativas
     :param _nivel: nivel selecionado durante o jogo
+    :param _estado: estado do jogo (ganhou ou perdeu)
     :return: resultado da conexao
     """
     db = connect_db()
     query = f'INSERT INTO tb_jogo' \
-            f'(nome,pontos,tentativas,nivel)' \
-            f'VALUES("{_nome}","{_pontos}","{_tentativas}","{_nivel}");'
+            f'(nome,pontos,tentativas,nivel,estado)' \
+            f'VALUES("{_nome}","{_pontos}","{_tentativas}","{_nivel}", "{_estado}");'
 
     try:
         sql = db.cursor()
         result = sql.execute(query)
         db.commit()
         return result
-    except sqlite3.Error as er:
+    except sqlite3.Error as erro:
         db.rollback()
-        raise er
+        raise erro
+    finally:
+        db.close()
 
 
 def ver_dados():
@@ -67,7 +73,7 @@ def ver_dados():
     :return: os dados em uma lista
     """
     db = connect_db()
-    query = f"SELECT nome,pontos,tentativas,nivel FROM tb_jogo;"
+    query = f"SELECT nome,pontos,tentativas,nivel,estado FROM tb_jogo;"
     try:
         sql = db.cursor()
         sql.execute(query)
@@ -77,6 +83,8 @@ def ver_dados():
     except sqlite3.Error as erro:
         db.rollback()
         raise erro
+    finally:
+        db.close()
 
 
 def apagar_historico():
@@ -94,3 +102,5 @@ def apagar_historico():
     except sqlite3.Error as erro:
         db.rollback()
         raise erro
+    finally:
+        db.close()
