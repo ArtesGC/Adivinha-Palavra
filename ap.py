@@ -225,7 +225,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
         layout = QVBoxLayout()
 
         labelImagem = QLabel()
-        labelImagem.setPixmap(QPixmap("img/icon.png").scaled(QSize(570, 400)))
+        labelImagem.setPixmap(QPixmap("img/icon.png").scaled(QSize(600, 400)))
         labelImagem.setAlignment(Qt.AlignHCenter)
         layout.addWidget(labelImagem)
 
@@ -235,7 +235,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
         layout.addWidget(barraProgresso)
 
         def processar():
-            n = randint(1, 5)
+            n = randint(3, 5)
             sec = 0.2
             for i in range(0, 101, n):
                 sleep(sec)
@@ -262,17 +262,30 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
             _model.setHeaderData(3, Qt.Horizontal, "tentativas")
             _model.setHeaderData(4, Qt.Horizontal, "nivel")
 
-        def zerar():
-            apagar_historico()
-            self._historico()
+        def atualizarDb():
+            db = QSqlDatabase.addDatabase('QSQLITE')
+            db.setDatabaseName('historico/ap.db')
+            db.open()
+
+        def zerarDb():
+            try:
+                query = apagar_historico()
+                if query:
+                    return self._historico()
+                else:
+                    raise Exception('Algum erro ocorreu tente novamente!')
+            except Exception as erro:
+                QMessageBox.warning(self.ferramentas, 'Falha', f'{erro}..')
+            finally:
+                return self._historico()
+
+        def fechar():
+            self.tab.removeTab(self.tab.currentIndex())
 
         self.janelaHistoricoJogadores = QWidget()
         layout = QVBoxLayout()
 
-        db = QSqlDatabase.addDatabase('QSQLITE')
-        db.setDatabaseName('historico/ap.db')
-        db.open()
-
+        atualizarDb()
         model = QSqlTableModel()
         inciarModel(model)
 
@@ -281,7 +294,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
         layout.addWidget(labelIntro)
 
         view = QTableView()
-        view.setFixedWidth(515)
+        view.setFixedWidth(610)
         view.setUpdatesEnabled(True)
         view.setAlternatingRowColors(True)
         view.setModel(model)
@@ -289,11 +302,8 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
 
         botaoZerar = QPushButton("Zerar Historico")
         botaoZerar.setStyleSheet('background-color:cyan;')
-        botaoZerar.clicked.connect(zerar)
+        botaoZerar.clicked.connect(zerarDb)
         layout.addWidget(botaoZerar)
-
-        def fechar():
-            self.tab.removeTab(self.tab.currentIndex())
 
         botaoFechar = QPushButton("Fechar")
         botaoFechar.setStyleSheet('background-color:red;')
@@ -396,7 +406,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
                 completou = '_' not in agrupaLetrasPalavra
 
                 if completou:
-                    add_dados(self.nomeJogador.text(), self.PONTOS, self.JOGADA, self.nivel.currentText())
+                    add_dados(_nome=self.nomeJogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA, _nivel=self.nivel.currentText(), _estado='GANHOU')
                     labelJogo.setText(f"""(^3^) Parabéns {self.nomeJogador.text()}
 VOCÊ GANHOU..
 
@@ -406,11 +416,16 @@ VOCÊ GANHOU..
 Nível: {self.nivel.currentText()}
 Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
 Pontos: {self.PONTOS}""")
-                    labelJogo.setStyleSheet("background-color:white; color:green; border-radius: 3px; border: 2px solid; padding:50px;")
+                    labelJogo.setStyleSheet("background-color:white; "
+                                            "color:green; "
+                                            "border-radius: 3px; "
+                                            "border: 2px solid; "
+                                            "padding:50px;")
                     botaoValida.setText('Novo Jogo')
                     botaoValida.clicked.connect(novoJogo)
-                elif self.JOGADA == self.NUMERO_TENTATIVA:
-                    add_dados(self.nomeJogador.text(), self.PONTOS, self.JOGADA, self.nivel.currentText())
+
+                if self.JOGADA == self.NUMERO_TENTATIVA:
+                    add_dados(_nome=self.nomeJogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA, _nivel=self.nivel.currentText(), _estado='PERDEU')
                     labelJogo.setText(f"""(T.T) Lamento {self.nomeJogador.text()}
 VOCÊ ESGOTOU TODAS AS SUAS TENTATIVAS..
 
@@ -420,7 +435,11 @@ Palavra Secreta: {selecionaPalavraAleatoria}
 Nível: {self.nivel.currentText()}
 Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
 Pontos: {self.PONTOS}""")
-                    labelJogo.setStyleSheet("background-color:white; color:red; border-radius: 3px; border: 2px solid; padding:50px;")
+                    labelJogo.setStyleSheet("background-color:white; "
+                                            "color:red; "
+                                            "border-radius: 3px; "
+                                            "border: 2px solid; "
+                                            "padding:50px;")
                     botaoValida.setText('Novo Jogo')
                     botaoValida.clicked.connect(novoJogo)
                 elif self.letraJogador.text().upper() in selecionaPalavraAleatoria:
@@ -441,10 +460,9 @@ Pontos {self.PONTOS}""")
                                                     "border-radius: 3px; "
                                                     "border: 2px solid; "
                                                     "padding:50px;")
-                        posicao += 1
-                    if completou:
-                        add_dados(self.nomeJogador.text(), self.PONTOS, self.JOGADA, self.nivel.currentText())
-                        labelJogo.setText(f"""(^3^) Parabéns {self.nomeJogador.text()}
+                            if completou:
+                                add_dados(_nome=self.nomeJogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA, _nivel=self.nivel.currentText(), _estado='GANHOU')
+                                labelJogo.setText(f"""(^3^) Parabéns {self.nomeJogador.text()}
 VOCÊ GANHOU..
 
 {agrupaLetrasPalavra}
@@ -453,13 +471,14 @@ VOCÊ GANHOU..
 Nível: {self.nivel.currentText()}
 Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
 Pontos: {self.PONTOS}""")
-                        labelJogo.setStyleSheet("background-color:white; "
-                                                "color:green; "
-                                                "border-radius: 3px; "
-                                                "border: 2px solid; "
-                                                "padding:50px;")
-                        botaoValida.setText('Novo Jogo')
-                        botaoValida.clicked.connect(novoJogo)
+                                labelJogo.setStyleSheet("background-color:white; "
+                                                        "color:green; "
+                                                        "border-radius: 3px; "
+                                                        "border: 2px solid; "
+                                                        "padding:50px;")
+                                botaoValida.setText('Novo Jogo')
+                                botaoValida.clicked.connect(novoJogo)
+                        posicao += 1
                 else:
                     self.PONTOS -= randint(10, 50)
                     labelJogo.setText(f"""Nível: {self.nivel.currentText()} - Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
