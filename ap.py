@@ -1,12 +1,3 @@
-# ******************************************************************************
-#  (c) 2019-2021. Nurul GC                                                     *
-#                                                                              *
-#  Jovem Programador                                                           *
-#  Estudante de Engenharia de Telecomunicaçoes                                 *
-#  Tecnologia de Informação e de Medicina.                                     *
-#  Foco Fé Força Paciência                                                     *
-#  Allah no Comando.                                                           *
-# ******************************************************************************
 import os
 import webbrowser
 from random import randint
@@ -24,13 +15,17 @@ theme = open('themes/ap.qss').read().strip()
 
 
 class J3A7P6:
+    # contantes globais
     NUMERO_TENTATIVA = 0
     PONTOS = 0
     JOGADA = 0
     PALAVRAS = Palavras().listadas()
 
     def __init__(self):
+        # instancia principal da aplicacao
         self.gc = QApplication(argv)
+
+        # ferramenta principal da aplicacao
         self.ferramentas = QWidget()
         self.ferramentas.setWindowTitle("Adivinha Palavra")
         self.ferramentas.setStyleSheet(theme)
@@ -44,7 +39,7 @@ class J3A7P6:
         self.tab.setTabBarAutoHide(True)
         self.tab.tabBarDoubleClicked.connect(self._remTab)
 
-        # ******* variáveis *******
+        # ******* variáveis globais *******
         self.janelaDadosJogador = None
         self.janelaPalavraSecretas = None
         self.janelaHistoricoJogadores = None
@@ -78,8 +73,10 @@ class J3A7P6:
         sobre = menuFerramentas.addAction("Sobre")
         sobre.triggered.connect(self._sobre)
 
+        # inicializacao do programa
         self.janelaPrincipal()
 
+    # funcao especial (ler doc da funcao)
     def _remTab(self):
         """
         remove a aba dando dois cliques na barra contendo o nome
@@ -90,6 +87,7 @@ class J3A7P6:
         else:
             self.tab.removeTab(self.tab.currentIndex())
 
+    # otimizacao para abertura das janelas
     def _historico(self):
         """
         abrir a janela do historico de jogadores sem duplicacoes
@@ -135,6 +133,7 @@ class J3A7P6:
                 self.tab.removeTab(1)
                 return self.palavrasSecretas()
 
+    # funcoes do menu
     def _instr(self):
         janelainfo = QDialog(self.ferramentas)
         janelainfo.setWindowTitle('Instruções')
@@ -220,6 +219,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
         else:
             pass
 
+    # janelas do programa
     def janelaPrincipal(self):
         janela01 = QWidget()
         layout = QVBoxLayout()
