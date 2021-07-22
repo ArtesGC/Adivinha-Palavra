@@ -3,7 +3,7 @@
 [![Download Adivinha-Palavra](https://img.shields.io/sourceforge/dt/adivinha-palavra.svg)](https://sourceforge.net/projects/adivinha-palavra/files/latest/download) \
 [![Download Adivinha-Palavra](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/adivinha-palavra/files/latest/download) 
 
-<img alt="adivinha-palavra-icon" src="img/logo.png" width=600 height=600>
+<img alt="adivinha-palavra-icon" src="img/icon.png" width=600 height=600>
 
 </div>
 
