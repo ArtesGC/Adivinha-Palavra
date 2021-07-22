@@ -157,13 +157,13 @@ Dica:<br>
 Qualidades e Códigos de Honra;
 <br><br>
 Muito Obrigado pelo apoio!<br>
-<a href="https://artesgc.home.blog" style="text-decoration:none;">&trade; ArtesGC Inc</a>""")
+<a href="https://artesgc.home.blog" style="text-decoration:none;">&trade;ArtesGC Inc</a>""")
         infoProg.setStyleSheet("border-style:solid;"
                                "border-color:black;"
                                "border-width:1px;"
                                "border-radius:3px;"
                                "background-color:white;"
-                               "padding:5px;")
+                               "padding:10px;")
         layout.addWidget(infoProg)
 
         def fechar():
@@ -190,13 +190,13 @@ Versão: <b>0.7-072021</b><br>
 Designers e Programadores: 
 <a href="https://github.com/Nurul-GC" style="text-decoration:none;">Nurul GC</a>, 
 <a href="https://github.com/Paulo-Lopes-Estevao" style="text-decoration:none;">Paulo Lopes Estevao</a><br>
-Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trade; ArtesGC Inc</a>""")
+Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trade;ArtesGC Inc</a>""")
         infoProg.setStyleSheet("border-style:solid;"
                                "border-color:black;"
                                "border-width:1px;"
                                "border-radius:3px;"
                                "background-color:white;"
-                               "padding:5px;")
+                               "padding:10px;")
         layout.addWidget(infoProg)
 
         def fechar():
