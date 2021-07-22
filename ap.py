@@ -1,4 +1,3 @@
-import os
 import webbrowser
 from random import randint
 from sys import argv, exit
@@ -6,7 +5,7 @@ from time import sleep
 
 from PyQt5.Qt import *
 
-from history import add_dados, ver_dados, criar_tabela_jogo, apagar_historico
+from history import add_dados, criar_tabela_jogo, apagar_historico
 from words import Palavras
 
 __nome__ = "Jogo Adivinha Palavra"
