@@ -28,7 +28,7 @@ class J3A7P6:
         self.ferramentas = QWidget()
         self.ferramentas.setWindowTitle("Adivinha Palavra")
         self.ferramentas.setStyleSheet(theme)
-        self.ferramentas.setWindowIcon(QIcon("img/logo.png"))
+        self.ferramentas.setWindowIcon(QIcon("img/icon2.png"))
         self.ferramentas.setFixedSize(700, 550)
 
         # ******* criando abas para melhor organização *******
