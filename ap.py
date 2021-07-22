@@ -262,10 +262,9 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
             _model.setHeaderData(3, Qt.Horizontal, "tentativas")
             _model.setHeaderData(4, Qt.Horizontal, "nivel")
 
-        def atualizarDb():
+        def conectarDb():
             db = QSqlDatabase.addDatabase('QSQLITE')
             db.setDatabaseName('historico/ap.db')
-            db.open()
 
         def zerarDb():
             apagar_historico()
@@ -279,7 +278,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
         self.janelaHistoricoJogadores = QWidget()
         layout = QVBoxLayout()
 
-        atualizarDb()
+        conectarDb()
         model = QSqlTableModel()
         inciarModel(model)
 
