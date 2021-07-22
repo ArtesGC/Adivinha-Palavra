@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Adivinha Palavra"
-#define MyAppVersion "0.6.052021"
+#define MyAppVersion "0.7"
 #define MyAppPublisher "ArtesGC Inc."
 #define MyAppURL "http://artesgc.home.blog"
 #define MyAppExeName "adivinhapalavra.exe"
@@ -20,7 +20,7 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\{#MyAppName}
 VersionInfoCompany={#MyAppPublisher}
-VersionInfoCopyright="(c) 2019-2021 Nurul GC"
+VersionInfoCopyright="(c) 2019-2021 ArtesGC"
 VersionInfoDescription="Jogo com objectivo de Adivinhar a Palavra selecionada (letra por letra)"
 VersionInfoOriginalFileName={#MyAppName}
 VersionInfoProductName="Jogo {#MyAppName}"
@@ -32,14 +32,13 @@ DisableDirPage=yes
 DisableProgramGroupPage=yes
 ; The [Icons] "quicklaunchicon" entry uses {userappdata} but its [Tasks] entry has a proper IsAdminInstallMode Check.
 UsedUserAreasWarning=no
-LicenseFile=..\LICENSE.txt
-InfoAfterFile=.\windows-config/LEIA.txt
+LicenseFile=..\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=..\dist
-OutputBaseFilename=adivinha-palavra-{#MyAppVersion}
-SetupIconFile=..img\ico\imagc-256x256.ico
+OutputBaseFilename={#MyAppName}_{#MyAppVersion}-072021_amd64
+SetupIconFile=\img\icon-256x256.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -54,7 +53,8 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 [Files]
 Source: "..\dist\adivinhapalavra.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\img\*"; DestDir: "{app}\img"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\LICENSE.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\themes\*"; DestDir: "{app}\themes"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
