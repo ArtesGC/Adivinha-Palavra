@@ -397,8 +397,25 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
                 posicao = 0
                 completou = '_' not in agrupaLetrasPalavra
 
-                if self.JOGADA == self.NUMERO_TENTATIVA:
-                    add_dados(_nome=self.nomeJogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA, _nivel=self.nivel.currentText(), _estado='PERDEU')
+                if completou:
+                    labelJogo.setText(f"""(^3^) Parabéns {self.nomeJogador.text()}
+VOCÊ GANHOU..
+
+{agrupaLetrasPalavra}
+
+• Pontuação
+Nível: {self.nivel.currentText()}
+Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
+Pontos: {self.PONTOS}""")
+                    labelJogo.setStyleSheet("background-color:white; "
+                                            "color:green; "
+                                            "border-radius: 3px; "
+                                            "border: 2px solid; "
+                                            "padding:50px;")
+                    botaoValida.setText('Novo Jogo')
+                    botaoValida.clicked.connect(novoJogo)
+                    add_dados(_nome=self.nomeJogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA, _nivel=self.nivel.currentText(), _estado='GANHOU')
+                elif self.JOGADA == self.NUMERO_TENTATIVA:
                     labelJogo.setText(f"""(T.T) Lamento {self.nomeJogador.text()}
 VOCÊ ESGOTOU TODAS AS SUAS TENTATIVAS..
 
@@ -415,44 +432,26 @@ Pontos: {self.PONTOS}""")
                                             "padding:50px;")
                     botaoValida.setText('Novo Jogo')
                     botaoValida.clicked.connect(novoJogo)
+                    add_dados(_nome=self.nomeJogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA, _nivel=self.nivel.currentText(), _estado='PERDEU')
                 elif self.letraJogador.text().upper() in selecionaPalavraAleatoria:
-                    if completou:
-                        add_dados(_nome=self.nomeJogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA, _nivel=self.nivel.currentText(), _estado='GANHOU')
-                        labelJogo.setText(f"""(^3^) Parabéns {self.nomeJogador.text()}
-VOCÊ GANHOU..
+                    for letra in selecionaPalavraAleatoria:
+                        if self.letraJogador.text().upper() == letra:
+                            self.PONTOS += randint(50, 200)
+                            agrupaLetrasPalavra[posicao] = self.letraJogador.text().upper()
+                            labelJogo.setText(f"""Nível: {self.nivel.currentText()} - Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
+
+(^.^) Obaa..
+VOCÊ ACERTOU {self.nomeJogador.text()}!
 
 {agrupaLetrasPalavra}
 
-• Pontuação
-Nível: {self.nivel.currentText()}
-Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
-Pontos: {self.PONTOS}""")
-                        labelJogo.setStyleSheet("background-color:white; "
-                                                "color:green; "
-                                                "border-radius: 3px; "
-                                                "border: 2px solid; "
-                                                "padding:50px;")
-                        botaoValida.setText('Novo Jogo')
-                        botaoValida.clicked.connect(novoJogo)
-                    else:
-                        for letra in selecionaPalavraAleatoria:
-                            if self.letraJogador.text().upper() == letra:
-                                self.PONTOS += randint(50, 200)
-                                agrupaLetrasPalavra[posicao] = self.letraJogador.text().upper()
-                                labelJogo.setText(f"""Nível: {self.nivel.currentText()} - Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
-    
-    (^.^) Obaa..
-    VOCÊ ACERTOU {self.nomeJogador.text()}!
-    
-    {agrupaLetrasPalavra}
-    
-    Pontos {self.PONTOS}""")
-                                labelJogo.setStyleSheet("background-color:white; "
-                                                        "color:blue; "
-                                                        "border-radius: 3px; "
-                                                        "border: 2px solid; "
-                                                        "padding:50px;")
-                            posicao += 1
+Pontos {self.PONTOS}""")
+                            labelJogo.setStyleSheet("background-color:white; "
+                                                    "color:blue; "
+                                                    "border-radius: 3px; "
+                                                    "border: 2px solid; "
+                                                    "padding:50px;")
+                        posicao += 1
                 else:
                     self.PONTOS -= randint(10, 50)
                     labelJogo.setText(f"""Nível: {self.nivel.currentText()} - Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
@@ -523,7 +522,7 @@ Pontos {self.PONTOS}""")
         listaPalavras.setAlternatingRowColors(True)
         layout.addWidget(listaPalavras)
 
-        labelExtra = QLabel(f"<i>*{len(self.PALAVRAS)} palavras..</i>")
+        labelExtra = QLabel(f"<i>{len(self.PALAVRAS)} palavras..</i>")
         labelExtra.setAlignment(Qt.AlignRight)
         labelExtra.setStyleSheet("color:#D1C399;")
         layout.addWidget(labelExtra)
