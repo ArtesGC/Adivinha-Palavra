@@ -58,6 +58,6 @@ Source: "C:\Users\nurul\Documents\Projectos\Adivinha-Palavra\LICENSE"; DestDir: 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{autoprograms}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{autodesktop}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\"; Filename: "{app}\{#MyAppExeName}"; Tasks: quicklaunchicon
