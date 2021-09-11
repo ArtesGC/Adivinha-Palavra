@@ -3,7 +3,9 @@ from random import randint
 from sys import argv, exit
 from time import sleep
 
-from PyQt5.Qt import *
+from PyQt6.QtGui import *
+from PyQt6.QtCore import *
+from PyQt6.QtWidgets import *
 
 from history import add_dados, criar_tabela_jogo, apagar_historico
 from words import Palavras
@@ -14,52 +16,52 @@ theme = open('themes/ap.qss').read().strip()
 
 
 class J3A7P6:
-    # contantes globais
-    NUMERO_TENTATIVA = 0
-    PONTOS = 0
-    JOGADA = 0
-    PALAVRAS = Palavras().listadas()
-
     def __init__(self):
-        # instancia principal da aplicacao
+        # instancia principal da aplicação
         self.gc = QApplication(argv)
 
-        # ferramenta principal da aplicacao
+        # ferramenta principal da aplicação
         self.ferramentas = QWidget()
         self.ferramentas.setWindowTitle("Adivinha Palavra")
         self.ferramentas.setStyleSheet(theme)
         self.ferramentas.setWindowIcon(QIcon("img/icon2.png"))
-        self.ferramentas.setFixedSize(700, 550)
+        self.ferramentas.setFixedSize(600, 550)
 
         # ******* criando abas para melhor organização *******
         self.tab = QTabWidget(self.ferramentas)
-        self.tab.setGeometry(0, 30, 700, 520)
+        self.tab.setGeometry(0, 30, 600, 520)
         self.tab.setDocumentMode(True)
         self.tab.setTabBarAutoHide(True)
-        self.tab.tabBarDoubleClicked.connect(self._remTab)
+        self.tab.tabBarDoubleClicked.connect(self._rem_tab)
 
         # ******* variáveis globais *******
-        self.janelaDadosJogador = None
-        self.janelaPalavraSecretas = None
-        self.janelaHistoricoJogadores = None
-        self.nomeJogador = None
+        self.janela_dados_jogador = None
+        self.janela_palavra_secretas = None
+        self.janela_historico_jogadores = None
+        self.nome_jogador = None
         self.nivel = None
-        self.letraJogador = None
+        self.letra_jogador = None
+
+        # contantes globais
+        self.NUMERO_TENTATIVA = 0
+        self.PONTOS = 0
+        self.JOGADA = 0
+        self.PALAVRAS = Palavras().listadas()
 
         # ******* menu *******
-        menuFerramentas = QMenuBar(self.ferramentas)
-        self.reiniciarJogo = menuFerramentas.addAction("Reiniciar")
-        self.reiniciarJogo.setEnabled(False)
-        self.reiniciarJogo.triggered.connect(self._reiniciarJogo)
+        menu_ferramentas = QMenuBar(self.ferramentas)
+        self.reiniciar_jogo = menu_ferramentas.addAction("Reiniciar")
+        self.reiniciar_jogo.setEnabled(False)
+        self.reiniciar_jogo.triggered.connect(self._reiniciar_jogo)
 
-        opcoes = menuFerramentas.addMenu("Opções")
+        opcoes = menu_ferramentas.addMenu("Opções")
 
         instr = opcoes.addAction("Instruções")
         instr.triggered.connect(self._instr)
         opcoes.addSeparator()
 
-        palavraSecretas = opcoes.addAction("Palavras Secretas")
-        palavraSecretas.triggered.connect(self._palavrasSecretas)
+        palavra_secretas = opcoes.addAction("Palavras Secretas")
+        palavra_secretas.triggered.connect(self._palavras_secretas)
         opcoes.addSeparator()
 
         histor = opcoes.addAction("Historico de Jogadores")
@@ -69,14 +71,14 @@ class J3A7P6:
         sair = opcoes.addAction("Sair")
         sair.triggered.connect(self._sair)
 
-        sobre = menuFerramentas.addAction("Sobre")
+        sobre = menu_ferramentas.addAction("Sobre")
         sobre.triggered.connect(self._sobre)
 
         # inicializacao do programa
-        self.janelaPrincipal()
+        self.janela_principal()
 
     # funcao especial (ler doc da funcao)
-    def _remTab(self):
+    def _rem_tab(self):
         """
         remove a aba dando dois cliques na barra contendo o nome
         ***EGG***
@@ -92,45 +94,45 @@ class J3A7P6:
         abrir a janela do historico de jogadores sem duplicacoes
         ou retorno de valores nulos
         """
-        if self.janelaHistoricoJogadores is None:
-            return self.historicoJogadores()
+        if self.janela_historico_jogadores is None:
+            self.historico_jogadores()
         else:
             try:
-                self.tab.addTab(self.janelaHistoricoJogadores, 'Historico')
-                self.tab.setCurrentWidget(self.janelaHistoricoJogadores)
+                self.tab.addTab(self.janela_historico_jogadores, 'Historico')
+                self.tab.setCurrentWidget(self.janela_historico_jogadores)
             except Exception:
                 self.tab.removeTab(1)
-                return self.historicoJogadores()
+                self.historico_jogadores()
 
-    def _reiniciarJogo(self):
+    def _reiniciar_jogo(self):
         """
         reiniciar o jogo, ie, apartir da janela de introducao de dados
         """
-        if self.janelaDadosJogador is None:
-            return self.dadosJogador()
+        if self.janela_dados_jogador is None:
+            self.dados_jogador()
         else:
             try:
                 self.tab.removeTab(0)
-                self.tab.addTab(self.janelaDadosJogador, 'Jogador')
-                self.tab.setCurrentWidget(self.janelaDadosJogador)
-            except Exception as e:
+                self.tab.addTab(self.janela_dados_jogador, 'Jogador')
+                self.tab.setCurrentWidget(self.janela_dados_jogador)
+            except Exception:
                 self.tab.removeTab(0)
-                return self.dadosJogador()
+                self.dados_jogador()
 
-    def _palavrasSecretas(self):
+    def _palavras_secretas(self):
         """
         abrir a janela com as possiveis palavras secretas sem duplicacoes
         ou retorno de valores nulos
         """
-        if self.janelaPalavraSecretas is None:
-            return self.palavrasSecretas()
+        if self.janela_palavra_secretas is None:
+            self.palavras_secretas()
         else:
             try:
-                self.tab.addTab(self.janelaPalavraSecretas, 'Palavras Secretas')
-                self.tab.setCurrentWidget(self.janelaPalavraSecretas)
-            except Exception as e:
+                self.tab.addTab(self.janela_palavra_secretas, 'Palavras Secretas')
+                self.tab.setCurrentWidget(self.janela_palavra_secretas)
+            except Exception:
                 self.tab.removeTab(1)
-                return self.palavrasSecretas()
+                self.palavras_secretas()
 
     # funcoes do menu
     def _instr(self):
@@ -140,7 +142,7 @@ class J3A7P6:
         layout = QVBoxLayout()
         layout.setSpacing(20)
 
-        infoProg = QLabel("""
+        info_prog = QLabel("""
 Olá Que a Paz e Bençãos de Deus Estejam Sobre Ti e Toda Tua Família..<br>
 Este Jogo Consiste em Ganhar o Máximo de Pontos Possiveis em Poucas Tentativas,<br>
 acertando Que Palavra Foi Definida (LETRA POR LETRA)..
@@ -158,21 +160,21 @@ Qualidades e Códigos de Honra;
 <br><br>
 Muito Obrigado pelo apoio!<br>
 <a href="https://artesgc.home.blog" style="text-decoration:none;">&trade;ArtesGC Inc</a>""")
-        infoProg.setStyleSheet("border-style:solid;"
-                               "border-color:black;"
-                               "border-width:1px;"
-                               "border-radius:3px;"
-                               "background-color:white;"
-                               "padding:10px;")
-        layout.addWidget(infoProg)
+        info_prog.setStyleSheet("border-style:solid;"
+                                "border-color:black;"
+                                "border-width:1px;"
+                                "border-radius:3px;"
+                                "background-color:white;"
+                                "padding:10px;")
+        layout.addWidget(info_prog)
 
         def fechar():
             janelainfo.close()
 
-        botaoFechar = QPushButton("Fechar")
-        botaoFechar.setStyleSheet('background-color:red;')
-        botaoFechar.clicked.connect(fechar)
-        layout.addWidget(botaoFechar)
+        botao_fechar = QPushButton("Fechar")
+        botao_fechar.setStyleSheet('background-color:red;')
+        botao_fechar.clicked.connect(fechar)
+        layout.addWidget(botao_fechar)
 
         janelainfo.setLayout(layout)
         janelainfo.show()
@@ -184,28 +186,28 @@ Muito Obrigado pelo apoio!<br>
         layout = QVBoxLayout()
         layout.setSpacing(20)
 
-        infoProg = QLabel("""
+        info_prog = QLabel("""
 Nome: <b>Jogo Adivinha Palavra</b><br>
 Versão: <b>0.7-072021</b><br>
 Designers e Programadores: 
-<a href="https://github.com/Nurul-GC" style="text-decoration:none;">Nurul GC</a>, 
-<a href="https://github.com/Paulo-Lopes-Estevao" style="text-decoration:none;">Paulo Lopes Estevao</a><br>
-Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trade;ArtesGC Inc</a>""")
-        infoProg.setStyleSheet("border-style:solid;"
-                               "border-color:black;"
-                               "border-width:1px;"
-                               "border-radius:3px;"
-                               "background-color:white;"
-                               "padding:10px;")
-        layout.addWidget(infoProg)
+<a style="text-decoration:none;">Nurul GC</a>, 
+<a style="text-decoration:none;">Paulo Lopes Estevao</a><br>
+Empresa: <a style="text-decoration:none;">&trade;ArtesGC Inc</a>""")
+        info_prog.setStyleSheet("border-style:solid;"
+                                "border-color:black;"
+                                "border-width:1px;"
+                                "border-radius:3px;"
+                                "background-color:white;"
+                                "padding:10px;")
+        layout.addWidget(info_prog)
 
         def fechar():
             janelainfo.close()
 
-        botaoFechar = QPushButton("Fechar")
-        botaoFechar.setStyleSheet('background-color:red;')
-        botaoFechar.clicked.connect(fechar)
-        layout.addWidget(botaoFechar)
+        botao_fechar = QPushButton("Fechar")
+        botao_fechar.setStyleSheet('background-color:red;')
+        botao_fechar.clicked.connect(fechar)
+        layout.addWidget(botao_fechar)
 
         janelainfo.setLayout(layout)
         janelainfo.show()
@@ -213,105 +215,105 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
     def _sair(self):
         sair = QMessageBox.question(
             self.ferramentas, "Sair", "Tem mesmo a certeza que deseja sair?")
-        if sair == QMessageBox.Yes:
+        if sair == QMessageBox.StandardButton.Yes:
             exit(0)
         else:
             pass
 
     # janelas do programa
-    def janelaPrincipal(self):
+    def janela_principal(self):
         janela01 = QWidget()
         layout = QVBoxLayout()
 
-        labelImagem = QLabel()
-        labelImagem.setPixmap(QPixmap("img/icon.png").scaled(QSize(600, 400)))
-        labelImagem.setAlignment(Qt.AlignHCenter)
-        layout.addWidget(labelImagem)
+        label_imagem = QLabel()
+        label_imagem.setPixmap(QPixmap("img/icon.png").scaled(QSize(500, 400)))
+        label_imagem.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        layout.addWidget(label_imagem)
 
-        barraProgresso = QProgressBar()
-        barraProgresso.setGeometry(200, 100, 200, 30)
-        barraProgresso.setAlignment(Qt.AlignHCenter)
-        layout.addWidget(barraProgresso)
+        barra_progresso = QProgressBar()
+        barra_progresso.setGeometry(200, 100, 200, 30)
+        barra_progresso.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        layout.addWidget(barra_progresso)
 
         def processar():
             n = randint(3, 5)
             sec = 0.2
             for i in range(0, 101, n):
                 sleep(sec)
-                barraProgresso.setValue(i)
+                barra_progresso.setValue(i)
             self.tab.removeTab(0)
-            self.dadosJogador()
+            self.dados_jogador()
 
-        botaoIniciar = QPushButton("Iniciar Jogo")
-        botaoIniciar.setStyleSheet("background-color:#D1C399;")
-        botaoIniciar.clicked.connect(processar)
-        layout.addWidget(botaoIniciar)
+        botao_iniciar = QPushButton("Iniciar Jogo")
+        botao_iniciar.setStyleSheet("background-color:#D1C399;")
+        botao_iniciar.clicked.connect(processar)
+        layout.addWidget(botao_iniciar)
 
         janela01.setLayout(layout)
         self.tab.addTab(janela01, "Bem-Vindo")
         self.tab.setCurrentWidget(janela01)
 
-    def historicoJogadores(self):
-        def inciarModel(_model):
+    def historico_jogadores(self):
+        def inciar_model(_model):
             _model.setTable('tb_jogo')
             _model.select()
-            _model.setHeaderData(0, Qt.Horizontal, "id")
-            _model.setHeaderData(1, Qt.Horizontal, "nome")
-            _model.setHeaderData(2, Qt.Horizontal, "pontos")
-            _model.setHeaderData(3, Qt.Horizontal, "tentativas")
-            _model.setHeaderData(4, Qt.Horizontal, "nivel")
+            _model.setHeaderData(0, Qt.Orientation.Horizontal, "id")
+            _model.setHeaderData(1, Qt.Orientation.Horizontal, "nome")
+            _model.setHeaderData(2, Qt.Orientation.Horizontal, "pontos")
+            _model.setHeaderData(3, Qt.Orientation.Horizontal, "tentativas")
+            _model.setHeaderData(4, Qt.Orientation.Horizontal, "nivel")
 
-        def conectarDb():
+        def conectar_db():
             db = QSqlDatabase.addDatabase('QSQLITE')
             db.setDatabaseName('historico/ap.db')
 
-        def zerarDb():
+        def zerar_db():
             apagar_historico()
-            QMessageBox.information(self.ferramentas, 'Operação bem sucedida', f'Operação concluida, '
-                                                                               f'os dados serão atualizados automaticamente após o reinício do programa..')
+            QMessageBox.information(self.ferramentas, 'Operação bem sucedida',
+                                    f'Operação concluida, os dados serão atualizados automaticamente após o reinício do programa..')
             return fechar()
 
         def fechar():
             self.tab.removeTab(self.tab.currentIndex())
 
-        self.janelaHistoricoJogadores = QWidget()
+        self.janela_historico_jogadores = QWidget()
         layout = QVBoxLayout()
 
-        conectarDb()
+        conectar_db()
         model = QSqlTableModel()
-        inciarModel(model)
+        inciar_model(model)
 
-        labelIntro = QLabel("<b>" + ".  . " * 5 + "HISTORICO" + 5 * " .  ." + "</b>")
-        labelIntro.setAlignment(Qt.AlignCenter)
-        layout.addWidget(labelIntro)
+        label_intro = QLabel("<b>" + ".  . " * 5 + "HISTORICO" + 5 * " .  ." + "</b>")
+        label_intro.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(label_intro)
 
         view = QTableView()
         view.setFixedWidth(610)
         view.setUpdatesEnabled(True)
         view.setAlternatingRowColors(True)
         view.setModel(model)
-        layout.addWidget(view, alignment=Qt.AlignHCenter)
+        layout.addWidget(view, alignment=Qt.AlignmentFlag.AlignHCenter)
 
-        botaoZerar = QPushButton("Zerar Historico")
-        botaoZerar.setStyleSheet('background-color:cyan;')
-        botaoZerar.clicked.connect(zerarDb)
-        layout.addWidget(botaoZerar)
+        botao_zerar = QPushButton("Zerar Historico")
+        botao_zerar.setStyleSheet('background-color:cyan;')
+        botao_zerar.clicked.connect(zerar_db)
+        layout.addWidget(botao_zerar)
 
-        botaoFechar = QPushButton("Fechar")
-        botaoFechar.setStyleSheet('background-color:red;')
-        botaoFechar.clicked.connect(fechar)
-        layout.addWidget(botaoFechar)
+        botao_fechar = QPushButton("Fechar")
+        botao_fechar.setStyleSheet('background-color:red;')
+        botao_fechar.clicked.connect(fechar)
+        layout.addWidget(botao_fechar)
 
-        self.janelaHistoricoJogadores.setLayout(layout)
-        self.tab.addTab(self.janelaHistoricoJogadores, 'Historico')
-        self.tab.setCurrentWidget(self.janelaHistoricoJogadores)
+        self.janela_historico_jogadores.setLayout(layout)
+        self.tab.addTab(self.janela_historico_jogadores, 'Historico')
+        self.tab.setCurrentWidget(self.janela_historico_jogadores)
 
-    def dadosJogador(self):
+    def dados_jogador(self):
         # activar a opção de reiniciar jogo
-        self.reiniciarJogo.setEnabled(True)
+        self.reiniciar_jogo.setEnabled(True)
 
         def validar_dados_jogador():
-            if self.nomeJogador.text() == "" or self.nomeJogador.text().isspace() or self.nomeJogador.text() is None:
+            if self.nome_jogador.text() == "" or self.nome_jogador.text().isspace() or self.nome_jogador.text() is None:
                 QMessageBox.warning(self.ferramentas, 'Aviso', 'Nome do jogador não definido..')
             else:
                 if self.nivel.currentText() == '3':
@@ -334,22 +336,22 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
 
         QMessageBox.information(self.ferramentas, "Atenção", "Para uma melhor experiência de jogo leia as instruções que se encontram na barra de menu.."
                                                              "\nObrigado pelo apoio! - ArtesGC")
-        self.janelaDadosJogador = QWidget()
+        self.janela_dados_jogador = QWidget()
         layout = QFormLayout()
         layout.setVerticalSpacing(20)
 
-        labelImagem = QLabel()
-        labelImagem.setPixmap(QPixmap("img/01.png"))
-        labelImagem.setAlignment(Qt.AlignHCenter)
-        layout.addRow(labelImagem)
+        label_imagem = QLabel()
+        label_imagem.setPixmap(QPixmap("img/01.png"))
+        label_imagem.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        layout.addRow(label_imagem)
 
-        labelExtra = QLabel("<b>" + ".  . " * 5 + "DADOS DO JOGADOR" + " .  ." * 5 + "</b>")
-        labelExtra.setAlignment(Qt.AlignCenter)
-        layout.addRow(labelExtra)
+        label_extra = QLabel("<b>" + ".  . " * 5 + "DADOS DO JOGADOR" + " .  ." * 5 + "</b>")
+        label_extra.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addRow(label_extra)
 
-        self.nomeJogador = QLineEdit()
-        self.nomeJogador.setPlaceholderText("Digite o seu nome..")
-        layout.addRow(self.nomeJogador)
+        self.nome_jogador = QLineEdit()
+        self.nome_jogador.setPlaceholderText("Digite o seu nome..")
+        layout.addRow(self.nome_jogador)
 
         niveis = ['1', '2', '3']
         self.nivel = QComboBox()
@@ -357,115 +359,115 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;">&trad
         self.nivel.setToolTip('Nível 1 - 25 tentativas\nNível 2 - 20 tentativas\nNível 3 - 15 tentativas')
         layout.addRow("<b>Selecione o &Nível:</b>", self.nivel)
 
-        botaoJogar = QPushButton("Jogar")
-        botaoJogar.setDefault(True)
-        botaoJogar.setStyleSheet("background-color:green;")
-        botaoJogar.clicked.connect(validar_dados_jogador)
-        layout.addRow(botaoJogar)
+        botao_jogar = QPushButton("Jogar")
+        botao_jogar.setDefault(True)
+        botao_jogar.setStyleSheet("background-color:green;")
+        botao_jogar.clicked.connect(validar_dados_jogador)
+        layout.addRow(botao_jogar)
 
         def browser(p):
             return webbrowser.open('https://artesgc.home.blog')
 
-        labelCopyright = QLabel(
+        label_copyright = QLabel(
             "<a href='#' style='text-decoration:none;'>&trade;ArtesGC Inc.</a>")
-        labelCopyright.setAlignment(Qt.AlignRight)
-        labelCopyright.setToolTip('Acesso a pagina oficial da ArtesGC!')
-        labelCopyright.linkActivated.connect(browser)
-        layout.addWidget(labelCopyright)
+        label_copyright.setAlignment(Qt.AlignmentFlag.AlignRight)
+        label_copyright.setToolTip('Acesso a pagina oficial da ArtesGC!')
+        label_copyright.linkActivated.connect(browser)
+        layout.addWidget(label_copyright)
 
-        self.janelaDadosJogador.setLayout(layout)
-        self.tab.addTab(self.janelaDadosJogador, 'Jogador')
-        self.tab.setCurrentWidget(self.janelaDadosJogador)
+        self.janela_dados_jogador.setLayout(layout)
+        self.tab.addTab(self.janela_dados_jogador, 'Jogador')
+        self.tab.setCurrentWidget(self.janela_dados_jogador)
 
     def janelaJogo(self):
-        tamanhoListaPalavras = len(self.PALAVRAS)
-        selecionaPalavraAleatoria = self.PALAVRAS[randint(0, tamanhoListaPalavras - 1)]
-        agrupaLetrasPalavra = ['_' for letra in selecionaPalavraAleatoria]
+        tamanho_lista_palavras = len(self.PALAVRAS)
+        seleciona_palavra_aleatoria = self.PALAVRAS[randint(0, tamanho_lista_palavras - 1)]
+        agrupa_letras_palavra = ['_' for letra in seleciona_palavra_aleatoria]
 
         def validaJogada():
-            if self.letraJogador.text() == "" or self.letraJogador.text().isspace() or None:
+            if self.letra_jogador.text() == "" or self.letra_jogador.text().isspace() or None:
                 QMessageBox.warning(self.ferramentas, 'Aviso', 'Letra para tentativa não atribuida..')
-            elif not self.letraJogador.text().isalpha():
+            elif not self.letra_jogador.text().isalpha():
                 QMessageBox.warning(self.ferramentas, 'Aviso', 'Letra para tentativa não atribuida..')
             else:
                 self.JOGADA += 1
                 posicao = 0
-                if self.letraJogador.text().upper() in selecionaPalavraAleatoria:
-                    for letra in selecionaPalavraAleatoria:
-                        if self.letraJogador.text().upper() == letra:
+                if self.letra_jogador.text().upper() in seleciona_palavra_aleatoria:
+                    for letra in seleciona_palavra_aleatoria:
+                        if self.letra_jogador.text().upper() == letra:
                             self.PONTOS += randint(50, 200)
-                            agrupaLetrasPalavra[posicao] = self.letraJogador.text().upper()
-                            labelJogo.setText(f"""Nível: {self.nivel.currentText()} - Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
+                            agrupa_letras_palavra[posicao] = self.letra_jogador.text().upper()
+                            label_jogo.setText(f"""Nível: {self.nivel.currentText()} - Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
 
 (^.^) Obaa..
-VOCÊ ACERTOU {self.nomeJogador.text()}!
+VOCÊ ACERTOU {self.nome_jogador.text()}!
 
-{agrupaLetrasPalavra}
+{agrupa_letras_palavra}
 
 Pontos {self.PONTOS}""")
-                            labelJogo.setStyleSheet("background-color:white; "
-                                                    "color:blue; "
-                                                    "border-radius: 3px; "
-                                                    "border: 2px solid; "
-                                                    "padding:50px;")
+                            label_jogo.setStyleSheet("background-color:white; "
+                                                     "color:blue; "
+                                                     "border-radius: 3px; "
+                                                     "border: 2px solid; "
+                                                     "padding:50px;")
                         posicao += 1
                 else:
                     self.PONTOS -= randint(10, 50)
-                    labelJogo.setText(f"""Nível: {self.nivel.currentText()} - Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
+                    label_jogo.setText(f"""Nível: {self.nivel.currentText()} - Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
 
 (O_O) Upss..
-VOCÊ ERROU {self.nomeJogador.text()}!
+VOCÊ ERROU {self.nome_jogador.text()}!
 
 Pontos {self.PONTOS}""")
-                    labelJogo.setStyleSheet("background-color:white; "
-                                            "color:red; "
-                                            "border-radius: 3px; "
-                                            "border: 2px solid; "
-                                            "padding:50px;")
+                    label_jogo.setStyleSheet("background-color:white; "
+                                             "color:red; "
+                                             "border-radius: 3px; "
+                                             "border: 2px solid; "
+                                             "padding:50px;")
 
-        def validaVitoria():
+        def valida_vitoria():
             def novoJogo():
                 self.JOGADA = 0
                 self.tab.removeTab(0)
                 self.janelaJogo()
 
-            completou = '_' not in agrupaLetrasPalavra
+            completou = '_' not in agrupa_letras_palavra
             if completou:
-                labelJogo.setText(f"""(^3^) Parabéns {self.nomeJogador.text()}
+                label_jogo.setText(f"""(^3^) Parabéns {self.nome_jogador.text()}
 VOCÊ GANHOU..
 
-{agrupaLetrasPalavra}
+{agrupa_letras_palavra}
 
 • Pontuação
 Nível: {self.nivel.currentText()}
 Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
 Pontos: {self.PONTOS}""")
-                labelJogo.setStyleSheet("background-color:white; "
-                                        "color:green; "
-                                        "border-radius: 3px; "
-                                        "border: 2px solid; "
-                                        "padding:50px;")
-                botaoValida.setText('Novo Jogo')
-                botaoValida.clicked.connect(novoJogo)
-                add_dados(_nome=self.nomeJogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA, _nivel=self.nivel.currentText(), _estado='GANHOU')
+                label_jogo.setStyleSheet("background-color:white; "
+                                         "color:green; "
+                                         "border-radius: 3px; "
+                                         "border: 2px solid; "
+                                         "padding:50px;")
+                botao_valida.setText('Novo Jogo')
+                botao_valida.clicked.connect(novoJogo)
+                add_dados(_nome=self.nome_jogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA, _nivel=self.nivel.currentText(), _estado='GANHOU')
             elif self.JOGADA == self.NUMERO_TENTATIVA:
-                labelJogo.setText(f"""(T.T) Lamento {self.nomeJogador.text()}
+                label_jogo.setText(f"""(T.T) Lamento {self.nome_jogador.text()}
 VOCÊ ESGOTOU TODAS AS SUAS TENTATIVAS..
 
-Palavra Secreta: {selecionaPalavraAleatoria}
+Palavra Secreta: {seleciona_palavra_aleatoria}
 
 • Pontuação
 Nível: {self.nivel.currentText()}
 Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
 Pontos: {self.PONTOS}""")
-                labelJogo.setStyleSheet("background-color:white; "
-                                        "color:red; "
-                                        "border-radius: 3px; "
-                                        "border: 2px solid; "
-                                        "padding:50px;")
-                botaoValida.setText('Novo Jogo')
-                botaoValida.clicked.connect(novoJogo)
-                add_dados(_nome=self.nomeJogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA, _nivel=self.nivel.currentText(), _estado='PERDEU')
+                label_jogo.setStyleSheet("background-color:white; "
+                                         "color:red; "
+                                         "border-radius: 3px; "
+                                         "border: 2px solid; "
+                                         "padding:50px;")
+                botao_valida.setText('Novo Jogo')
+                botao_valida.clicked.connect(novoJogo)
+                add_dados(_nome=self.nome_jogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA, _nivel=self.nivel.currentText(), _estado='PERDEU')
             else:
                 validaJogada()
 
@@ -473,50 +475,50 @@ Pontos: {self.PONTOS}""")
         layout = QFormLayout()
         layout.setVerticalSpacing(20)
 
-        labelInfo = QLabel(f"<h3>Bem-Vindo <i>{self.nomeJogador.text()}</i><br>"
+        labelInfo = QLabel(f"<h3>Bem-Vindo <i>{self.nome_jogador.text()}</i><br>"
                            f"Tente Adivinhar Qual é a Palavra Secreta..</h3><br>"
-                           f"<i>{agrupaLetrasPalavra}</i>")
-        labelInfo.setAlignment(Qt.AlignHCenter)
+                           f"<i>{agrupa_letras_palavra}</i>")
+        labelInfo.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         layout.addRow(labelInfo)
 
-        labelJogo = QLabel('.  .  .  .  .')
-        labelJogo.setStyleSheet("background-color: white; "
-                                "border-radius: 3px; "
-                                "border: 2px solid; "
-                                "padding:100px;")
-        labelJogo.setAlignment(Qt.AlignHCenter)
-        layout.addRow(labelJogo)
+        label_jogo = QLabel('.  .  .  .  .')
+        label_jogo.setStyleSheet("background-color: white; "
+                                 "border-radius: 3px; "
+                                 "border: 2px solid; "
+                                 "padding:100px;")
+        label_jogo.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        layout.addRow(label_jogo)
 
-        labelExtra = QLabel("<b>" + ".  . " * 5 + "JOGANDO" + " .  ." * 5 + "</b>")
-        labelExtra.setAlignment(Qt.AlignCenter)
-        layout.addRow(labelExtra)
+        label_extra = QLabel("<b>" + ".  . " * 5 + "JOGANDO" + " .  ." * 5 + "</b>")
+        label_extra.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addRow(label_extra)
 
-        self.letraJogador = QLineEdit()
-        self.letraJogador.setMaxLength(1)
-        self.letraJogador.setPlaceholderText("Digite a letra e pressione ENTER..")
-        self.letraJogador.returnPressed.connect(validaVitoria)
-        layout.addRow(self.letraJogador)
+        self.letra_jogador = QLineEdit()
+        self.letra_jogador.setMaxLength(1)
+        self.letra_jogador.setPlaceholderText("Digite a letra e pressione ENTER..")
+        self.letra_jogador.returnPressed.connect(valida_vitoria)
+        layout.addRow(self.letra_jogador)
 
-        botaoValida = QPushButton('Validar Jogada')
-        botaoValida.setDefault(True)
-        botaoValida.clicked.connect(validaVitoria)
-        botaoValida.setStyleSheet('background-color: cyan;')
+        botao_valida = QPushButton('Validar Jogada')
+        botao_valida.setDefault(True)
+        botao_valida.clicked.connect(valida_vitoria)
+        botao_valida.setStyleSheet('background-color: cyan;')
 
         botaoFimJogo = QPushButton('Terminar o Jogo')
         botaoFimJogo.clicked.connect(self._sair)
         botaoFimJogo.setStyleSheet('background-color:red;')
-        layout.addRow(botaoValida, botaoFimJogo)
+        layout.addRow(botao_valida, botaoFimJogo)
 
         janela03.setLayout(layout)
         self.tab.addTab(janela03, 'Jogando')
         self.tab.setCurrentWidget(janela03)
 
-    def palavrasSecretas(self):
-        self.janelaPalavraSecretas = QWidget()
+    def palavras_secretas(self):
+        self.janela_palavra_secretas = QWidget()
         layout = QVBoxLayout()
 
         labelIntro = QLabel("<b>" + ".  . " * 5 + "PALAVRAS SECRETAS" + 5 * " .  ." + "</b>")
-        labelIntro.setAlignment(Qt.AlignHCenter)
+        labelIntro.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         layout.addWidget(labelIntro)
 
         listaPalavras = QListWidget()
@@ -526,7 +528,7 @@ Pontos: {self.PONTOS}""")
         layout.addWidget(listaPalavras)
 
         labelExtra = QLabel(f"<i>{len(self.PALAVRAS)} palavras..</i>")
-        labelExtra.setAlignment(Qt.AlignRight)
+        labelExtra.setAlignment(Qt.AlignmentFlag.AlignRight)
         labelExtra.setStyleSheet("color:#D1C399;")
         layout.addWidget(labelExtra)
 
@@ -537,13 +539,13 @@ Pontos: {self.PONTOS}""")
         botaoFechar.clicked.connect(fechar)
         layout.addWidget(botaoFechar)
 
-        self.janelaPalavraSecretas.setLayout(layout)
-        self.tab.addTab(self.janelaPalavraSecretas, 'Palavras Secretas')
-        self.tab.setCurrentWidget(self.janelaPalavraSecretas)
+        self.janela_palavra_secretas.setLayout(layout)
+        self.tab.addTab(self.janela_palavra_secretas, 'Palavras Secretas')
+        self.tab.setCurrentWidget(self.janela_palavra_secretas)
 
 
 if __name__ == '__main__':
     criar_tabela_jogo()
     app = J3A7P6()
     app.ferramentas.show()
-    app.gc.exec_()
+    app.gc.exec()
