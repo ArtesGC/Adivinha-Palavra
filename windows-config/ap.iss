@@ -34,8 +34,8 @@ DisableProgramGroupPage=yes
 UsedUserAreasWarning=no
 LicenseFile=C:\Users\nurul\Documents\Projectos\Adivinha-Palavra\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
-;PrivilegesRequired=lowest
-PrivilegesRequiredOverridesAllowed=dialog
+PrivilegesRequired=lowest
+;PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=C:\Users\nurul\Documents\Projectos\Adivinha-Palavra\dist
 OutputBaseFilename={#MyAppName}_{#MyAppVersion}-072021_amd64
 SetupIconFile=C:\Users\nurul\Documents\Projectos\Adivinha-Palavra\img\icon-256x256.ico
