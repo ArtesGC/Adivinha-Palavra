@@ -1,7 +1,8 @@
-QWidget{
-  background-color: cadetblue;
-  font-family: consolas;
+QWidget, QFrame{
+  background-color: "cadetblue";
+  font-family: "Megrim", "consolas";
   font-size: 10pt;
+  font-weight: bold;
 }
 QLineEdit{
   border-width: 1px;
@@ -18,7 +19,7 @@ QListWidget{
   border-color: black;
   border-radius: 3px;
   color: black;
-  background-color: cadetblue;
+  background-color: "cadetblue";
 }
 QPushButton{
   border-width: 1px;
@@ -40,8 +41,8 @@ QComboBox{
   border-color: black;
   border-radius: 3px;
   color: black;
-  width: auto;
-  background-color: cadetblue;
+  width: "auto";
+  background-color: "cadetblue";
 }
 QComboBox:hover{
   border-width: 1px;
@@ -61,7 +62,7 @@ QProgressBar{
   padding: 2px;
 }
 QProgressBar::chunk {
-  background-color: cadetblue;
+  background-color: "cadetblue";
   border-radius: 5px;
 }
 QPixmap{
