@@ -57,6 +57,7 @@ class J3A7P6:
 
         # ******* criando abas para melhor organização *******
         self.tab = QTabWidget()
+        self.tab.setTabShape(self.tab.TabShape.Triangular)
         self.tab.setDocumentMode(True)
         self.tab.setTabBarAutoHide(True)
         layout_principal.addWidget(self.tab)
