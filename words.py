@@ -3,6 +3,7 @@
 
 class Palavras:
     def listadas(self):
+        """funcao que retorna as palavras secretas"""
         return ['ATENCIOSO',
                 'AGRADAVEL',
                 'ADORAVEL',
