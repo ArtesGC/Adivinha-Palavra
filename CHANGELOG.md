@@ -18,3 +18,10 @@
     - credito para [Paulo-Lopes-Estevao](https://github.com/Paulo-Lopes-Estevao)
   - atualizacao das imagens
   - otimizacao do `.qss` para o tema da aplicacao
+- [v0.8 - 09.2021](https://github.com/ArtesGC/Adivinha-Palavra/releases/tag/v0.8)
+  - atualização da disposição gráfica
+  - atualização do acesso à base de dados
+  - atualização dos icones do programa
+  - otimização do tema do programa
+  - refactorização do código-fonte
+  - mudança de framework (**PyQt5** para **PyQt6**)
