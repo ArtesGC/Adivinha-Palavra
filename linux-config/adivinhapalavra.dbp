@@ -11,11 +11,11 @@ Description: jogo com objectivo de adivinhar que palavra foi definida pelo progr
 <</CTRL>>
 <<FILES>>
 1
-/media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/dist/adivinhapalavra* -> adivinhapalavra -> /usr/share/adivinhapalavra
 /media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/LICENSE -> LICENSE -> /usr/share/adivinhapalavra
-/media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/themes -> themes -> /usr/share/adivinhapalavra
-/media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/img -> img -> /usr/share/adivinhapalavra
 /media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/fonts -> fonts -> /usr/share/adivinhapalavra
+/media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/img -> img -> /usr/share/adivinhapalavra
+/media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/themes -> themes -> /usr/share/adivinhapalavra
+/media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/dist/adivinhapalavra -> adivinhapalavra -> /usr/share/adivinhapalavra
 <</FILES>>
 <<SCRIPTS>>
 <<PREINST>>
@@ -42,23 +42,23 @@ rm -f "/usr/bin/adivinhapalavra"
 adivinhapalavra (0.8-092021) focal; urgency=low
 
   * v0.1
-  	* lançamento oficial pela [ArtesGC](https://artesgc.home.blog).
+    * lançamento oficial pela [ArtesGC](https://artesgc.home.blog).
   * v0.2 ... v0.4
-  	* organização da disposição gráfica.
-  	* incremento das palavras secretas.
-  	* reparo de erros no código fonte.
+    * organização da disposição gráfica.
+    * incremento das palavras secretas.
+    * reparo de erros no código fonte.
   * [v0.5 - 03.2021](https://github.com/ArtesGC/Adivinha-Palavra/releases/tag/v0.5)
-  	* mudança de framework (**Tkinter** para **PyQt5**).
+    * mudança de framework (**Tkinter** para **PyQt5**).
   * [v0.6 - 05.2021](https://github.com/ArtesGC/Adivinha-Palavra/releases/tag/v0.6)
-  	* disposição gráfica: mais robusto e dinamico.
-  	* ortografia: mais compreensiva.
-  	* letra jogador: validação de letras (apenas).
+    * disposição gráfica: mais robusto e dinamico.
+    * ortografia: mais compreensiva.
+    * letra jogador: validação de letras (apenas).
   * [v0.7 - 07.2021](https://github.com/ArtesGC/Adivinha-Palavra/releases/tag/v0.7)
-  	* atualizacao da disposicao grafica
-  	* criado o historico de jogadores (nome, pontos, tentativas, nivel)
-  	* credito para [Paulo-Lopes-Estevao](https://github.com/Paulo-Lopes-Estevao)
-  	* atualizacao das imagens
-  	* otimizacao do `.qss` para o tema da aplicacao
+    * atualizacao da disposicao grafica
+    * criado o historico de jogadores (nome, pontos, tentativas, nivel)
+    * credito para [Paulo-Lopes-Estevao](https://github.com/Paulo-Lopes-Estevao)
+    * atualizacao das imagens
+    * otimizacao do `.qss` para o tema da aplicacao
   * [v0.8 - 09.2021](https://github.com/ArtesGC/Adivinha-Palavra/releases/tag/v0.8)
     * atualização da disposição gráfica
     * atualização do acesso à base de dados
@@ -67,7 +67,7 @@ adivinhapalavra (0.8-092021) focal; urgency=low
     * refactorização do código-fonte
     * mudança de framework (**PyQt5** para **PyQt6**)
 
- -- ArtesGC <nuruldecarvalho@gmail.com>  Thu, 23 Sep 2021 21:56:27 +0200
+ -- ArtesGC <nuruldecarvalho@gmail.com>  Thu, 23 Sep 2021 22:00:55 +0200
 
 
 adivinhapalavra (0.7-072021) focal; urgency=low
@@ -293,6 +293,6 @@ StartupWMClass=Adivinha Palavra
 <<BUILD>>
 1
 1
-1
+0
 strip
 <</BUILD>>
