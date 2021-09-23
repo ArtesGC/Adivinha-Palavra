@@ -19,7 +19,7 @@ class J3A7P6:
         QFontDatabase.addApplicationFont('fonts/megrim.ttf')
 
         # ferramenta principal da aplicação
-        self.ferramentas = QWidget()
+        self.ferramentas = QDialog()
         self.ferramentas.setWindowTitle("Adivinha Palavra")
         self.ferramentas.setStyleSheet(theme)
         self.ferramentas.setWindowIcon(QIcon("img/icons/favicon-192x192.png"))
@@ -190,12 +190,12 @@ Muito Obrigado pelo apoio!<br>
         layout.setSpacing(20)
 
         info_prog = QLabel("""
-Nome: <b>Jogo Adivinha Palavra</b><br>
-Versão: <b>0.8-092021</b><br>
+Nome: <i>Jogo Adivinha Palavra</i><br>
+Versão: <i>0.8-092021</i><br>
 Designers e Programadores: 
-<a href="https://github.com/Nurul-GC" style="text-decoration:none;"><b>Nurul GC</b></a>, 
-<a href="https://github.com/Paulo-Lopes-Estevao" style="text-decoration:none;"><b>Paulo Lopes Estevão</b></a><br>
-Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&trade;ArtesGC Inc</b></a>""")
+<a href="https://github.com/Nurul-GC" style="text-decoration:none;"><i>Nurul GC</i></a>, 
+<a href="https://github.com/Paulo-Lopes-Estevao" style="text-decoration:none;"><i>Paulo Lopes Estevão</i></a><br>
+Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><i>&trade;ArtesGC Inc</i></a>""")
         info_prog.setStyleSheet("border-style:solid;"
                                 "border-color:black;"
                                 "border-width:1px;"
@@ -225,11 +225,11 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
 
     # janelas do programa
     def janela_principal(self):
-        janela01 = QWidget()
+        janela01 = QFrame()
         layout = QVBoxLayout()
 
         label_imagem = QLabel()
-        label_imagem.setPixmap(QPixmap("img/icons/favicon-512x512.png"))
+        label_imagem.setPixmap(QPixmap("img/icons/favicon-512x512.png").scaled(QSize(400, 400)))
         label_imagem.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         layout.addWidget(label_imagem)
 
@@ -281,7 +281,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
         def fechar():
             self.tab.removeTab(self.tab.currentIndex())
 
-        self.janela_historico_jogadores = QWidget()
+        self.janela_historico_jogadores = QFrame()
         layout = QVBoxLayout()
 
         conectar_db()
@@ -344,7 +344,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
                 else:
                     QMessageBox.warning(self.ferramentas, 'Aviso', 'Nível não definido..')
 
-        self.janela_dados_jogador = QWidget()
+        self.janela_dados_jogador = QFrame()
         layout = QFormLayout()
         layout.setSpacing(10)
 
@@ -473,7 +473,7 @@ Pontos: {self.PONTOS}""")
             else:
                 valida_jogada()
 
-        janela03 = QWidget()
+        janela03 = QFrame()
         layout = QFormLayout()
         layout.setSpacing(20)
 
@@ -518,7 +518,7 @@ Pontos: {self.PONTOS}""")
         self.tab.setCurrentWidget(janela03)
 
     def palavras_secretas(self):
-        self.janela_palavra_secretas = QWidget()
+        self.janela_palavra_secretas = QFrame()
         layout = QVBoxLayout()
 
         label_intro = QLabel("<b>" + ".  . " * 5 + "P A L A V R A S - S E C R E T A S" + 5 * " .  ." + "</b><hr>")
