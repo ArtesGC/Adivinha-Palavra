@@ -4,7 +4,7 @@
     
 [![Download Adivinha-Palavra](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/adivinha-palavra/files/latest/download) 
 
-<img alt="adivinha-palavra-icon" src="img/icon.png" width=600 height=600>
+![adivinha-palavra-icon](img/icons/favicon-192x192.png)
 
 </div>
 
