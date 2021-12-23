@@ -51,8 +51,8 @@ def add_dados(_nome, _pontos, _tentativas, _nivel, _estado):
     :return: resultado da conexao
     """
     db = connect_db()
-    query = f'INSERT INTO tb_jogo' \
-            f'(nome,pontos,tentativas,nivel,estado)' \
+    query = 'INSERT INTO tb_jogo' \
+            '(nome,pontos,tentativas,nivel,estado)' \
             f'VALUES("{_nome}","{_pontos}","{_tentativas}","{_nivel}", "{_estado}");'
 
     try:
@@ -73,7 +73,7 @@ def ver_dados():
     :return: os dados em uma lista
     """
     db = connect_db()
-    query = f"SELECT nome,pontos,tentativas,nivel,estado FROM tb_jogo;"
+    query = "SELECT nome,pontos,tentativas,nivel,estado FROM tb_jogo;"
     try:
         sql = db.cursor()
         sql.execute(query)

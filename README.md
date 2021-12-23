@@ -1,11 +1,11 @@
 <div align="center">
 
-[![Download Adivinha-Palavra](https://img.shields.io/sourceforge/dt/adivinha-palavra.svg)](https://sourceforge.net/projects/adivinha-palavra/files/latest/download) 
-    
+![adivinha-palavra-icon](img/icons/favicon-192x192.png)
+
 [![Download Adivinha-Palavra](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/adivinha-palavra/files/latest/download) 
 
-<img alt="adivinha-palavra-icon" src="img/icon.png" width=600 height=600>
-
+[![Download Adivinha-Palavra](https://img.shields.io/sourceforge/dt/adivinha-palavra.svg)](https://sourceforge.net/projects/adivinha-palavra/files/latest/download) 
+    
 </div>
 
 # Jogo Adivinhe a Palavra (AP)

@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Adivinha Palavra"
-#define MyAppVersion "0.7"
+#define MyAppVersion "0.8"
 #define MyAppPublisher "ArtesGC Inc."
 #define MyAppURL "http://artesgc.home.blog"
 #define MyAppExeName "adivinhapalavra.exe"
@@ -32,13 +32,13 @@ DisableDirPage=yes
 DisableProgramGroupPage=yes
 ; The [Icons] "quicklaunchicon" entry uses {userappdata} but its [Tasks] entry has a proper IsAdminInstallMode Check.
 UsedUserAreasWarning=no
-LicenseFile=C:\Users\nurul\Documents\Projectos\Adivinha-Palavra\LICENSE
+LicenseFile=..\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 PrivilegesRequired=lowest
 ;PrivilegesRequiredOverridesAllowed=dialog
-OutputDir=C:\Users\nurul\Documents\Projectos\Adivinha-Palavra\dist
-OutputBaseFilename={#MyAppName}_{#MyAppVersion}-072021_amd64
-SetupIconFile=C:\Users\nurul\Documents\Projectos\Adivinha-Palavra\img\icon-256x256.ico
+OutputDir=..\dist
+OutputBaseFilename={#MyAppName}_{#MyAppVersion}-092021_amd64
+SetupIconFile=..\img\icons\favicon-256x256.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -51,10 +51,11 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 6.1; Check: not IsAdminInstallMode
 
 [Files]
-Source: "C:\Users\nurul\Documents\Projectos\Adivinha-Palavra\dist\adivinhapalavra.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\nurul\Documents\Projectos\Adivinha-Palavra\img\*"; DestDir: "{app}\img"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\nurul\Documents\Projectos\Adivinha-Palavra\themes\*"; DestDir: "{app}\themes"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\nurul\Documents\Projectos\Adivinha-Palavra\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\dist\adivinhapalavra.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\img\*"; DestDir: "{app}\img"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\themes\*"; DestDir: "{app}\themes"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\fonts\*"; DestDir: "{app}\fonts"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
