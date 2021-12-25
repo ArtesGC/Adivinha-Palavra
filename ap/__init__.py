@@ -1,13 +1,15 @@
-import webbrowser
 from random import randint
 from sys import argv, exit
 from time import sleep
+from webbrowser import open_new
+
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 from PyQt6.QtSql import *
 from PyQt6.QtWidgets import *
-from history import add_dados, criar_tabela_jogo, apagar_historico
-from words import Palavras
+
+from ap.history import add_dados, apagar_historico, criar_tabela_jogo
+from ap.words import Palavras
 
 
 class J3A7P6:
@@ -64,7 +66,7 @@ class J3A7P6:
 
         # ******* ... *******
         def browser():
-            webbrowser.open('https://artesgc.home.blog')
+            open_new('https://artesgc.home.blog')
 
         label_copyright = QLabel("<hr><a href='#' style='text-decoration:none;'>&trade;ArtesGC Inc.</a>",
                                  self.ferramentas)
@@ -216,12 +218,9 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><i>&t
         janelainfo.show()
 
     def _sair(self):
-        sair = QMessageBox.question(
-            self.ferramentas, "Sair", "Tem mesmo a certeza que deseja terminar o jogo?")
+        sair = QMessageBox.question(self.ferramentas, "Sair", "Tem mesmo a certeza que deseja terminar o jogo?")
         if sair == QMessageBox.StandardButton.Yes:
             exit(0)
-        else:
-            pass
 
     # janelas do programa
     def janela_principal(self):
