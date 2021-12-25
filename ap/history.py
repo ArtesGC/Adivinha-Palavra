@@ -8,9 +8,9 @@ def connect_db():
     :return: resultado da conexao
     """
     try:
-        if not os.path.exists('historico'):
-            os.mkdir('historico')
-        return sqlite3.connect("historico/ap.db")
+        if not os.path.exists('../historico'):
+            os.mkdir('../historico')
+        return sqlite3.connect("../historico/ap.db")
     except sqlite3.Error as erro:
         raise erro
 
