@@ -1,5 +1,5 @@
 from unittest import TestCase
-from history import connect_db, criar_tabela_jogo, add_dados, ver_dados, apagar_historico
+from ap.history import connect_db, criar_tabela_jogo, add_dados, ver_dados, apagar_historico
 
 
 class jogo(TestCase):
