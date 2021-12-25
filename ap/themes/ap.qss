@@ -1,8 +1,7 @@
 QWidget, QFrame{
   background-color: "cadetblue";
-  font-family: "Megrim", "consolas";
+  font-family: "consolas";
   font-size: 10pt;
-  font-weight: bold;
 }
 QLineEdit{
   border-width: 1px;
