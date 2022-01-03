@@ -1,6 +1,6 @@
 <div align="center">
 
-![adivinha-palavra-icon](ap/img/icons/favicon-192x192.png)
+![adivinha-palavra-icon](ap/icons/favicon-192x192.png)
 
 [![Download Adivinha-Palavra](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/adivinha-palavra/files/latest/download) 
 
