@@ -4,12 +4,10 @@ from ap.history import connect_db, criar_tabela_jogo, add_dados, ver_dados, apag
 
 class jogo(TestCase):
 
-    def setUp(self):
-        pass
-
     def test_connect(self):
         conection = connect_db()
-        self.assertTrue(True)
+        print(conection)
+        self.assertTrue(conection)
 
     def test_create_table(self):
         criar_tabela_historico = criar_tabela_jogo()
@@ -17,7 +15,7 @@ class jogo(TestCase):
         self.assertTrue(criar_tabela_historico)
 
     def test_criando_dados(self):
-        criar_historico = add_dados("Lopes", 100, 10, 1)
+        criar_historico = add_dados("Lopes", 100, 10, 1, "GANHOU")
         print(criar_historico)
         self.assertTrue(criar_historico)
 
