@@ -6,6 +6,7 @@ from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 
+from ap.history import criar_tabela_jogo
 from ap.jogo import J3A7P6
 
 
@@ -35,6 +36,7 @@ class JAP:
 
 
 if __name__ == '__main__':
+    criar_tabela_jogo()
     theme = open("./themes/ap.qss").read().strip()
     gcApp = JAP()
     gcApp.gc.exec()
