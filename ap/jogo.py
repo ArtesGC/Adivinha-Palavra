@@ -1,5 +1,5 @@
 from random import randint
-from sys import argv, exit
+from sys import exit
 from time import sleep
 from webbrowser import open_new
 
@@ -8,11 +8,10 @@ from PyQt6.QtGui import *
 from PyQt6.QtSql import *
 from PyQt6.QtWidgets import *
 
-from ap.history import add_dados, apagar_historico, criar_tabela_jogo
+from ap.history import add_dados, apagar_historico
 from ap.words import Palavras
 
 theme = open('themes/ap.qss').read().strip()
-criar_tabela_jogo()
 
 
 class J3A7P6:
