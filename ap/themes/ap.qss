@@ -64,9 +64,3 @@ QProgressBar::chunk {
   background-color: "cadetblue";
   border-radius: 5px;
 }
-QPixmap{
-  border-radius: 3px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: white;
-}
