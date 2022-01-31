@@ -17,11 +17,10 @@ theme = open('themes/ap.qss').read().strip()
 class J3A7P6:
     def __init__(self):
         # ferramenta principal da aplicação
-        self.ferramentas = QDialog()
+        self.ferramentas = QWidget()
         self.ferramentas.setWindowTitle("Adivinha Palavra")
         self.ferramentas.setStyleSheet(theme)
         self.ferramentas.setWindowIcon(QIcon("icons/favicon-192x192.png"))
-        self.ferramentas.setFixedSize(QSize(600, 600))
 
         # ******* menu *******
         menu_ferramentas = QMenuBar()
@@ -187,7 +186,7 @@ Muito Obrigado pelo apoio!<br>
 
         info_prog = QLabel("""
 Nome: <b>Jogo Adivinha Palavra</b><br>
-Versão: <b>0.8-092021</b><br>
+Versão: <b>0.9-012022</b><br>
 Designers e Programadores: 
 <a href="https://github.com/Nurul-GC" style="text-decoration:none;"><b>Nurul GC</b></a>, 
 <a href="https://github.com/Paulo-Lopes-Estevao" style="text-decoration:none;"><b>Paulo Lopes Estevão</b></a><br>
@@ -221,12 +220,14 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
         janela01 = QFrame()
         layout = QVBoxLayout()
 
+        layout.addWidget(QLabel("<h1>Bem-Vindo ao..</h1><hr>"))
+
         label_imagem = QLabel()
-        label_imagem.setPixmap(QPixmap("icons/icon.png").scaled(560, 430))
+        label_imagem.setPixmap(QPixmap("icons/icon.png").scaled(600, 450))
         label_imagem.setAlignment(Qt.AlignmentFlag.AlignHCenter)
-        label_imagem.setStyleSheet("border-width:2px;"
-                                   "border-style:solid;"
-                                   "border-color:black;")
+        # label_imagem.setStyleSheet("border-width:2px;"
+        #                            "border-style:solid;"
+        #                            "border-color:black;")
         layout.addWidget(label_imagem)
 
         barra_progresso = QProgressBar()
@@ -310,6 +311,37 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
         self.tab.addTab(self.janela_historico_jogadores, 'Historico')
         self.tab.setCurrentWidget(self.janela_historico_jogadores)
 
+    def palavras_secretas(self):
+        self.janela_palavra_secretas = QFrame()
+        layout = QVBoxLayout()
+
+        label_intro = QLabel("<h2>" + " . " * 5 + "P A L A V R A S - S E C R E T A S" + 5 * " . " + "</h2><hr>")
+        label_intro.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        layout.addWidget(label_intro)
+
+        lista_palavras = QListWidget()
+        for palavra in sorted(self.PALAVRAS):
+            lista_palavras.addItem(palavra)
+        lista_palavras.setAlternatingRowColors(True)
+        layout.addWidget(lista_palavras)
+
+        label_extra = QLabel(f"<i>{len(self.PALAVRAS)} palavras..</i>")
+        label_extra.setAlignment(Qt.AlignmentFlag.AlignRight)
+        label_extra.setStyleSheet("color:#D1C399;")
+        layout.addWidget(label_extra)
+
+        def fechar(): return self.tab.removeTab(self.tab.currentIndex())
+
+        botao_fechar = QPushButton("Fechar")
+        botao_fechar.setStyleSheet("QPushButton{background-color:red;}"
+                                   "QPushButton:hover{background-color:white;}")
+        botao_fechar.clicked.connect(fechar)
+        layout.addWidget(botao_fechar)
+
+        self.janela_palavra_secretas.setLayout(layout)
+        self.tab.addTab(self.janela_palavra_secretas, 'Palavras Secretas')
+        self.tab.setCurrentWidget(self.janela_palavra_secretas)
+
     def dados_jogador(self):
         # activar a opção de reiniciar jogo
         self.reiniciar_jogo.setEnabled(True)
@@ -349,7 +381,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
         label_imagem.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         layout.addRow(label_imagem)
 
-        label_extra = QLabel("<b>" + ".  . " * 5 + "D A D O S - D O - J O G A D O R" + " .  ." * 5 + "</b><hr>")
+        label_extra = QLabel("<h2>" + " . " * 5 + "D A D O S - D O - J O G A D O R" + " . " * 5 + "</h2><hr>")
         label_extra.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addRow(label_extra)
 
@@ -400,11 +432,14 @@ VOCÊ ACERTOU {self.nome_jogador.text()}!
 {agrupa_letras_palavra}
 
 Pontos {self.PONTOS}""")
-                            label_jogo.setStyleSheet("background-color:white; "
-                                                     "color:blue; "
-                                                     "border-radius: 3px; "
-                                                     "border: 2px solid; "
-                                                     "padding:50px;")
+                            label_jogo.setStyleSheet("background-color: white;"
+                                                     "color: blue;"
+                                                     "font-weight: bold;"
+                                                     "border-radius: 3px;"
+                                                     "border-width: 2px;"
+                                                     "border-style: solid;"
+                                                     "border-color: blue;"
+                                                     "padding: 50px;")
                         posicao += 1
                 else:
                     self.PONTOS -= randint(10, 50)
@@ -415,10 +450,13 @@ Pontos {self.PONTOS}""")
 VOCÊ ERROU {self.nome_jogador.text()}!
 
 Pontos {self.PONTOS}""")
-                    label_jogo.setStyleSheet("background-color:white; "
-                                             "color:red; "
-                                             "border-radius: 3px; "
-                                             "border: 2px solid; "
+                    label_jogo.setStyleSheet("background-color: white;"
+                                             "color: orange;"
+                                             "font-weight: bold;"
+                                             "border-radius: 3px;"
+                                             "border-width: 2px;"
+                                             "border-style: solid;"
+                                             "border-color: orange;"
                                              "padding:50px;")
 
         def validar_vitoria():
@@ -438,11 +476,14 @@ VOCÊ GANHOU..
 Nível: {self.nivel.currentText()}
 Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
 Pontos: {self.PONTOS}""")
-                label_jogo.setStyleSheet("background-color:white; "
-                                         "color:green; "
-                                         "border-radius: 3px; "
-                                         "border: 2px solid; "
-                                         "padding:50px;")
+                label_jogo.setStyleSheet("background-color: white;"
+                                         "color: green;"
+                                         "font-weight: bold;"
+                                         "border-radius: 3px;"
+                                         "border-width: 2px;"
+                                         "border-style: solid;"
+                                         "border-color: green;"
+                                         "padding: 50px;")
                 botao_valida.setText('Novo Jogo')
                 botao_valida.clicked.connect(novo_jogo)
                 add_dados(_nome=self.nome_jogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA,
@@ -457,11 +498,14 @@ Palavra Secreta: {seleciona_palavra_aleatoria}
 Nível: {self.nivel.currentText()}
 Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
 Pontos: {self.PONTOS}""")
-                label_jogo.setStyleSheet("background-color:white; "
-                                         "color:red; "
-                                         "border-radius: 3px; "
-                                         "border: 2px solid; "
-                                         "padding:50px;")
+                label_jogo.setStyleSheet("background-color: white;"
+                                         "color: red;"
+                                         "font-weight: bold;"
+                                         "border-radius: 3px;"
+                                         "border-width: 2px;"
+                                         "border-style: solid;"
+                                         "border-color: red;"
+                                         "padding: 50px;")
                 botao_valida.setText('Novo Jogo')
                 botao_valida.clicked.connect(novo_jogo)
                 add_dados(_nome=self.nome_jogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA,
@@ -471,23 +515,25 @@ Pontos: {self.PONTOS}""")
 
         janela03 = QFrame()
         layout = QFormLayout()
-        layout.setSpacing(20)
+        layout.setSpacing(10)
 
-        label_info = QLabel(f"<h3>Bem-Vindo <i>{self.nome_jogador.text()}</i><br>"
-                            f"Tente Adivinhar Qual é a Palavra Secreta</h3><hr>"
+        label_info = QLabel(f"<h1>Bem-Vindo <i>{self.nome_jogador.text()}</i></h1><hr>"
+                            f"<small style='color:white;'>Tente Adivinhar Qual é a Palavra Secreta:</small><br>"
                             f"<b>{agrupa_letras_palavra}</b>")
         label_info.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         layout.addRow(label_info)
 
         label_jogo = QLabel('.  .  .  .  .')
-        label_jogo.setStyleSheet("background-color: white; "
-                                 "border-radius: 3px; "
-                                 "border: 2px solid; "
-                                 "padding:100px;")
+        label_jogo.setStyleSheet("font-weight: bold;"
+                                 "background-color: white;"
+                                 "border-radius: 3px;"
+                                 "border-width: 2px;"
+                                 "border-style: solid;"
+                                 "padding: 100px;")
         label_jogo.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         layout.addRow(label_jogo)
 
-        label_extra = QLabel("<b>" + ".  . " * 5 + "J O G A N D O" + " .  ." * 5 + "</b><hr>")
+        label_extra = QLabel("<h2>" + " . " * 5 + "J O G A N D O" + " . " * 5 + "</h2><hr>")
         label_extra.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addRow(label_extra)
 
@@ -512,34 +558,3 @@ Pontos: {self.PONTOS}""")
         janela03.setLayout(layout)
         self.tab.addTab(janela03, 'Jogando')
         self.tab.setCurrentWidget(janela03)
-
-    def palavras_secretas(self):
-        self.janela_palavra_secretas = QFrame()
-        layout = QVBoxLayout()
-
-        label_intro = QLabel("<b>" + ".  . " * 5 + "P A L A V R A S - S E C R E T A S" + 5 * " .  ." + "</b><hr>")
-        label_intro.setAlignment(Qt.AlignmentFlag.AlignHCenter)
-        layout.addWidget(label_intro)
-
-        lista_palavras = QListWidget()
-        for palavra in sorted(self.PALAVRAS):
-            lista_palavras.addItem(palavra)
-        lista_palavras.setAlternatingRowColors(True)
-        layout.addWidget(lista_palavras)
-
-        label_extra = QLabel(f"<i>{len(self.PALAVRAS)} palavras..</i>")
-        label_extra.setAlignment(Qt.AlignmentFlag.AlignRight)
-        label_extra.setStyleSheet("color:#D1C399;")
-        layout.addWidget(label_extra)
-
-        def fechar(): return self.tab.removeTab(self.tab.currentIndex())
-
-        botao_fechar = QPushButton("Fechar")
-        botao_fechar.setStyleSheet("QPushButton{background-color:red;}"
-                                   "QPushButton:hover{background-color:white;}")
-        botao_fechar.clicked.connect(fechar)
-        layout.addWidget(botao_fechar)
-
-        self.janela_palavra_secretas.setLayout(layout)
-        self.tab.addTab(self.janela_palavra_secretas, 'Palavras Secretas')
-        self.tab.setCurrentWidget(self.janela_palavra_secretas)
