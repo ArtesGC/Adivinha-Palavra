@@ -10,10 +10,10 @@
 
 # Jogo Adivinhe a Palavra (AP)
 
-    - MAIS DE 500 PALAVRAS;
-    - OBJECTIVO, ADIVINHAR UMA PALAVRA ESCOLHIDA ALEATORIAMENTE;
-    - COM DIREITO A ESCOLHA DE NÍVEIS E NÚMERO DE TENTATIVAS;
-    - UMA APARÊNCIA SIMPLES E BASTANTE PRÁTICA;
+    - Mais De 500 Palavras;
+    - Objectivo, Adivinhar Uma Palavra Escolhida Aleatoriamente;
+    - Com Direito A Escolha De Níveis E Número De Tentativas;
+    - Uma Aparência Simples E Bastante Prática;
 
 ---
 
