@@ -15,10 +15,7 @@ class JAP:
         # instancia principal da aplicação
         self.gc = QApplication(argv)
 
-        # fonte do programa
-        QFontDatabase.addApplicationFont('./fonts/megrim.ttf')
-
-        img = QPixmap("./icons/favicon-512x512.png").scaled(QSize(500, 500))
+        img = QPixmap("./icons/favicon-512x512.png")
         self.align = int(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignAbsolute)
         self.janela = QSplashScreen(img)
         self.janela.setStyleSheet(theme)
@@ -29,7 +26,7 @@ class JAP:
         load = 0
         while load < 100:
             self.janela.showMessage(f"Carregando o Pacote do Jogo: {load}%", self.align, Qt.GlobalColor.black)
-            sleep(0.5)
+            sleep(0.3)
             load += randint(1, 10)
         self.janela.close()
         return J3A7P6().ferramentas.show()
