@@ -382,6 +382,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
         layout.addRow(label_imagem)
 
         label_extra = QLabel("<h2>" + " . " * 5 + "D A D O S - D O - J O G A D O R" + " . " * 5 + "</h2><hr>")
+        label_extra.setStyleSheet("margin: auto;")
         label_extra.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addRow(label_extra)
 
@@ -521,6 +522,7 @@ Pontos: {self.PONTOS}""")
                             f"<small style='color:white;'>Tente Adivinhar Qual é a Palavra Secreta:</small><br>"
                             f"<b>{agrupa_letras_palavra}</b>")
         label_info.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        label_info.setStyleSheet("margin: auto;")
         layout.addRow(label_info)
 
         label_jogo = QLabel('.  .  .  .  .')
@@ -534,6 +536,7 @@ Pontos: {self.PONTOS}""")
         layout.addRow(label_jogo)
 
         label_extra = QLabel("<h2>" + " . " * 5 + "J O G A N D O" + " . " * 5 + "</h2><hr>")
+        label_extra.setStyleSheet("margin: auto;")
         label_extra.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addRow(label_extra)
 
