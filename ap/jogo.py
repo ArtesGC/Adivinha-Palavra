@@ -32,15 +32,14 @@ class J3A7P6:
 
         instr = opcoes.addAction("Instruções")
         instr.triggered.connect(self._instr)
-        opcoes.addSeparator()
 
         palavra_secretas = opcoes.addAction("Palavras Secretas")
         palavra_secretas.triggered.connect(self._palavras_secretas)
         opcoes.addSeparator()
 
-        histor = opcoes.addAction("Historico de Jogadores")
-        histor.triggered.connect(self._historico)
-        opcoes.addSeparator()
+        # histor = opcoes.addAction("Historico de Jogadores")
+        # histor.triggered.connect(self._historico)
+        # opcoes.addSeparator()
 
         sair = opcoes.addAction("Sair")
         sair.triggered.connect(self._sair)
@@ -87,7 +86,7 @@ class J3A7P6:
         self.janela_principal()
 
     # optimização para abertura das janelas
-    def _historico(self):
+    '''def _historico(self):
         """
         abrir a janela do historico de jogadores sem duplicacoes
         ou retorno de valores nulos
@@ -100,7 +99,7 @@ class J3A7P6:
                 self.tab.setCurrentWidget(self.janela_historico_jogadores)
             except Exception:
                 self.tab.removeTab(1)
-                self.historico_jogadores()
+                self.historico_jogadores()'''
 
     def _reiniciar_jogo(self):
         """
@@ -225,9 +224,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
         label_imagem = QLabel()
         label_imagem.setPixmap(QPixmap("icons/icon.png").scaled(600, 450))
         label_imagem.setAlignment(Qt.AlignmentFlag.AlignHCenter)
-        # label_imagem.setStyleSheet("border-width:2px;"
-        #                            "border-style:solid;"
-        #                            "border-color:black;")
+        label_imagem.setStyleSheet("margin: auto;")
         layout.addWidget(label_imagem)
 
         barra_progresso = QProgressBar()
@@ -254,7 +251,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
         self.tab.addTab(janela01, "Bem-Vindo")
         self.tab.setCurrentWidget(janela01)
 
-    def historico_jogadores(self):
+    '''def historico_jogadores(self):
         def inciar_model(_model):
             _model.setTable('tb_jogo')
             _model.select()
@@ -310,6 +307,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
         self.janela_historico_jogadores.setLayout(layout)
         self.tab.addTab(self.janela_historico_jogadores, 'Historico')
         self.tab.setCurrentWidget(self.janela_historico_jogadores)
+'''
 
     def palavras_secretas(self):
         self.janela_palavra_secretas = QFrame()
@@ -487,8 +485,8 @@ Pontos: {self.PONTOS}""")
                                          "padding: 50px;")
                 botao_valida.setText('Novo Jogo')
                 botao_valida.clicked.connect(novo_jogo)
-                add_dados(_nome=self.nome_jogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA,
-                          _nivel=self.nivel.currentText(), _estado='GANHOU')
+                # add_dados(_nome=self.nome_jogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA,
+                #          _nivel=self.nivel.currentText(), _estado='GANHOU')
             elif self.JOGADA == self.NUMERO_TENTATIVA:
                 label_jogo.setText(f"""(T.T) Lamento {self.nome_jogador.text()}
 VOCÊ ESGOTOU TODAS AS SUAS TENTATIVAS..
@@ -509,8 +507,8 @@ Pontos: {self.PONTOS}""")
                                          "padding: 50px;")
                 botao_valida.setText('Novo Jogo')
                 botao_valida.clicked.connect(novo_jogo)
-                add_dados(_nome=self.nome_jogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA,
-                          _nivel=self.nivel.currentText(), _estado='PERDEU')
+                # add_dados(_nome=self.nome_jogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA,
+                #          _nivel=self.nivel.currentText(), _estado='PERDEU')
             else:
                 validar_jogada()
 
