@@ -42,10 +42,6 @@ class J3A7P6:
 
         # ******* menu *******
         menu_ferramentas = QMenuBar()
-        self.reiniciar_jogo = menu_ferramentas.addAction("Reiniciar")
-        self.reiniciar_jogo.setEnabled(False)
-        self.reiniciar_jogo.triggered.connect(self._reiniciar_jogo)
-
         opcoes = menu_ferramentas.addMenu("Opções")
 
         instr = opcoes.addAction("Instruções")
@@ -54,7 +50,6 @@ class J3A7P6:
 
         palavra_secretas = opcoes.addAction("Palavras Secretas")
         palavra_secretas.triggered.connect(self.palavras_secretas)
-        opcoes.addSeparator()
 
         histor = opcoes.addAction("Historico de Jogadores")
         histor.triggered.connect(self.historico_jogadores)
@@ -72,17 +67,6 @@ class J3A7P6:
 
         self.ferramentas.setLayout(self.layout_principal)
         self.janela_principal()
-
-    # optimização para abertura das janelas
-    def _reiniciar_jogo(self):
-        """
-        reiniciar o jogo, ie, apartir da janela de introducao de dados
-        """
-        if self.janela_dados_jogador is None:
-            self.dados_jogador()
-        else:
-            self.janela_dados_jogador = None
-            self.dados_jogador()
 
     # funções do menu
     def _instr(self):
@@ -205,9 +189,8 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
         def processar():
             n = randint(1, 5)
             for i in range(0, 101, n):
-                sleep(0.5)
+                sleep(0.1)
                 barra_progresso.setValue(i)
-            # self.tab.removeTab(self.tab.currentIndex())
             janela_principal.close()
             self.dados_jogador()
             QMessageBox.information(
@@ -371,9 +354,6 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
         janela_palavra_secretas.show()
 
     def dados_jogador(self):
-        # activar a opção de reiniciar jogo
-        self.reiniciar_jogo.setEnabled(True)
-
         def validar_dados_jogador():
             if self.nome_jogador.text() == "" or self.nome_jogador.text().isspace():
                 QMessageBox.warning(self.ferramentas, 'Aviso', 'Nome do jogador não definido..')
