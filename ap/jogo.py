@@ -611,6 +611,7 @@ Pontos: {self.PONTOS}"""
         self.letra_jogador.returnPressed.connect(validar_vitoria)
         layout.addRow(self.letra_jogador)
 
+        layoutbotoes = QHBoxLayout()
         botao_valida = QPushButton('Validar a Jogada')
         botao_valida.setDefault(True)
         botao_valida.clicked.connect(validar_vitoria)
@@ -618,6 +619,7 @@ Pontos: {self.PONTOS}"""
             "QPushButton{background-color:cyan;}"
             "QPushButton:hover{background-color:white;}"
             )
+        layoutbotoes.addWidget(botao_valida)
 
         botao_fim_jogo = QPushButton('Terminar o Jogo')
         botao_fim_jogo.clicked.connect(self._sair)
@@ -625,7 +627,8 @@ Pontos: {self.PONTOS}"""
             "QPushButton{background-color:red;}"
             "QPushButton:hover{background-color:white;}"
             )
-        layout.addRow(botao_valida, botao_fim_jogo)
+        layoutbotoes.addWidget(botao_fim_jogo)
+        layout.addRow(layoutbotoes)
 
         # ******* ... *******
         def browser():
