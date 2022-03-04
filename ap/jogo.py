@@ -29,7 +29,7 @@ class J3A7P6:
         self.PALAVRAS = Palavras().listadas()
 
         # ferramenta principal da aplicação
-        self.ferramentas = QDialog()
+        self.ferramentas = QWidget()
         self.ferramentas.setWindowTitle("Adivinha Palavra")
         self.ferramentas.setWindowIcon(QIcon("icons/favicon-192x192.png"))
 
@@ -189,23 +189,23 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
             "border-radius: 5px;"
         )
 
-        layout = QVBoxLayout()
+        layout = QFormLayout()
+
+        label_intro = QLabel("<h3>Bem-Vindo ao..</h3>"
+                             "<h1 style='color:white;'>A-P</h1><hr>")
+        label_intro.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addRow(label_intro)
 
         label_imagem = QLabel()
         label_imagem.setPixmap(QPixmap("icons/icon.png").scaled(1200//4, 1200//4))  # todo: duvida no uso dos icons!
         label_imagem.setStyleSheet("margin: auto;")
         label_imagem.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(label_imagem)
-
-        label_intro = QLabel("<h2>3, 2, 1, Vamos..</h2>")
-        label_intro.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(label_intro)
+        layout.addRow(label_imagem)
 
         def processar():
-            n = randint(3, 5)
-            sec = 0.2
+            n = randint(1, 5)
             for i in range(0, 101, n):
-                sleep(sec)
+                sleep(0.5)
                 barra_progresso.setValue(i)
             # self.tab.removeTab(self.tab.currentIndex())
             janela_principal.close()
@@ -222,12 +222,11 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
             "QPushButton:hover{background-color:white;}"
         )
         botao_iniciar.clicked.connect(processar)
-        layout.addWidget(botao_iniciar)
 
         barra_progresso = QProgressBar()
         barra_progresso.setGeometry(200, 100, 200, 30)
         barra_progresso.setAlignment(Qt.AlignmentFlag.AlignHCenter)
-        layout.addWidget(barra_progresso)
+        layout.addRow(botao_iniciar, barra_progresso)
 
         # ******* ... *******
         def browser():
@@ -237,7 +236,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
         label_copyright.setAlignment(Qt.AlignmentFlag.AlignRight)
         label_copyright.setToolTip('Acesso a pagina oficial da ArtesGC!')
         label_copyright.linkActivated.connect(browser)
-        layout.addWidget(label_copyright)
+        layout.addRow(label_copyright)
 
         janela_principal.setLayout(layout)
         self.layout_principal.addWidget(janela_principal)
