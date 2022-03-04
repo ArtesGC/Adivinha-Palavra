@@ -612,7 +612,7 @@ Pontos: {self.PONTOS}"""
         self.letra_jogador.returnPressed.connect(validar_vitoria)
         layout.addRow(self.letra_jogador)
 
-        botao_valida = QPushButton('Validar Jogada')
+        botao_valida = QPushButton('Validar a Jogada')
         botao_valida.setDefault(True)
         botao_valida.clicked.connect(validar_vitoria)
         botao_valida.setStyleSheet(
