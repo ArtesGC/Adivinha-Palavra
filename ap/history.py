@@ -1,16 +1,16 @@
 import os
 import sqlite3
 
+from ap.func import debugpath
+
 
 def connect_db():
-    """criando conexão com db sqlite
+    """criando conexão com a db sqlite
 
     :return: resultado da conexao
     """
     try:
-        if not os.path.exists('../historico'):
-            os.mkdir('../historico')
-        return sqlite3.connect("../historico/ap.db")
+        return sqlite3.connect(f"{debugpath()}/ap.db")
     except sqlite3.Error as erro:
         raise erro
 
