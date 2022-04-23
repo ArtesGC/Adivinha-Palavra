@@ -11,10 +11,10 @@ Description: jogo com objectivo de adivinhar que palavra foi definida pelo progr
 <</CTRL>>
 <<FILES>>
 1
-/media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/LICENSE -> LICENSE -> /usr/share/adivinhapalavra
-/media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/img -> ap-icons -> /usr/share/adivinhapalavra
-/media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/themes -> ap-themes -> /usr/share/adivinhapalavra
-/media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/dist/adivinhapalavra -> adivinhapalavra -> /usr/share/adivinhapalavra
+/home/nurul-gc/Projects/PycharmProjects/Adivinha-Palavra/LICENSE -> LICENSE -> /usr/share/adivinhapalavra
+/home/nurul-gc/Projects/PycharmProjects/Adivinha-Palavra/ap/ap-icons -> ap-icons -> /usr/share/adivinhapalavra
+/home/nurul-gc/Projects/PycharmProjects/Adivinha-Palavra/ap/ap-themes -> ap-themes -> /usr/share/adivinhapalavra
+/home/nurul-gc/Projects/PycharmProjects/Adivinha-Palavra/dist/adivinhapalavra -> adivinhapalavra -> /usr/share/adivinhapalavra
 <</FILES>>
 <<SCRIPTS>>
 <<PREINST>>
