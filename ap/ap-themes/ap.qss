@@ -1,5 +1,4 @@
-QWidget, QFrame{
-  /*background-color: "cadetblue";*/
+QWidget{
   font-family: "consolas";
   font-size: 10pt;
 }
@@ -8,9 +7,7 @@ QLineEdit{
   border-style: solid;
   border-color: black;
   border-radius: 3px;
-  padding: 3px;
   color: white;
-  background-color: white;
 }
 QListWidget, QTableView{
   border-width: 1px;
@@ -23,32 +20,33 @@ QListWidget, QTableView{
 QPushButton{
   border-width: 1px;
   border-style: solid;
-  border-color: black;
-  border-radius: 5px;
+  border-color: white;
+  border-radius: 10px;
+  height: 23px;
   padding: 5px;
+  background-color: "cadetblue";
+  color: white;
 }
 QPushButton:hover{
   border-width: 1px;
   border-style: solid;
   border-color: black;
-  background-color: white;
-  color: black;
-}
-QComboBox{
-  border-width: 1px;
-  border-style: solid;
-  border-color: black;
-  border-radius: 3px;
-  color: black;
-  width: "auto";
   background-color: "cadetblue";
+  color: black;
 }
 QComboBox{
   border-width: 1px;
   border-style: solid;
   border-color: black;
-  background-color: white;
+  color: white;
+}
+QComboBox:hover{
   color: black;
+  border-color: white;
+}
+QComboBox::item:selected{
+  color: black;
+  background-color: white;
 }
 QProgressBar{
   text-align: center;
@@ -58,9 +56,17 @@ QProgressBar{
   border-style: solid;
   border-color: black;
   border-radius: 5px;
-  padding: 2px;
 }
 QProgressBar::chunk {
   background-color: "white";
   border-radius: 5px;
+}
+QMenu::item:selected{
+  border-radius: 3px;
+  background-color: "cadetblue";
+  color: black;
+}
+QMenuBar::item:selected{
+  background-color: "cadetblue";
+  color: white;
 }
