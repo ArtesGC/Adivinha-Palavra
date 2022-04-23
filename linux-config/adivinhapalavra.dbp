@@ -1,7 +1,7 @@
 [DEBREATE-0.7.13]
 <<CTRL>>
 Package: adivinhapalavra
-Version: 0.8-092021
+Version: 0.9-042022
 Maintainer: ArtesGC <nuruldecarvalho@gmail.com>
 Section: games
 Architecture: amd64
@@ -12,9 +12,8 @@ Description: jogo com objectivo de adivinhar que palavra foi definida pelo progr
 <<FILES>>
 1
 /media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/LICENSE -> LICENSE -> /usr/share/adivinhapalavra
-/media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/fonts -> fonts -> /usr/share/adivinhapalavra
-/media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/img -> img -> /usr/share/adivinhapalavra
-/media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/themes -> themes -> /usr/share/adivinhapalavra
+/media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/img -> ap-icons -> /usr/share/adivinhapalavra
+/media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/themes -> ap-themes -> /usr/share/adivinhapalavra
 /media/nurul-gc/LEXAR-PROJT/PycharmProjects/Adivinha-Palavra/dist/adivinhapalavra -> adivinhapalavra -> /usr/share/adivinhapalavra
 <</FILES>>
 <<SCRIPTS>>
@@ -39,6 +38,41 @@ rm -f "/usr/bin/adivinhapalavra"
 <</SCRIPTS>>
 <<CHANGELOG>>
 <<DEST>>DEFAULT<</DEST>>
+adivinhapalavra (0.9-042022) focal; urgency=low
+
+  * v0.1
+    * lançamento oficial pela [ArtesGC](https://artesgc.home.blog).
+  * v0.2 ... v0.4
+    * organização da disposição gráfica.
+    * incremento das palavras secretas.
+    * reparo de erros no código fonte.
+  * [v0.5 - 03.2021](https://github.com/ArtesGC/Adivinha-Palavra/releases/tag/v0.5)
+    * mudança de framework (**Tkinter** para **PyQt5**).
+  * [v0.6 - 05.2021](https://github.com/ArtesGC/Adivinha-Palavra/releases/tag/v0.6)
+    * disposição gráfica: mais robusto e dinamico.
+    * ortografia: mais compreensiva.
+    * letra jogador: validação de letras (apenas).
+  * [v0.7 - 07.2021](https://github.com/ArtesGC/Adivinha-Palavra/releases/tag/v0.7)
+    * atualizacao da disposicao grafica
+    * criado o historico de jogadores (nome, pontos, tentativas, nivel)
+    * credito para [Paulo-Lopes-Estevao](https://github.com/Paulo-Lopes-Estevao)
+    * atualizacao das imagens
+    * otimizacao do `.qss` para o tema da aplicacao
+  * [v0.8 - 09.2021](https://github.com/ArtesGC/Adivinha-Palavra/releases/tag/v0.8)
+    * atualização da disposição gráfica
+    * atualização do acesso à base de dados
+    * atualização dos icones do programa
+    * otimização do tema do programa
+    * refactorização do código-fonte
+    * mudança de framework (**PyQt5** para **PyQt6**)
+  * [v0.9 - 04.2022](https://github.com/ArtesGC/Adivinha-Palavra/releases/tag/v0.9)
+    * reparo de pequenos erros
+    * otimização do tema do programa
+    * refactorização do código-fonte
+
+ -- ArtesGC <nuruldecarvalho@gmail.com>  Sat, 23 Apr 2022 22:51:35 +0200
+
+
 adivinhapalavra (0.8-092021) focal; urgency=low
 
   * v0.1
@@ -113,8 +147,10 @@ adivinhapalavra (0.6) ; urgency=low
 
 <</CHANGELOG>>
 <<COPYRIGHT>>
-© 2019-2021 Nurul-GC
-™ 2021 ArtesGC, Inc.
+Academic Free License AFL v3.0
+
+© 2019-2022 Nurul-GC
+™ ArtesGC, Inc.
 
 Esta Licença Acadêmica Gratuita (a "Licença") se aplica a qualquer obra original de autoria
 (a "Obra original") cujo proprietário (o "Licenciante") colocou o seguinte aviso de licença
@@ -209,7 +245,7 @@ esse consentimento indica sua aceitação clara e irrevogável desta licença e 
 seus termos e condições. Se você distribuir ou comunicar cópias da Obra Original ou
 um trabalho derivado, você deve fazer um esforço razoável nas circunstâncias para obter
 o consentimento expresso dos destinatários aos termos desta Licença.
-Esta Licença condiciona seus direitos de realizar as atividades listadas na Seção 1,
+Esta Licença condiciona seus direitos de realizar as atividades palavras_listadas na Seção 1,
 incluindo o seu direito de criar Trabalhos Derivados com base no Trabalho Original,
 e fazê-lo sem respeitar estes termos e condições é proibido por direitos autorais
 direito e tratado internacional. Nada nesta Licença visa afetar os direitos autorais
@@ -276,19 +312,19 @@ Você concorda com seu processo de revisão e certificação de licença.
 <</COPYRIGHT>>
 <<MENU>>
 1
-Name=Adivinha Palavra
+Name=Adivinha-Palavra
 Version=1.0
 Exec=/usr/share/adivinhapalavra/adivinhapalavra
 Comment=jogo com objectivo de adivinhar que palavra foi definida letra por letra!
-Icon=/usr/share/adivinhapalavra/img/icon2.png
+Icon=/usr/share/adivinhapalavra/ap-icons/favicon-512x512.png
 Type=Application
 Terminal=false
 StartupNotify=true
 Encoding=UTF-8
 Categories=Game;
-GenericName=jogo de adivinha
+GenericName=AP
 Path=/usr/share/adivinhapalavra/
-StartupWMClass=Adivinha Palavra
+StartupWMClass=Adivinha-Palavra
 <</MENU>>
 <<BUILD>>
 1
