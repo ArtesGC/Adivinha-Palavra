@@ -25,3 +25,7 @@
   - otimização do tema do programa
   - refactorização do código-fonte
   - mudança de framework (**PyQt5** para **PyQt6**)
+- [v0.9 - 04.2022](https://github.com/ArtesGC/Adivinha-Palavra/releases/tag/v0.9)
+  - reparo de pequenos erros
+  - otimização do tema do programa
+  - refactorização do código-fonte
