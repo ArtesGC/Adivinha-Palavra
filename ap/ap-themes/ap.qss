@@ -62,11 +62,11 @@ QProgressBar::chunk {
   border-radius: 5px;
 }
 QMenu::item:selected{
-  border-radius: 3px;
   background-color: "cadetblue";
   color: black;
 }
 QMenuBar::item:selected{
+  border-radius: 3px;
   background-color: "cadetblue";
   color: white;
 }
