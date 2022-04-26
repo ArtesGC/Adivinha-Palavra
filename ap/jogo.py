@@ -295,15 +295,15 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
         layout.addWidget(view, alignment=Qt.AlignmentFlag.AlignHCenter)
 
         layoutbtns = QHBoxLayout()
-        botao_zerar = QPushButton("Zerar Historico")
+        botao_zerar = QPushButton("Apagar Historico")
         botao_zerar.setStyleSheet(
-            "QPushButton{background-color:cyan;}"
+            "QPushButton{background-color:green;}"
             "QPushButton:hover{background-color:white;}"
         )
         botao_zerar.clicked.connect(zerar_db)
         layoutbtns.addWidget(botao_zerar)
 
-        botao_fechar = QPushButton("Fechar")
+        botao_fechar = QPushButton("Fechar Aba")
         botao_fechar.setStyleSheet(
             "QPushButton{background-color:red;}"
             "QPushButton:hover{background-color:white;}"
@@ -354,7 +354,7 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
         def fechar():
             self.tab.removeTab(self.tab.currentIndex())
 
-        botao_fechar = QPushButton("Fechar")
+        botao_fechar = QPushButton("Fechar Aba")
         botao_fechar.setStyleSheet(
             "QPushButton{background-color:red;}"
             "QPushButton:hover{background-color:white;}"
@@ -435,11 +435,74 @@ Empresa: <a href="https://artesgc.home.blog" style="text-decoration:none;"><b>&t
         seleciona_palavra_aleatoria = self.PALAVRAS[randint(0, tamanho_lista_palavras - 1)]
         agrupa_letras_palavra = ['_' for _ in seleciona_palavra_aleatoria]
 
-        def validar_jogada():
+        def novo_jogo():
+            self.JOGADA = 0
+            self.tab.removeTab(self.tab.currentIndex())
+            self.janela_jogando()
+
+        def confirmar_jogada():
+            completou = '_' not in agrupa_letras_palavra
+            esgotou = self.JOGADA == self.NUMERO_TENTATIVA
             if self.letra_jogador.text() == "" or self.letra_jogador.text().isspace() or self.letra_jogador is None:
                 QMessageBox.warning(self.ferramentas, 'Aviso', 'Letra para tentativa não atribuida..')
             elif not self.letra_jogador.text().isalpha():
                 QMessageBox.warning(self.ferramentas, 'Aviso', 'Letra para tentativa não atribuida..')
+            elif completou:
+                label_jogo.setText(
+                    f"""(^3^) Parabéns {self.nome_jogador.text()}
+VOCÊ GANHOU..
+
+{agrupa_letras_palavra}
+
+• Pontuação
+Nível: {self.nivel.currentText()}
+Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
+Pontos: {self.PONTOS}"""
+                )
+                label_jogo.setStyleSheet(
+                    "background-color: white;"
+                    "color: green;"
+                    "font-weight: bold;"
+                    "border-radius: 3px;"
+                    "border-width: 2px;"
+                    "border-style: solid;"
+                    "border-color: green;"
+                    "padding: 50px;"
+                )
+                botao_valida.setText('Novo Jogo')
+                botao_valida.clicked.connect(novo_jogo)
+                add_dados(
+                    _nome=self.nome_jogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA,
+                    _nivel=self.nivel.currentText(), _estado='GANHOU'
+                )
+            elif esgotou:
+                label_jogo.setText(
+                    f"""(T.T) Lamento {self.nome_jogador.text()}
+VOCÊ ESGOTOU TODAS AS SUAS TENTATIVAS..
+
+Palavra Secreta: {seleciona_palavra_aleatoria}
+
+• Pontuação
+Nível: {self.nivel.currentText()}
+Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
+Pontos: {self.PONTOS}"""
+                )
+                label_jogo.setStyleSheet(
+                    "background-color: white;"
+                    "color: red;"
+                    "font-weight: bold;"
+                    "border-radius: 3px;"
+                    "border-width: 2px;"
+                    "border-style: solid;"
+                    "border-color: red;"
+                    "padding: 50px;"
+                )
+                botao_valida.setText('Novo Jogo')
+                botao_valida.clicked.connect(novo_jogo)
+                add_dados(
+                    _nome=self.nome_jogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA,
+                    _nivel=self.nivel.currentText(), _estado='PERDEU'
+                )
             else:
                 self.JOGADA += 1
                 posicao = 0
@@ -490,72 +553,6 @@ Pontos {self.PONTOS}"""
                         "padding:50px;"
                     )
 
-        def validar_vitoria():
-            def novo_jogo():
-                self.JOGADA = 0
-                self.tab.removeTab(self.tab.currentIndex())
-                self.janela_jogando()
-
-            completou = '_' not in agrupa_letras_palavra
-            if completou:
-                label_jogo.setText(
-                    f"""(^3^) Parabéns {self.nome_jogador.text()}
-VOCÊ GANHOU..
-
-{agrupa_letras_palavra}
-
-• Pontuação
-Nível: {self.nivel.currentText()}
-Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
-Pontos: {self.PONTOS}"""
-                )
-                label_jogo.setStyleSheet(
-                    "background-color: white;"
-                    "color: green;"
-                    "font-weight: bold;"
-                    "border-radius: 3px;"
-                    "border-width: 2px;"
-                    "border-style: solid;"
-                    "border-color: green;"
-                    "padding: 50px;"
-                )
-                botao_valida.setText('Novo Jogo')
-                botao_valida.clicked.connect(novo_jogo)
-                add_dados(
-                    _nome=self.nome_jogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA,
-                    _nivel=self.nivel.currentText(), _estado='GANHOU'
-                )
-            elif self.JOGADA == self.NUMERO_TENTATIVA:
-                label_jogo.setText(
-                    f"""(T.T) Lamento {self.nome_jogador.text()}
-VOCÊ ESGOTOU TODAS AS SUAS TENTATIVAS..
-
-Palavra Secreta: {seleciona_palavra_aleatoria}
-
-• Pontuação
-Nível: {self.nivel.currentText()}
-Rodada: {self.JOGADA} de {self.NUMERO_TENTATIVA}
-Pontos: {self.PONTOS}"""
-                )
-                label_jogo.setStyleSheet(
-                    "background-color: white;"
-                    "color: red;"
-                    "font-weight: bold;"
-                    "border-radius: 3px;"
-                    "border-width: 2px;"
-                    "border-style: solid;"
-                    "border-color: red;"
-                    "padding: 50px;"
-                )
-                botao_valida.setText('Novo Jogo')
-                botao_valida.clicked.connect(novo_jogo)
-                add_dados(
-                    _nome=self.nome_jogador.text(), _pontos=self.PONTOS, _tentativas=self.JOGADA,
-                    _nivel=self.nivel.currentText(), _estado='PERDEU'
-                )
-            else:
-                validar_jogada()
-
         self.janela_jogo = QWidget()
         self.janela_jogo.setStyleSheet(
             "background-color: cadetblue;"
@@ -594,15 +591,15 @@ Pontos: {self.PONTOS}"""
         self.letra_jogador = QLineEdit()
         self.letra_jogador.setMaxLength(1)
         self.letra_jogador.setPlaceholderText("Digite a letra e pressione ENTER..")
-        self.letra_jogador.returnPressed.connect(validar_vitoria)
+        self.letra_jogador.returnPressed.connect(confirmar_jogada)
         layout.addRow(self.letra_jogador)
 
         layoutbotoes = QHBoxLayout()
-        botao_valida = QPushButton('Validar a Jogada')
+        botao_valida = QPushButton('Confirmar a Jogada')
         botao_valida.setDefault(True)
-        botao_valida.clicked.connect(validar_vitoria)
+        botao_valida.clicked.connect(confirmar_jogada)
         botao_valida.setStyleSheet(
-            "QPushButton{background-color:cyan;}"
+            "QPushButton{background-color:green;}"
             "QPushButton:hover{background-color:white;}"
         )
         layoutbotoes.addWidget(botao_valida)
